@@ -32,6 +32,7 @@ Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Plug 'fatih/vim-go'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -162,6 +163,8 @@ noremap <silent> <leader>fs :<c-u>Rg<cr>
 xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
 
 
+" markdown-preview
+let g:mkdp_auto_close = 0
 
 " editorconfig-vim
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -421,7 +424,7 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
 " ---------- coc.nvim----------
 let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-python', 'coc-snippets','coc-java', 'coc-explorer' ,'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
+let g:coc_global_extensions = ['coc-python', 'coc-markdownlint','coc-snippets','coc-java', 'coc-explorer' ,'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
 
 " TextEdit might fail if hidden is not set.
 set hidden
