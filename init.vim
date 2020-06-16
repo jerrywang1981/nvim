@@ -190,7 +190,7 @@ let g:rooter_silent_chdir = 1
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#338833'
 let g:indentLine_bufTypeExclude = ['help', 'terminal']
-let g:indentLine_fileTypeExclude = ['defx', 'denite', 'startify', 'tagbar', 'vista_kind', 'help']
+let g:indentLine_fileTypeExclude = ['defx', 'denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer']
 
 
 " incsearch
@@ -421,7 +421,7 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
 " ---------- coc.nvim----------
 let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-python', 'coc-snippets','coc-java','coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
+let g:coc_global_extensions = ['coc-python', 'coc-snippets','coc-java', 'coc-explorer' ,'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -581,7 +581,13 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 " Show all diagnostics.
 nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+
+" nnoremap <silent><nowait> <space>e :<c-u>CocCommand explorer<CR>
+
+nmap <space>e :CocCommand explorer<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
 " Show commands.
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
