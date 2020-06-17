@@ -100,6 +100,11 @@ set fixendofline
 set diffopt+=vertical
 set termguicolors
 set visualbell
+set hidden
+set nobackup
+set nowritebackup
+set cmdheight=2
+
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -416,15 +421,37 @@ nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
 " nvim-lsp
 
+" pip install python-language-server
+"
+"
+" npm i -g bash-language-server vscode-css-languageserver-bin dockerfile-language-server-nodejs typescript-language-server vscode-html-languageserver-bin vscode-json-languageserver vls yaml-language-server vim-language-server
+"
 lua << EOF
   require'nvim_lsp'.gopls.setup{}
+  require'nvim_lsp'.tsserver.setup{}
+  require'nvim_lsp'.bashls.setup{}
+  require'nvim_lsp'.cssls.setup{}
+  require'nvim_lsp'.dockerls.setup{}
+  require'nvim_lsp'.html.setup{}
+  require'nvim_lsp'.jsonls.setup{}
+  require'nvim_lsp'.vuels.setup{}
+  require'nvim_lsp'.yamlls.setup{}
+  require'nvim_lsp'.pyls.setup{}
+  require'nvim_lsp'.vimls.setup{}
 EOF
 
 
 function! s:ConfigureBuffer()
-    nnoremap <buffer> <silent> <leader>gy    <cmd>lua vim.lsp.buf.declaration()<CR>
-    nnoremap <buffer> <silent> <leader>gd <cmd>lua vim.lsp.buf.definition()<CR>
-    nnoremap <silent> K <cmd>lua vim.lsp.buf.hover()<cr>
+    nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+    nnoremap <silent> <c-]> <cmd>lua vim.lsp.buf.definition()<CR>
+    nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+    nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+    " nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+    " nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+    nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()<CR>
+    " nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+    " nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+
 
     if exists('+signcolumn')
       setlocal signcolumn=yes
@@ -444,7 +471,9 @@ if has('autocmd')
       autocmd BufEnter __LanguageClient__ call s:Bind()
     endif
 
-    autocmd FileType javascript,typescript,vim,go  call s:ConfigureBuffer()
+    " autocmd FileType javascript,typescript,vim,go  call s:ConfigureBuffer()
+    autocmd FileType * call s:ConfigureBuffer()
+    autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
   augroup END
 endif
 
