@@ -141,7 +141,7 @@ colorscheme dracula
 
 
 " highlight yank
-let g:highlightedyank_highlight_duration = 500
+" let g:highlightedyank_highlight_duration = 500
 
 " nerdtree
 noremap <silent> <leader><leader>1 :<c-u>NERDTreeToggle<CR>
@@ -171,6 +171,13 @@ autocmd! User GoyoLeave Limelight!
 " autocmd
 " autocmd InsertEnter * norm zz
 autocmd BufWritePre * %s/\s\+$//e
+
+" easymotion
+
+nmap s         <Plug>(easymotion-s2)
+xmap s         <Plug>(easymotion-s2)
+omap z         <Plug>(easymotion-s2)
+
 
 
 
@@ -270,6 +277,10 @@ vmap <right> <Nop>
 
 inoremap jk <esc>
 inoremap kj <esc>
+vnoremap jk <esc>
+vnoremap kj <esc>
+cnoremap jk <esc>
+cnoremap kj <esc>
 
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 if has('conceal')
@@ -672,7 +683,10 @@ autocmd BufWritePre *.go :call CocAction('format')
 " ---------- end of coc
 
 
-
+" ----- abbr
+iab jwm Jerry Wang <jianjunw@cn.ibm.com>
+iab jwgm Jerry Wang <wangjianjun@gmail.com>
+iab <expr> dts strftime("%x")
 
 
 
