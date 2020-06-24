@@ -16,8 +16,9 @@ endif
 call plug#begin('~/.local/share/nvim/plugged')
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
+Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
 " Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kshenoy/vim-signature'
@@ -32,17 +33,19 @@ Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
-" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
 " Plug 'fatih/vim-go'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
+Plug 'honza/dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-highlightedyank'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'tomasiser/vim-code-dark'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -51,6 +54,7 @@ Plug 'kassio/neoterm'
 " Plug 'neovim/nvim-lsp'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'jerrywang1981/nvim-lsp'
+Plug 'https://github.ibm.com/jianjunw/ibm-profile.nvim.git'
 call plug#end()
 
 filetype plugin indent on
@@ -119,16 +123,18 @@ endif
 
 if !has('gui_running')
   set t_Co=256
+  set t_ut=
 endif
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*,*/node_modules/*
 
 set background=dark
 colorscheme dracula
+" colorscheme codedark
 
 " auto-pair
-let g:AutoPairsMapCh = 0
-let g:AutoPairsMapCR = 1
+" let g:AutoPairsMapCh = 0
+" let g:AutoPairsMapCR = 1
 
 " vim-go
 " let g:go_def_mapping_enabled = 0
@@ -159,6 +165,11 @@ let g:goyo_linenr=1
 nnoremap <silent> <leader><leader>0 :<c-u>Goyo<cr>
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
+
+
+" autocmd
+" autocmd InsertEnter * norm zz
+autocmd BufWritePre * %s/\s\+$//e
 
 
 
@@ -199,8 +210,8 @@ let g:rooter_silent_chdir = 1
 " identLine
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#338833'
-let g:indentLine_bufTypeExclude = ['help', 'terminal']
-let g:indentLine_fileTypeExclude = ['defx', 'denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer']
+let g:indentLine_bufTypeExclude = ['help', 'terminal', 'netrw']
+let g:indentLine_fileTypeExclude = ['defx', 'netrw','denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer']
 
 
 " incsearch
@@ -256,6 +267,9 @@ vmap <down> <Nop>
 vmap <left> <Nop>
 vmap <right> <Nop>
 
+inoremap jk <esc>
+inoremap kj <esc>
+
 nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 if has('conceal')
   set conceallevel=2 concealcursor=niv
@@ -270,6 +284,7 @@ let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
 let g:netrw_altv = 1
+let g:netrw_preview=1
 let g:netrw_winsize = 25
 
 "--------undo toggle---------
@@ -422,9 +437,54 @@ nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
 
+" --------- closetag
+" filenames like *.xml, *.html, *.xhtml, ...
+" These are the file extensions where this plugin is enabled.
+"
+let g:closetag_filenames = '*.html,*.xhtml,*.phtml'
+
+" filenames like *.xml, *.xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filenames = '*.xhtml,*.jsx'
+
+" filetypes like xml, html, xhtml, ...
+" These are the file types where this plugin is enabled.
+"
+let g:closetag_filetypes = 'html,xhtml,phtml'
+
+" filetypes like xml, xhtml, ...
+" This will make the list of non-closing tags self-closing in the specified files.
+"
+let g:closetag_xhtml_filetypes = 'xhtml,jsx'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+"
+let g:closetag_emptyTags_caseSensitive = 1
+
+" dict
+" Disables auto-close if not in a "valid" region (based on filetype)
+"
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Add > at current position without closing the current tag, default is ''
+"
+let g:closetag_close_shortcut = '<leader>>'
+
+
+
+
 " ---------- coc.nvim----------
 let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-python', 'coc-markdownlint','coc-snippets','coc-java', 'coc-explorer' ,'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
+let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-vimlsp', 'coc-sh','coc-snippets','coc-java', 'coc-explorer' ,'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
 
 " TextEdit might fail if hidden is not set.
 set hidden
