@@ -20,7 +20,7 @@ Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
 " Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
-" Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kshenoy/vim-signature'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -54,7 +54,7 @@ Plug 'kassio/neoterm'
 " Plug 'neovim/nvim-lsp'
 Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 " Plug 'jerrywang1981/nvim-lsp'
-Plug 'https://github.ibm.com/jianjunw/ibm-profile.nvim.git'
+" Plug 'https://github.ibm.com/jianjunw/ibm-profile.nvim.git'
 call plug#end()
 
 filetype plugin indent on
@@ -144,12 +144,13 @@ colorscheme dracula
 let g:highlightedyank_highlight_duration = 500
 
 " nerdtree
-" noremap <silent> <leader><leader>1 :<c-u>NERDTreeToggle<CR>
-" let g:NERDSpaceDelims = 1
-" let g:NERDCompactSexyComs = 1
-" let g:NERDCommentEmptyLines = 1
-" let g:NERDTrimTrailingWhitespace = 1
-" let g:NERDToggleCheckAllLines = 1
+noremap <silent> <leader><leader>1 :<c-u>NERDTreeToggle<CR>
+noremap <silent> <c-1> :<c-u>NERDTreeToggle<CR>
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
 
 " nerd-commenter
 let g:NERDSpaceDelims = 1
@@ -484,7 +485,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " ---------- coc.nvim----------
 let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-vimlsp', 'coc-sh','coc-snippets','coc-java', 'coc-explorer' ,'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
+let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-vimlsp', 'coc-sh','coc-snippets','coc-java', 'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -646,9 +647,9 @@ nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
 " nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 
-" nnoremap <silent><nowait> <space>e :<c-u>CocCommand explorer<CR>
+nnoremap <silent><nowait> <space>e :<c-u>CocCommand explorer<CR>
 
-nmap <space>e :CocCommand explorer<CR>
+" nmap <space>e :CocCommand explorer<CR>
 autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " Show commands.
