@@ -141,7 +141,7 @@ colorscheme dracula
 
 
 " highlight yank
-" let g:highlightedyank_highlight_duration = 500
+let g:highlightedyank_highlight_duration = 500
 
 " nerdtree
 noremap <silent> <leader><leader>1 :<c-u>NERDTreeToggle<CR>
@@ -219,7 +219,7 @@ let g:rooter_silent_chdir = 1
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#338833'
 let g:indentLine_bufTypeExclude = ['help', 'terminal', 'netrw']
-let g:indentLine_fileTypeExclude = ['defx', 'netrw','denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer']
+let g:indentLine_fileTypeExclude = ['defx', 'netrw', 'denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer']
 
 
 " incsearch

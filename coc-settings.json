@@ -7,7 +7,7 @@
 	"suggest.snippetIndicator": "⭐︎",
 	"suggest.enablePreview": true,
   "coc.preferences.extensionUpdateCheck": "weekly",
-  "yank.highlight.enable": true,
+  "yank.highlight.enable": false,
 
   "java.maven.downloadSources": true,
   "java.import.maven.enabled": true,
