@@ -33,7 +33,7 @@ Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & yarn install'  }
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 " Plug 'fatih/vim-go'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -44,7 +44,8 @@ Plug 'luochen1990/rainbow'
 Plug 'machakann/vim-highlightedyank'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-Plug 'dracula/vim', { 'as': 'dracula' }
+" Plug 'dracula/vim', { 'as': 'dracula' }
+Plug 'gruvbox-community/gruvbox'
 " Plug 'tomasiser/vim-code-dark'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
@@ -52,7 +53,8 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm'
 " Plug 'neovim/nvim-lsp'
-Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
+" Plug 'neoclide/coc.nvim', {'do': 'npm install --frozen-lockfile'}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Plug 'jerrywang1981/nvim-lsp'
 " Plug 'https://github.ibm.com/jianjunw/ibm-profile.nvim.git'
 call plug#end()
@@ -128,9 +130,18 @@ endif
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*,*/node_modules/*
 
-set background=dark
-colorscheme dracula
+" set background=dark
+" colorscheme dracula
 " colorscheme codedark
+
+let g:gruvbox_italic=1
+let g:gruvbox_contrast_dark='hard'
+let g:gruvbox_invert_selection='0'
+set background=dark
+" colorscheme dracula
+" colorscheme nord
+colorscheme gruvbox
+
 
 " auto-pair
 " let g:AutoPairsMapCh = 0
