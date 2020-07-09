@@ -193,6 +193,7 @@ noremap <silent> <c-m> :<c-u>History<cr>
 noremap <silent> <leader>fb :<c-u>Buffers<cr>
 noremap <silent> <leader>fs :<c-u>Rg<cr>
 xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
+let g:fzf_preview_window = ''
 
 
 " markdown-preview
