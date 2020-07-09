@@ -586,7 +586,7 @@ nmap <silent> <localleader>gd <Plug>(coc-definition)
 nmap <silent> <localleader>gy <Plug>(coc-type-definition)
 nmap <silent> <localleader>gi <Plug>(coc-implementation)
 nmap <silent> <localleader>gr <Plug>(coc-references)
-nmap <silent> <leader>rn <Plug>(coc-rename)
+nmap <silent> <localleader>rn <Plug>(coc-rename)
 
 
 " Use K to show documentation in preview window.
@@ -603,8 +603,6 @@ endfunction
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
-" Symbol renaming.
-nmap <leader>rn <Plug>(coc-rename)
 
 " Formatting selected code.
 " xmap <leader>f  <Plug>(coc-format-selected)
