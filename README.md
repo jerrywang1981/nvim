@@ -1,1 +1,3 @@
-# nvim-plug
+# nvim
+
+configuration for neovim with node required
