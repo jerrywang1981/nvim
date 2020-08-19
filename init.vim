@@ -101,7 +101,10 @@ set showmatch
 set scrolloff=5
 set laststatus=2
 set fenc=utf-8
-set backspace=2
+" set backspace=2
+set backspace=indent,eol,start
+set omnifunc=syntaxcomplete#Complete
+set suffixesadd=.java
 set mouse=a
 set selection=exclusive
 set selectmode=mouse,key

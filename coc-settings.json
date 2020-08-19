@@ -11,6 +11,11 @@
 
   "java.maven.downloadSources": true,
   "java.import.maven.enabled": true,
+  "java.errors.incompleteClasspath.severity": "ignore",
+  "java.codeGeneration.generateComments": true,
+  "java.completion.guessMethodArguments": true,
+  "java.referencesCodeLens.enabled": true,
+  "java.signatureHelp.enabled": true,
 
   "diagnostic.errorSign": "😡",
 	"diagnostic.warningSign": "🤔",
