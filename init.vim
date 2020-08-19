@@ -14,6 +14,15 @@ endif
 
 
 call plug#begin('~/.local/share/nvim/plugged')
+
+if has('nvim')
+  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins'}
+else
+  Plug 'Shougo/defx.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 Plug 'alvan/vim-closetag'
@@ -33,6 +42,7 @@ Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
+Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 " Plug 'fatih/vim-go'
 Plug 'editorconfig/editorconfig-vim'
@@ -52,6 +62,7 @@ Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm'
+Plug 'puremourning/vimspector'
 " Plug 'neovim/nvim-lsp'
 " Plug 'neoclide/coc.nvim', {'do': 'npm install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
@@ -187,13 +198,56 @@ autocmd BufWritePre * %s/\s\+$//e
 
 
 
-" fzf
-noremap <silent> <c-p> :<c-u>Files<cr>
-noremap <silent> <c-m> :<c-u>History<cr>
-noremap <silent> <leader>fb :<c-u>Buffers<cr>
-noremap <silent> <leader>fs :<c-u>Rg<cr>
-xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
-let g:fzf_preview_window = ''
+" fzf settings, keep one only for fzf or leaderf
+" noremap <silent> <c-p> :<c-u>Files<cr>
+" noremap <silent> <c-m> :<c-u>History<cr>
+" noremap <silent> <leader>fb :<c-u>Buffers<cr>
+" noremap <silent> <leader>fs :<c-u>Rg<cr>
+" xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
+" let g:fzf_preview_window = ''
+
+" leaderf settigs, keep one only for leader or fzf
+let g:Lf_HideHelp = 1
+let g:Lf_UseCache = 0
+let g:Lf_UseVersionControlTool = 0
+let g:Lf_IgnoreCurrentBufferName = 1
+let g:Lf_ShowDevIcons=0
+
+let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+
+let g:Lf_ShortcutF = "<c-p>"
+let g:Lf_ShortcutB = "<leader>fb"
+noremap <c-m> :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+noremap <leader>fs :<C-U><C-R>=printf("Leaderf rg --stayOpen %s", "")<CR><CR>
+xnoremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --stayOpen -F -e %s ", leaderf#Rg#visual())<CR>
+noremap <leader>fS :<C-U>Leaderf! rg --recall<CR>
+
+let g:Lf_CommandMap = {'<Tab>': ['<ESC>']}
+let g:Lf_DefaultMode = 'NameOnly'
+let g:Lf_PythonVersion=3
+let g:Lf_WindowHeight = 0.3
+let g:Lf_WorkingDirectoryMode = 'Ac'
+let g:Lf_GtagsAutoGenerate = 0
+let g:Lf_Gtagslabel = 'native-pygments'
+
+let g:Lf_WildIgnore = {
+  \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
+  \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+  \}
+let g:Lf_MruWildIgnore = {
+  \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
+  \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+  \}
+let g:Lf_RgConfig = [
+  \ "--max-columns=300",
+  \ "--glob=!node_modules/*",
+  \ "--glob=!venv/*",
+  \ "--glob=!dist/*",
+  \ ]
+
+
 
 
 " markdown-preview
@@ -503,14 +557,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " ---------- coc.nvim----------
 let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-vimlsp', 'coc-sh','coc-snippets','coc-java', 'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
-
-" TextEdit might fail if hidden is not set.
-set hidden
-
-" Some servers have issues with backup files, see #649.
-set nobackup
-set nowritebackup
+let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-vimlsp', 'coc-sh','coc-snippets','coc-java', 'coc-java-debug', 'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
 
 " Give more space for displaying messages.
 set cmdheight=2
@@ -619,8 +666,8 @@ augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
-xmap <leader>a  <Plug>(coc-codeaction-selected)
-nmap <leader>a  <Plug>(coc-codeaction-selected)
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
 nmap <leader>ac  <Plug>(coc-codeaction)
@@ -640,8 +687,8 @@ omap ac <Plug>(coc-classobj-a)
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-nmap <silent> <C-s> <Plug>(coc-range-select)
-xmap <silent> <C-s> <Plug>(coc-range-select)
+" nmap <silent> <C-s> <Plug>(coc-range-select)
+" xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 Format :call CocAction('format')
@@ -659,14 +706,16 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>a  :<C-u>CocList diagnostics<cr>
+nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
+" show all actions
+nnoremap <silent><nowait> <space>a  :<C-u>CocList actions<cr>
 " Manage extensions.
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 
-nnoremap <silent><nowait> <space>e :<c-u>CocCommand explorer<CR>
+" nnoremap <silent><nowait> <space>e :<c-u>CocCommand explorer<CR>
 
 " nmap <space>e :CocCommand explorer<CR>
-autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+" autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " Show commands.
 nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
@@ -782,4 +831,110 @@ let g:footer = [
           \ ]
 let g:startify_custom_footer =
         \ startify#center(g:footer)
+
+
+
+
+" defx settings
+
+nmap <silent> ¡ :<c-u>Defx -toggle<CR>
+nmap <silent> <leader><leader>1 :<c-u>Defx -toggle<CR>
+
+call defx#custom#option('_', {
+      \ 'winwidth': 30,
+      \ 'split': 'vertical',
+      \ 'direction': 'topleft',
+      \ 'show_ignored_files': 0,
+      \ 'buffer_name': '',
+      \ 'toggle': 1,
+      \ 'resume': 1
+      \ })
+
+
+call defx#custom#column('icon', {
+	      \ 'directory_icon': '▸',
+	      \ 'opened_icon': '▾',
+	      \ 'root_icon': ' ',
+	      \ })
+
+call defx#custom#column('filename', {
+	      \ 'min_width': 40,
+	      \ 'max_width': 40,
+	      \ })
+
+call defx#custom#column('mark', {
+	      \ 'readonly_icon': '✗',
+	      \ 'selected_icon': '✓',
+	      \ })
+
+
+autocmd FileType defx call s:defx_my_settings()
+function! s:defx_my_settings() abort
+  " Define mappings
+  nnoremap <silent><buffer><expr> <CR>
+  \ defx#do_action('drop')
+  " nnoremap <silent><buffer><expr> <CR>
+  " \ defx#do_action('open', 'botright vsplit')
+  nnoremap <silent><buffer><expr> c
+  \ defx#do_action('copy')
+  nnoremap <silent><buffer><expr> m
+  \ defx#do_action('move')
+  nnoremap <silent><buffer><expr> p
+  \ defx#do_action('paste')
+  nnoremap <silent><buffer><expr> l
+  \ defx#do_action('open', 'botright vsplit')
+  " nnoremap <silent><buffer><expr> E
+  " \ defx#do_action('open', 'vsplit')
+  " nnoremap <silent><buffer><expr> P
+  " \ defx#do_action('open', 'pedit')
+  nnoremap <silent><buffer><expr> o
+  \ defx#do_action('open_or_close_tree')
+  nnoremap <silent><buffer><expr> K
+  \ defx#do_action('new_directory')
+  nnoremap <silent><buffer><expr> N
+  \ defx#do_action('new_file')
+  " nnoremap <silent><buffer><expr> M
+  " \ defx#do_action('new_multiple_files')
+  " nnoremap <silent><buffer><expr> C
+  " \ defx#do_action('toggle_columns',
+  " \                'mark:indent:icon:filename:type:size:time')
+  " nnoremap <silent><buffer><expr> S
+  " \ defx#do_action('toggle_sort', 'time')
+  nnoremap <silent><buffer><expr> d
+  \ defx#do_action('remove')
+  nnoremap <silent><buffer><expr> s
+  \ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
+  nnoremap <silent><buffer><expr> r
+  \ defx#do_action('rename')
+  nnoremap <silent><buffer><expr> !
+  \ defx#do_action('execute_command')
+  nnoremap <silent><buffer><expr> x
+  \ defx#do_action('execute_system')
+  nnoremap <silent><buffer><expr> yy
+  \ defx#do_action('yank_path')
+  nnoremap <silent><buffer><expr> .
+  \ defx#do_action('toggle_ignored_files')
+  nnoremap <silent><buffer><expr> ;
+  \ defx#do_action('repeat')
+  nnoremap <silent><buffer><expr> h
+  \ defx#do_action('cd', ['..'])
+  nnoremap <silent><buffer><expr> ~
+  \ defx#do_action('cd')
+  nnoremap <silent><buffer><expr> q
+  \ defx#do_action('quit')
+  nnoremap <silent><buffer><expr> <Space>
+  \ defx#do_action('toggle_select') . 'j'
+  nnoremap <silent><buffer><expr> *
+  \ defx#do_action('toggle_select_all')
+  nnoremap <silent><buffer><expr> j
+  \ line('.') == line('$') ? 'gg' : 'j'
+  nnoremap <silent><buffer><expr> k
+  \ line('.') == 1 ? 'G' : 'k'
+  nnoremap <silent><buffer><expr> <C-l>
+  \ defx#do_action('redraw')
+  nnoremap <silent><buffer><expr> <C-g>
+  \ defx#do_action('print')
+  nnoremap <silent><buffer><expr> cd
+  \ defx#do_action('change_vim_cwd')
+endfunction
 
