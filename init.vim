@@ -35,6 +35,7 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 Plug 'junegunn/gv.vim', { 'on': 'GV' }
 Plug 'tpope/vim-repeat'
+" Plug 'mg979/vim-visual-multi', {'branch': 'master'}
 Plug 'airblade/vim-rooter'
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
@@ -61,7 +62,7 @@ Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
-Plug 'kassio/neoterm'
+Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
 Plug 'puremourning/vimspector'
 " Plug 'neovim/nvim-lsp'
 " Plug 'neoclide/coc.nvim', {'do': 'npm install --frozen-lockfile'}
@@ -165,26 +166,11 @@ colorscheme gruvbox
 " let g:go_def_mapping_enabled = 0
 
 
-" highlight yank
+" ====================highlight yank=========================
 let g:highlightedyank_highlight_duration = 500
 
-" nerdtree
-noremap <silent> <leader><leader>1 :<c-u>NERDTreeToggle<CR>
-noremap <silent> <c-1> :<c-u>NERDTreeToggle<CR>
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
 
-" nerd-commenter
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
-
-" goyo limelight
+" ======================== goyo limelight =======================
 let g:goyo_width=100
 let g:goyo_height=80
 let g:goyo_linenr=1
@@ -199,9 +185,9 @@ autocmd BufWritePre * %s/\s\+$//e
 
 
 
+" =============== either fzf or leaderf, keey one =====================
 
-
-" fzf settings, keep one only for fzf or leaderf
+" ===============fzf settings, keep one only for fzf or leaderf =======
 " noremap <silent> <c-p> :<c-u>Files<cr>
 " noremap <silent> <c-m> :<c-u>History<cr>
 " noremap <silent> <leader>fb :<c-u>Buffers<cr>
@@ -209,7 +195,7 @@ autocmd BufWritePre * %s/\s\+$//e
 " xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
 " let g:fzf_preview_window = ''
 
-" leaderf settigs, keep one only for leader or fzf
+" ==============leaderf settigs, keep one only for leader or fzf=============
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
 let g:Lf_UseVersionControlTool = 0
@@ -253,40 +239,40 @@ let g:Lf_RgConfig = [
 
 
 
-" markdown-preview
+" ================markdown-preview==================
 let g:mkdp_auto_close = 0
 
-" editorconfig-vim
+" =================editorconfig-vim===================
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 
-" vim-json
+" ===================== vim-json=================
 let g:vim_json_syntax_conceal = 0
 
-" vim-fugitive
+" =============== vim-fugitive===================
 autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
   \ endif
 
-" rainbow
+" ===================rainbow=================
 let g:rainbow_active = 1
 
-" emmet-vim
+" ================= emmet-vim ================
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 
-" vim-rooter
+" ================== vim-rooter =================
 let g:rooter_silent_chdir = 1
 
-" identLine
+" ==================== identLine =====================
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#338833'
 let g:indentLine_bufTypeExclude = ['help', 'terminal', 'netrw']
 let g:indentLine_fileTypeExclude = ['defx', 'netrw', 'denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer']
 
 
-" easymotion
+" ================== easymotion ====================
 " <Leader>f{char} to move to {char}
 map  <Leader>f <Plug>(easymotion-bd-f)
 nmap <Leader>f <Plug>(easymotion-overwin-f)
@@ -382,7 +368,7 @@ autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 
-" lightline
+" ======================= lightline ============================
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
@@ -513,7 +499,7 @@ nmap <Leader>9 <Plug>lightline#bufferline#go(9)
 nmap <Leader>0 <Plug>lightline#bufferline#go(10)
 
 
-" --------- closetag
+" =================== closetag ===============
 " filenames like *.xml, *.html, *.xhtml, ...
 " These are the file extensions where this plugin is enabled.
 "
@@ -554,7 +540,6 @@ let g:closetag_shortcut = '>'
 " Add > at current position without closing the current tag, default is ''
 "
 let g:closetag_close_shortcut = '<leader>>'
-
 
 
 
@@ -805,7 +790,7 @@ iab <expr> dts strftime("%x")
 
 
 
-" startify
+" ================= startify ==========================
 let g:startify_change_to_vcs_root = 1
 let g:startify_change_to_dir = 0
 let g:startify_enable_special = 0
@@ -836,10 +821,28 @@ let g:startify_custom_footer =
         \ startify#center(g:footer)
 
 
+" ========================= nerd-commenter =======================
+let g:NERDSpaceDelims = 1
+let g:NERDCompactSexyComs = 1
+let g:NERDCommentEmptyLines = 1
+let g:NERDTrimTrailingWhitespace = 1
+let g:NERDToggleCheckAllLines = 1
+
+" =============file explorer, eirther nerdtree or defx====================
+
+" =================== nerdtree =================================
+" noremap <silent> <leader><leader>1 :<c-u>NERDTreeToggle<CR>
+" noremap <silent> <c-1> :<c-u>NERDTreeToggle<CR>
+" let g:NERDSpaceDelims = 1
+" let g:NERDCompactSexyComs = 1
+" let g:NERDCommentEmptyLines = 1
+" let g:NERDTrimTrailingWhitespace = 1
+" let g:NERDToggleCheckAllLines = 1
 
 
-" defx settings
 
+
+" =============================== defx settings ===========================
 nmap <silent> ¡ :<c-u>Defx -toggle<CR>
 nmap <silent> <leader><leader>1 :<c-u>Defx -toggle<CR>
 
@@ -941,3 +944,48 @@ function! s:defx_my_settings() abort
   \ defx#do_action('change_vim_cwd')
 endfunction
 
+
+" ========================= neoterm setting =========================
+if !has('nvim')
+    set ttymouse=xterm2
+endif
+
+let g:neoterm_autoscroll = 1
+tnoremap <Esc> <C-\><C-n>
+tnoremap <C-v><Esc> <Esc>
+
+if has('nvim')
+  set inccommand=nosplit
+  " tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
+  tnoremap <expr> ® '<C-\><C-N>"'.nr2char(getchar()).'pi'
+  highlight! link TermCursor Cursor
+  highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
+endif
+"
+" option key + 4
+nnoremap <silent> ¢ :vertical botright Ttoggle<cr><C-w>l
+nnoremap <silent> <leader><leader>4 :<c-u>vertical botright Ttoggle<cr><C-w>l
+
+" tnoremap <silent> <leader>o <C-\><C-n>:Ttoggle<cr>
+" tnoremap <silent> <leader><space> <C-\><C-n>:Ttoggle<cr>
+" tnoremap <silent> ¢ <C-\><C-n>:Ttoggle<cr>
+
+" nnoremap <silent> <c-s>l :TREPLSendLine<CR>
+" vnoremap <silent> <c-s>s :TREPLSendSelection<CR>
+
+
+let g:terminal_color_0  = '#000000'
+let g:terminal_color_1  = '#FF5555'
+let g:terminal_color_2  = '#50FA7B'
+let g:terminal_color_3  = '#F1FA8C'
+let g:terminal_color_4  = '#BD93F9'
+let g:terminal_color_5  = '#FF79C6'
+let g:terminal_color_6  = '#8BE9FD'
+let g:terminal_color_7  = '#BFBFBF'
+let g:terminal_color_8  = '#4D4D4D'
+let g:terminal_color_9  = '#FF6E67'
+let g:terminal_color_10 = '#5AF78E'
+let g:terminal_color_11 = '#F4F99D'
+let g:terminal_color_12 = '#CAA9FA'
+let g:terminal_color_13 = '#FF92D0'
+let g:terminal_color_14 = '#9AEDFE'
