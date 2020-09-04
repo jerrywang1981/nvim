@@ -27,7 +27,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
-" Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
 Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kshenoy/vim-signature'
@@ -133,10 +133,6 @@ silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
 set backupdir=~/.config/nvim/tmp/backup,.
 set directory=~/.config/nvim/tmp/backup,.
-if has('persistent_undo')
-	set undofile
-	set undodir=~/.config/nvim/tmp/undo,.
-endif
 
 if !has('gui_running')
   set t_Co=256
@@ -159,8 +155,8 @@ colorscheme gruvbox
 
 
 " auto-pair
-" let g:AutoPairsMapCh = 0
-" let g:AutoPairsMapCR = 1
+let g:AutoPairsMapCh = 0
+let g:AutoPairsMapCR = 1
 
 " vim-go
 " let g:go_def_mapping_enabled = 0
@@ -332,7 +328,7 @@ vnoremap kj <esc>
 cnoremap jk <esc>
 cnoremap kj <esc>
 
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+" nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
 if has('conceal')
   set conceallevel=2 concealcursor=niv
 endif
@@ -350,6 +346,11 @@ let g:netrw_preview=1
 let g:netrw_winsize = 25
 
 "--------undo toggle---------
+
+if has('persistent_undo')
+	set undofile
+	set undodir=~/.config/nvim/tmp/undo,.
+endif
 noremap <silent> <leader><leader>5 :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
@@ -357,12 +358,8 @@ let g:undotree_ShortIndicators = 1
 let g:undotree_WindowLayout = 2
 let g:undotree_DiffpanelHeight = 8
 let g:undotree_SplitWidth = 24
-function g:Undotree_CustomMap()
-	nmap <buffer> u <plug>UndotreeNextState
-	nmap <buffer> e <plug>UndotreePreviousState
-	nmap <buffer> U 5<plug>UndotreeNextState
-	nmap <buffer> E 5<plug>UndotreePreviousState
-endfunc
+
+
 
 autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
 autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
@@ -989,3 +986,14 @@ let g:terminal_color_11 = '#F4F99D'
 let g:terminal_color_12 = '#CAA9FA'
 let g:terminal_color_13 = '#FF92D0'
 let g:terminal_color_14 = '#9AEDFE'
+
+
+" vimspector
+let g:vimspector_enable_mappings = 'HUMAN'
+
+nmap <leader>dd :call vimspector#Launch()<cr>
+nmap <leader>dx :VimspectorReset<cr>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
+autocmd FileType java nmap <leader>dd :CocCommand java.debug.vimspector.start<cr>
