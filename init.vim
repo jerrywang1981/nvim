@@ -15,13 +15,13 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-if has('nvim')
-  Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins'}
-else
-  Plug 'Shougo/defx.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+" if has('nvim')
+  " Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins'}
+" else
+  " Plug 'Shougo/defx.nvim'
+  " Plug 'roxma/nvim-yarp'
+  " Plug 'roxma/vim-hug-neovim-rpc'
+" endif
 
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
@@ -29,7 +29,7 @@ Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
-Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
+" Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kshenoy/vim-signature'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -52,7 +52,7 @@ Plug 'junegunn/limelight.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'honza/dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'luochen1990/rainbow'
-Plug 'machakann/vim-highlightedyank'
+" Plug 'machakann/vim-highlightedyank'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
@@ -64,17 +64,22 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
 Plug 'puremourning/vimspector'
-" Plug 'neovim/nvim-lsp'
 " Plug 'neoclide/coc.nvim', {'do': 'npm install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/diagnostic-nvim'
+" Plug 'kyazdani42/nvim-web-devicons' " for file icons
+" Plug 'ryanoasis/vim-devicons'
+Plug 'kyazdani42/nvim-tree.lua'
 " Plug 'jerrywang1981/nvim-lsp'
 " Plug 'https://github.ibm.com/jianjunw/ibm-profile.nvim.git'
 call plug#end()
 
-filetype plugin indent on
-syntax enable
+" filetype plugin indent on
+" syntax enable
 set path+=**
-set updatetime=5000
+set updatetime=500
 " set directory=~/tmp,/tmp
 set foldmethod=indent
 set foldlevel=99
@@ -127,7 +132,15 @@ set hidden
 set nobackup
 set nowritebackup
 set cmdheight=2
+set completeopt=menuone,noinsert,noselect
+set shortmess+=c
 
+if has("patch-8.1.1564")
+  " Recently vim can merge signcolumn and number column into one
+  set signcolumn=number
+else
+  set signcolumn=yes
+endif
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -147,12 +160,18 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*,*/node_modules/*
 
 let g:gruvbox_italic=1
 let g:gruvbox_contrast_dark='hard'
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+endif
 let g:gruvbox_invert_selection='0'
 set background=dark
 " colorscheme dracula
 " colorscheme nord
 colorscheme gruvbox
 
+" for quickfix window
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 " auto-pair
 let g:AutoPairsMapCh = 0
@@ -163,7 +182,7 @@ let g:AutoPairsMapCR = 1
 
 
 " ====================highlight yank=========================
-let g:highlightedyank_highlight_duration = 500
+" let g:highlightedyank_highlight_duration = 500
 
 
 " ======================== goyo limelight =======================
@@ -180,6 +199,8 @@ autocmd! User GoyoLeave Limelight!
 autocmd BufWritePre * %s/\s\+$//e
 
 
+
+autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=500})
 
 " =============== either fzf or leaderf, keey one =====================
 
@@ -344,6 +365,18 @@ let g:netrw_browse_split = 4
 let g:netrw_altv = 1
 let g:netrw_preview=1
 let g:netrw_winsize = 25
+
+
+" =============================== nvim-tree.lua settings ===========================
+nmap <silent> ¡ :<c-u>LuaTreeToggle<CR>
+nmap <silent> <leader><leader>1 :<c-u>LuaTreeToggle<CR>
+let g:lua_tree_show_icons = {
+    \ 'git': 0,
+    \ 'folders': 0,
+    \ 'files': 0,
+    \}
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ]
+let g:lua_tree_hide_dotfiles = 1
 
 "--------undo toggle---------
 
@@ -542,26 +575,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " ---------- coc.nvim----------
 let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-vimlsp', 'coc-sh','coc-snippets','coc-java', 'coc-java-debug', 'coc-json','coc-sql','coc-go', 'coc-emmet','coc-html', 'coc-css', 'coc-tsserver', 'coc-yank', 'coc-lists', 'coc-todolist', 'coc-yaml', 'coc-tasks']
-
-" Give more space for displaying messages.
-set cmdheight=2
-
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
-set updatetime=300
-
-" Don't pass messages to |ins-completion-menu|.
-set shortmess+=c
-
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved.
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-snippets','coc-java', 'coc-java-debug', 'coc-emmet', 'coc-yank', 'coc-lists', 'coc-yaml', 'coc-tasks']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -661,14 +675,14 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-xmap if <Plug>(coc-funcobj-i)
-omap if <Plug>(coc-funcobj-i)
-xmap af <Plug>(coc-funcobj-a)
-omap af <Plug>(coc-funcobj-a)
-xmap ic <Plug>(coc-classobj-i)
-omap ic <Plug>(coc-classobj-i)
-xmap ac <Plug>(coc-classobj-a)
-omap ac <Plug>(coc-classobj-a)
+" xmap if <Plug>(coc-funcobj-i)
+" omap if <Plug>(coc-funcobj-i)
+" xmap af <Plug>(coc-funcobj-a)
+" omap af <Plug>(coc-funcobj-a)
+" xmap ic <Plug>(coc-classobj-i)
+" omap ic <Plug>(coc-classobj-i)
+" xmap ac <Plug>(coc-classobj-a)
+" omap ac <Plug>(coc-classobj-a)
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
@@ -728,7 +742,6 @@ iab jwgm Jerry Wang <wangjianjun@gmail.com>
 iab <expr> dts strftime("%x")
 
 
-
 " nvim-lsp
 
 " pip install python-language-server
@@ -750,6 +763,13 @@ iab <expr> dts strftime("%x")
   " require'nvim_lsp'.vimls.setup{}
 " EOF
 
+lua require('init')
+" completion-nvim
+" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
+" let g:diagnostic_enable_virtual_text = 1
+" let g:diagnostic_auto_popup_while_jump = 0
+" let g:space_before_virtual_text = 3
+
 " function! LSPRename()
     " let s:newName = input('Enter new name: ', expand('<cword>'))
     " echom "s:newName = " . s:newName
@@ -757,20 +777,23 @@ iab <expr> dts strftime("%x")
 " endfunction
 
 
-" function! s:ConfigureBuffer()
-    " setlocal omnifunc=v:lua.vim.lsp.omnifunc
-    " nnoremap <silent> <leader>gy <cmd>lua vim.lsp.buf.declaration()<CR>
-    " nnoremap <silent> <leader>gd <cmd>lua vim.lsp.buf.definition()<CR>
-    " nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-    " nnoremap <silent> <leader>gi    <cmd>lua vim.lsp.buf.implementation()<CR>
-    " nnoremap <silent> <leader>gr    <cmd>lua vim.lsp.buf.references()<CR>
-"
-"
-    " if exists('+signcolumn')
-      " setlocal signcolumn=yes
-    " endif
-" endfunction
+function! s:ConfigureBuffer()
+  setlocal omnifunc=v:lua.vim.lsp.omnifunc
+  " nnoremap <silent> <localleader>gD    <cmd>lua vim.lsp.buf.declaration()<CR>
+  " nnoremap <silent> <localleader>gd    <cmd>lua vim.lsp.buf.definition()<CR>
+  " nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
+  " nnoremap <silent> <localleader>gi <cmd>lua vim.lsp.buf.implementation()<CR>
+  " nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+  " nnoremap <silent> <localleader>gr    <cmd>lua vim.lsp.buf.references()<CR>
 
+  " nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+  " nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+  " nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
+
+  " nnoremap <silent><nowait> <space>d  :<C-u>OpenDiagnostic<cr>
+  " nnoremap <silent> [g :<C-u>PrevDiagnostic<cr>
+  " nnoremap <silent> ]g :<C-u>NextDiagnostic<cr>
+endfunction
 
 " if has('autocmd')
   " augroup LanguageClientAutocmds
@@ -780,8 +803,8 @@ iab <expr> dts strftime("%x")
       " autocmd BufEnter __LanguageClient__ call s:Bind()
     " endif
 "
-    " autocmd FileType sh,go,c call s:ConfigureBuffer()
-    " autocmd BufWritePre *.go lua vim.lsp.buf.formatting()
+    " autocmd FileType sh,go,c,typescript,javascript call s:ConfigureBuffer()
+    " autocmd BufWritePre *.go,*.ts,*.js lua vim.lsp.buf.formatting()
   " augroup END
 " endif
 
@@ -839,107 +862,6 @@ let g:NERDToggleCheckAllLines = 1
 
 
 
-" =============================== defx settings ===========================
-nmap <silent> ¡ :<c-u>Defx -toggle<CR>
-nmap <silent> <leader><leader>1 :<c-u>Defx -toggle<CR>
-
-call defx#custom#option('_', {
-      \ 'winwidth': 30,
-      \ 'split': 'vertical',
-      \ 'direction': 'topleft',
-      \ 'show_ignored_files': 0,
-      \ 'buffer_name': '',
-      \ 'toggle': 1,
-      \ 'resume': 1
-      \ })
-
-
-call defx#custom#column('icon', {
-	      \ 'directory_icon': '▸',
-	      \ 'opened_icon': '▾',
-	      \ 'root_icon': ' ',
-	      \ })
-
-call defx#custom#column('filename', {
-	      \ 'min_width': 40,
-	      \ 'max_width': 40,
-	      \ })
-
-call defx#custom#column('mark', {
-	      \ 'readonly_icon': '✗',
-	      \ 'selected_icon': '✓',
-	      \ })
-
-
-autocmd FileType defx call s:defx_my_settings()
-function! s:defx_my_settings() abort
-  " Define mappings
-  nnoremap <silent><buffer><expr> <CR>
-  \ defx#do_action('drop')
-  " nnoremap <silent><buffer><expr> <CR>
-  " \ defx#do_action('open', 'botright vsplit')
-  nnoremap <silent><buffer><expr> c
-  \ defx#do_action('copy')
-  nnoremap <silent><buffer><expr> m
-  \ defx#do_action('move')
-  nnoremap <silent><buffer><expr> p
-  \ defx#do_action('paste')
-  nnoremap <silent><buffer><expr> l
-  \ defx#do_action('open', 'botright vsplit')
-  " nnoremap <silent><buffer><expr> E
-  " \ defx#do_action('open', 'vsplit')
-  " nnoremap <silent><buffer><expr> P
-  " \ defx#do_action('open', 'pedit')
-  nnoremap <silent><buffer><expr> o
-  \ defx#do_action('open_or_close_tree')
-  nnoremap <silent><buffer><expr> K
-  \ defx#do_action('new_directory')
-  nnoremap <silent><buffer><expr> N
-  \ defx#do_action('new_file')
-  " nnoremap <silent><buffer><expr> M
-  " \ defx#do_action('new_multiple_files')
-  " nnoremap <silent><buffer><expr> C
-  " \ defx#do_action('toggle_columns',
-  " \                'mark:indent:icon:filename:type:size:time')
-  " nnoremap <silent><buffer><expr> S
-  " \ defx#do_action('toggle_sort', 'time')
-  nnoremap <silent><buffer><expr> d
-  \ defx#do_action('remove')
-  nnoremap <silent><buffer><expr> s
-  \ defx#do_action('multi', [['drop', 'vsplit'], 'quit'])
-  nnoremap <silent><buffer><expr> r
-  \ defx#do_action('rename')
-  nnoremap <silent><buffer><expr> !
-  \ defx#do_action('execute_command')
-  nnoremap <silent><buffer><expr> x
-  \ defx#do_action('execute_system')
-  nnoremap <silent><buffer><expr> yy
-  \ defx#do_action('yank_path')
-  nnoremap <silent><buffer><expr> .
-  \ defx#do_action('toggle_ignored_files')
-  nnoremap <silent><buffer><expr> ;
-  \ defx#do_action('repeat')
-  nnoremap <silent><buffer><expr> h
-  \ defx#do_action('cd', ['..'])
-  nnoremap <silent><buffer><expr> ~
-  \ defx#do_action('cd')
-  nnoremap <silent><buffer><expr> q
-  \ defx#do_action('quit')
-  nnoremap <silent><buffer><expr> <Space>
-  \ defx#do_action('toggle_select') . 'j'
-  nnoremap <silent><buffer><expr> *
-  \ defx#do_action('toggle_select_all')
-  nnoremap <silent><buffer><expr> j
-  \ line('.') == line('$') ? 'gg' : 'j'
-  nnoremap <silent><buffer><expr> k
-  \ line('.') == 1 ? 'G' : 'k'
-  nnoremap <silent><buffer><expr> <C-l>
-  \ defx#do_action('redraw')
-  nnoremap <silent><buffer><expr> <C-g>
-  \ defx#do_action('print')
-  nnoremap <silent><buffer><expr> cd
-  \ defx#do_action('change_vim_cwd')
-endfunction
 
 
 " ========================= neoterm setting =========================
@@ -997,3 +919,14 @@ nmap <leader>de :VimspectorEval
 nmap <leader>dw :VimspectorWatch
 nmap <leader>do :VimspectorShowOutput
 autocmd FileType java nmap <leader>dd :CocCommand java.debug.vimspector.start<cr>
+
+"
+  " <plugin>
+      " <groupId>org.springframework.boot</groupId>
+      " <artifactId>spring-boot-maven-plugin</artifactId>
+      " <configuration>
+        " <jvmArguments>
+          " -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
+        " </jvmArguments>
+      " </configuration>
+  " </plugin>
