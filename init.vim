@@ -15,21 +15,12 @@ endif
 
 call plug#begin('~/.local/share/nvim/plugged')
 
-" if has('nvim')
-  " Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins'}
-" else
-  " Plug 'Shougo/defx.nvim'
-  " Plug 'roxma/nvim-yarp'
-  " Plug 'roxma/vim-hug-neovim-rpc'
-" endif
-
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-startify'
 Plug 'alvan/vim-closetag'
 Plug 'Yggdroot/indentLine'
 Plug 'jiangmiao/auto-pairs'
 Plug 'preservim/nerdcommenter'
-" Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' }
 Plug 'kshenoy/vim-signature'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
@@ -45,39 +36,30 @@ Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
-" Plug 'fatih/vim-go'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'honza/dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'luochen1990/rainbow'
-" Plug 'machakann/vim-highlightedyank'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'gruvbox-community/gruvbox'
-" Plug 'tomasiser/vim-code-dark'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
 Plug 'puremourning/vimspector'
-" Plug 'neoclide/coc.nvim', {'do': 'npm install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
-" Plug 'kyazdani42/nvim-web-devicons' " for file icons
-" Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
-" Plug 'jerrywang1981/nvim-lsp'
-" Plug 'https://github.ibm.com/jianjunw/ibm-profile.nvim.git'
 call plug#end()
 
 " filetype plugin indent on
-" syntax enable
 set path+=**
 set updatetime=500
 " set directory=~/tmp,/tmp
@@ -177,12 +159,6 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 let g:AutoPairsMapCh = 0
 let g:AutoPairsMapCR = 1
 
-" vim-go
-" let g:go_def_mapping_enabled = 0
-
-
-" ====================highlight yank=========================
-" let g:highlightedyank_highlight_duration = 500
 
 
 " ======================== goyo limelight =======================
@@ -375,7 +351,7 @@ let g:lua_tree_show_icons = {
     \ 'folders': 0,
     \ 'files': 0,
     \}
-let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache' ]
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', 'tmp' ]
 let g:lua_tree_hide_dotfiles = 1
 
 "--------undo toggle---------
@@ -575,7 +551,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " ---------- coc.nvim----------
 let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-snippets','coc-java', 'coc-java-debug', 'coc-emmet', 'coc-yank', 'coc-lists', 'coc-yaml', 'coc-tasks']
+let g:coc_global_extensions = ['coc-pairs', 'coc-snippets', 'coc-emmet', 'coc-yank', 'coc-lists']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -585,18 +561,18 @@ let g:coc_global_extensions = ['coc-python', 'coc-pairs', 'coc-snippets','coc-ja
       " \ <SID>check_back_space() ? "\<TAB>" :
       " \ coc#refresh()
 
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
+" inoremap <silent><expr> <TAB>
+      " \ pumvisible() ? coc#_select_confirm() :
+      " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      " \ <SID>check_back_space() ? "\<TAB>" :
+      " \ coc#refresh()
 
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
 " Use <C-j> for jump to next placeholder, it's default of coc.nvim
-let g:coc_snippet_next = '<c-j>'
+" let g:coc_snippet_next = '<c-j>'
 " Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-let g:coc_snippet_prev = '<c-k>'
+" let g:coc_snippet_prev = '<c-k>'
 
 
 
@@ -606,7 +582,7 @@ function! s:check_back_space() abort
 endfunction
 
 " Use <c-space> to trigger completion.
-inoremap <silent><expr> <c-space> coc#refresh()
+" inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
@@ -625,27 +601,27 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " Use `[g` and `]g` to navigate diagnostics
 " Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
+" nmap <silent> [g <Plug>(coc-diagnostic-prev)
+" nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " GoTo code navigation.
-nmap <silent> <localleader>gd <Plug>(coc-definition)
-nmap <silent> <localleader>gy <Plug>(coc-type-definition)
-nmap <silent> <localleader>gi <Plug>(coc-implementation)
-nmap <silent> <localleader>gr <Plug>(coc-references)
-nmap <silent> <localleader>rn <Plug>(coc-rename)
+" nmap <silent> <localleader>gd <Plug>(coc-definition)
+" nmap <silent> <localleader>gy <Plug>(coc-type-definition)
+" nmap <silent> <localleader>gi <Plug>(coc-implementation)
+" nmap <silent> <localleader>gr <Plug>(coc-references)
+" nmap <silent> <localleader>rn <Plug>(coc-rename)
 
 
 " Use K to show documentation in preview window.
-nnoremap <silent> K :call <SID>show_documentation()<CR>
+" nnoremap <silent> K :call <SID>show_documentation()<CR>
 
-function! s:show_documentation()
-  if (index(['vim','help'], &filetype) >= 0)
-    execute 'h '.expand('<cword>')
-  else
-    call CocAction('doHover')
-  endif
-endfunction
+" function! s:show_documentation()
+  " if (index(['vim','help'], &filetype) >= 0)
+    " execute 'h '.expand('<cword>')
+  " else
+    " call CocAction('doHover')
+  " endif
+" endfunction
 
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
@@ -655,13 +631,11 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " xmap <leader>f  <Plug>(coc-format-selected)
 " nmap <leader>f  <Plug>(coc-format-selected)
 
-augroup mygroup
-  autocmd!
-  " Setup formatexpr specified filetype(s).
-  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " Update signature help on jump placeholder.
-  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-augroup end
+" augroup mygroup
+  " autocmd!
+  " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+" augroup end
 
 " Applying codeAction to the selected region.
 " Example: `<leader>aap` for current paragraph
@@ -669,9 +643,9 @@ augroup end
 " nmap <leader>a  <Plug>(coc-codeaction-selected)
 
 " Remap keys for applying codeAction to the current buffer.
-nmap <leader>ac  <Plug>(coc-codeaction)
+" nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
-nmap <leader>qf  <Plug>(coc-fix-current)
+" nmap <leader>qf  <Plug>(coc-fix-current)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -690,13 +664,13 @@ nmap <leader>qf  <Plug>(coc-fix-current)
 " xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
-command! -nargs=0 Format :call CocAction('format')
+" command! -nargs=0 Format :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
-command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
-command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
 
 " Add (Neo)Vim's native statusline support.
 " NOTE: Please see `:h coc-status` for integrations with external plugins that
@@ -705,9 +679,9 @@ command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organize
 
 " Mappings for CoCList
 " Show all diagnostics.
-nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
+" nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
 " show all actions
-nnoremap <silent><nowait> <space>a  :<C-u>CocList actions<cr>
+" nnoremap <silent><nowait> <space>a  :<C-u>CocList actions<cr>
 " Manage extensions.
 nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 
@@ -717,22 +691,22 @@ nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
 
 " Show commands.
-nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
+" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
 " Find symbol of current document.
-nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
+" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
+" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
 " Do default action for next item.
-nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
+" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
 " Do default action for previous item.
-nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
+" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
 " Resume latest coc list.
-nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
+" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
 nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
-autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-autocmd BufWritePre *.go :call CocAction('format')
+" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
+" autocmd BufWritePre *.go :call CocAction('format')
 " ---------- end of coc
 
 
@@ -861,9 +835,6 @@ let g:NERDToggleCheckAllLines = 1
 
 
 
-
-
-
 " ========================= neoterm setting =========================
 if !has('nvim')
     set ttymouse=xterm2
@@ -919,14 +890,3 @@ nmap <leader>de :VimspectorEval
 nmap <leader>dw :VimspectorWatch
 nmap <leader>do :VimspectorShowOutput
 autocmd FileType java nmap <leader>dd :CocCommand java.debug.vimspector.start<cr>
-
-"
-  " <plugin>
-      " <groupId>org.springframework.boot</groupId>
-      " <artifactId>spring-boot-maven-plugin</artifactId>
-      " <configuration>
-        " <jvmArguments>
-          " -Xdebug -Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005
-        " </jvmArguments>
-      " </configuration>
-  " </plugin>

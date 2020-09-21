@@ -1,4 +1,5 @@
 local global=require('global')
+local nvim_lsp = require'nvim_lsp'
 local vim = vim
 
 
@@ -24,7 +25,6 @@ local map_buf_keys = function()
 	-- map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
 
 
-
   -- diagnostics setting
   map('n', '<space>d', ':<C-u>OpenDiagnostic<cr>')
   map('n', '[g', ':<C-u>PrevDiagnostic<cr>')
@@ -43,28 +43,33 @@ local on_attach_vim = function(client)
   -- map the buffer keys
   map_buf_keys()
   -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
-  vim.api.nvim_command[[autocmd BufWritePre *.go,*.ts,*.js lua vim.lsp.buf.formatting()]]
+  -- vim.api.nvim_command[[autocmd BufWritePre *.go,*.ts,*.js,*.java lua vim.lsp.buf.formatting()]]
 end
 
-require'nvim_lsp'.tsserver.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.gopls.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.html.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.cssls.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.jsonls.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.vimls.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.sqlls.setup{on_attach=on_attach_vim}
-require'nvim_lsp'.sumneko_lua.setup{
+nvim_lsp.tsserver.setup{on_attach=on_attach_vim}
+nvim_lsp.gopls.setup{on_attach=on_attach_vim}
+-- nvim_lsp.gopls.setup{}
+nvim_lsp.html.setup{on_attach=on_attach_vim}
+nvim_lsp.cssls.setup{on_attach=on_attach_vim}
+nvim_lsp.jsonls.setup{on_attach=on_attach_vim}
+nvim_lsp.vimls.setup{on_attach=on_attach_vim}
+nvim_lsp.sqlls.setup{on_attach=on_attach_vim}
+nvim_lsp.sumneko_lua.setup{
   on_attach=on_attach_vim,
   cmd = {
     global.home.."/lua-language-server/bin/macOS/lua-language-server", "-E",
     global.home.."/lua-language-server/main.lua"
   }
 }
--- require'nvim_lsp'.jdtls.setup{on_attach=on_attach_vim}
---
---
 
+-- nvim_lsp.jdtls.setup{}
+nvim_lsp.jdtls.setup{
+  on_attach=on_attach_vim,
+  root_dir=nvim_lsp.util.root_pattern(".git", "pom.xml", "build.xml")
+}
 
+nvim_lsp.jedi_language_server.setup{on_attach=on_attach_vim}
+-- nvim_lsp.yamlls.setup{on_attach=on_attach_vim}
 
 local strategy = {'exact', 'substring', 'fuzzy'}
 vim.g.completion_matching_strategy_list = strategy;
