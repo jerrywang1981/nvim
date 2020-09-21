@@ -46,10 +46,18 @@ local on_attach_vim = function(client)
   -- vim.api.nvim_command[[autocmd BufWritePre *.go,*.ts,*.js,*.java lua vim.lsp.buf.formatting()]]
 end
 
+local on_attach_vim_go = function(client)
+  on_attach_vim(client)
+  vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
+end
+
+
 nvim_lsp.tsserver.setup{on_attach=on_attach_vim}
-nvim_lsp.gopls.setup{on_attach=on_attach_vim}
+nvim_lsp.gopls.setup{on_attach=on_attach_vim_go}
+
 -- nvim_lsp.gopls.setup{}
 nvim_lsp.html.setup{on_attach=on_attach_vim}
+nvim_lsp.vuels.setup{on_attach=on_attach_vim}
 nvim_lsp.cssls.setup{on_attach=on_attach_vim}
 nvim_lsp.jsonls.setup{on_attach=on_attach_vim}
 nvim_lsp.vimls.setup{on_attach=on_attach_vim}
