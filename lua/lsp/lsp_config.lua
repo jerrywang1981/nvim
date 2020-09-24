@@ -8,11 +8,11 @@ local map = function(type, key, value)
 end
 
 local map_buf_keys = function()
-  map('n','gD','<cmd>lua vim.lsp.buf.declaration()<CR>')
-	map('n','gd','<cmd>lua vim.lsp.buf.definition()<CR>')
+  map('n','gd','<cmd>lua vim.lsp.buf.declaration()<CR>')
+	map('n','<c-]>','<cmd>lua vim.lsp.buf.definition()<CR>')
 	map('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
 	map('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
-	-- map('n','gs','<cmd>lua vim.lsp.buf.signature_help()<CR>')
+  -- map('n','<c-k>','<cmd>lua vim.lsp.buf.signature_help()<CR>')
 	map('n','<localleader>gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
 	-- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
 	-- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
@@ -31,6 +31,8 @@ local map_buf_keys = function()
   map('n', ']g', ':<C-u>NextDiagnostic<cr>')
 
   map('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+  vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
+
 end
 
 

@@ -35,7 +35,7 @@ Plug 'mattn/emmet-vim'
 Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
 Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
+" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
 Plug 'junegunn/limelight.vim'
@@ -52,7 +52,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
 Plug 'puremourning/vimspector'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
@@ -165,7 +165,7 @@ let g:AutoPairsMapCR = 1
 let g:goyo_width=100
 let g:goyo_height=80
 let g:goyo_linenr=1
-nnoremap <silent> <leader><leader>0 :<c-u>Goyo<cr>
+nnoremap <silent> <space>0 :<c-u>Goyo<cr>
 autocmd! User GoyoEnter Limelight
 autocmd! User GoyoLeave Limelight!
 
@@ -181,53 +181,55 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", t
 " =============== either fzf or leaderf, keey one =====================
 
 " ===============fzf settings, keep one only for fzf or leaderf =======
-" noremap <silent> <c-p> :<c-u>Files<cr>
-" noremap <silent> <c-m> :<c-u>History<cr>
-" noremap <silent> <leader>fb :<c-u>Buffers<cr>
-" noremap <silent> <leader>fs :<c-u>Rg<cr>
-" xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
-" let g:fzf_preview_window = ''
+" export FZF_DEFAULT_COMMAND='rg --files'
+noremap <silent> <c-p> :<c-u>Files<cr>
+noremap <silent> <c-m> :<c-u>History<cr>
+noremap <silent> <leader>fb :<c-u>Buffers<cr>
+noremap <silent> <leader>fs :<c-u>Rg<cr>
+xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
+let g:fzf_preview_window = ''
+" let g:fzf_layout = {'down': '30%'}
 
 " ==============leaderf settigs, keep one only for leader or fzf=============
-let g:Lf_HideHelp = 1
-let g:Lf_UseCache = 0
-let g:Lf_UseVersionControlTool = 0
-let g:Lf_IgnoreCurrentBufferName = 1
-let g:Lf_ShowDevIcons=0
+" let g:Lf_HideHelp = 1
+" let g:Lf_UseCache = 0
+" let g:Lf_UseVersionControlTool = 0
+" let g:Lf_IgnoreCurrentBufferName = 1
+" let g:Lf_ShowDevIcons=0
+"
+" let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
+" let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+"
+" let g:Lf_ShortcutF = "<c-p>"
+" let g:Lf_ShortcutB = "<leader>fb"
+" noremap <c-m> :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+" noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
+" noremap <leader>fs :<C-U><C-R>=printf("Leaderf rg --stayOpen %s", "")<CR><CR>
+" xnoremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --stayOpen -F -e %s ", leaderf#Rg#visual())<CR>
+" noremap <leader>fS :<C-U>Leaderf! rg --recall<CR>
 
-let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
-let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
+" let g:Lf_CommandMap = {'<Tab>': ['<ESC>']}
+" let g:Lf_DefaultMode = 'NameOnly'
+" let g:Lf_PythonVersion=3
+" let g:Lf_WindowHeight = 0.3
+" let g:Lf_WorkingDirectoryMode = 'Ac'
+" let g:Lf_GtagsAutoGenerate = 0
+" let g:Lf_Gtagslabel = 'native-pygments'
 
-let g:Lf_ShortcutF = "<c-p>"
-let g:Lf_ShortcutB = "<leader>fb"
-noremap <c-m> :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-noremap <leader>fs :<C-U><C-R>=printf("Leaderf rg --stayOpen %s", "")<CR><CR>
-xnoremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --stayOpen -F -e %s ", leaderf#Rg#visual())<CR>
-noremap <leader>fS :<C-U>Leaderf! rg --recall<CR>
-
-let g:Lf_CommandMap = {'<Tab>': ['<ESC>']}
-let g:Lf_DefaultMode = 'NameOnly'
-let g:Lf_PythonVersion=3
-let g:Lf_WindowHeight = 0.3
-let g:Lf_WorkingDirectoryMode = 'Ac'
-let g:Lf_GtagsAutoGenerate = 0
-let g:Lf_Gtagslabel = 'native-pygments'
-
-let g:Lf_WildIgnore = {
-  \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
-  \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-  \}
-let g:Lf_MruWildIgnore = {
-  \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
-  \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-  \}
-let g:Lf_RgConfig = [
-  \ "--max-columns=300",
-  \ "--glob=!node_modules/*",
-  \ "--glob=!venv/*",
-  \ "--glob=!dist/*",
-  \ ]
+" let g:Lf_WildIgnore = {
+  " \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
+  " \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+  " \}
+" let g:Lf_MruWildIgnore = {
+  " \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
+  " \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
+  " \}
+" let g:Lf_RgConfig = [
+  " \ "--max-columns=300",
+  " \ "--glob=!node_modules/*",
+  " \ "--glob=!venv/*",
+  " \ "--glob=!dist/*",
+  " \ ]
 
 
 
@@ -344,8 +346,7 @@ let g:netrw_winsize = 25
 
 
 " =============================== nvim-tree.lua settings ===========================
-nmap <silent> ¡ :<c-u>LuaTreeToggle<CR>
-nmap <silent> <leader><leader>1 :<c-u>LuaTreeToggle<CR>
+nmap <silent> <space>1 :<c-u>LuaTreeToggle<CR>
 let g:lua_tree_show_icons = {
     \ 'git': 0,
     \ 'folders': 0,
@@ -360,7 +361,7 @@ if has('persistent_undo')
 	set undofile
 	set undodir=~/.config/nvim/tmp/undo,.
 endif
-noremap <silent> <leader><leader>5 :UndotreeToggle<CR>
+noremap <silent> <space>5 :UndotreeToggle<CR>
 let g:undotree_DiffAutoOpen = 1
 let g:undotree_SetFocusWhenToggle = 1
 let g:undotree_ShortIndicators = 1
@@ -550,8 +551,8 @@ let g:closetag_close_shortcut = '<leader>>'
 
 
 " ---------- coc.nvim----------
-let g:coc_disable_startup_warning=1
-let g:coc_global_extensions = ['coc-pairs', 'coc-snippets', 'coc-emmet', 'coc-yank', 'coc-lists']
+" let g:coc_disable_startup_warning=1
+" let g:coc_global_extensions = ['coc-pairs', 'coc-snippets', 'coc-emmet', 'coc-yank', 'coc-lists']
 
 " Use tab for trigger completion with characters ahead and navigate.
 " NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
@@ -624,7 +625,7 @@ autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 " endfunction
 
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+" autocmd CursorHold * silent call CocActionAsync('highlight')
 
 
 " Formatting selected code.
@@ -683,7 +684,7 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 " show all actions
 " nnoremap <silent><nowait> <space>a  :<C-u>CocList actions<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
+" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 
 " nnoremap <silent><nowait> <space>e :<c-u>CocCommand explorer<CR>
 
@@ -703,7 +704,7 @@ nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
 " Resume latest coc list.
 " nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
 
-nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
+" nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
 
 " autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
 " autocmd BufWritePre *.go :call CocAction('format')
@@ -853,8 +854,7 @@ if has('nvim')
 endif
 "
 " option key + 4
-nnoremap <silent> ¢ :vertical botright Ttoggle<cr><C-w>l
-nnoremap <silent> <leader><leader>4 :<c-u>vertical botright Ttoggle<cr><C-w>l
+nnoremap <silent> <space>4 :<c-u>vertical botright Ttoggle<cr><C-w>l
 
 " tnoremap <silent> <leader>o <C-\><C-n>:Ttoggle<cr>
 " tnoremap <silent> <leader><space> <C-\><C-n>:Ttoggle<cr>
