@@ -32,9 +32,10 @@ Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'mbbill/undotree'
 Plug 'mattn/emmet-vim'
+Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
-Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
+" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'editorconfig/editorconfig-vim'
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
@@ -159,8 +160,6 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 let g:AutoPairsMapCh = 0
 let g:AutoPairsMapCR = 1
 
-
-
 " ======================== goyo limelight =======================
 let g:goyo_width=100
 let g:goyo_height=80
@@ -175,7 +174,6 @@ autocmd! User GoyoLeave Limelight!
 autocmd BufWritePre * %s/\s\+$//e
 
 
-
 autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=500})
 
 " =============== either fzf or leaderf, keey one =====================
@@ -188,6 +186,7 @@ noremap <silent> <leader>fb :<c-u>Buffers<cr>
 noremap <silent> <leader>fs :<c-u>Rg<cr>
 xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
 let g:fzf_preview_window = ''
+" let g:fzf_preview_window = 'right:60%'
 " let g:fzf_layout = {'down': '30%'}
 
 " ==============leaderf settigs, keep one only for leader or fzf=============
