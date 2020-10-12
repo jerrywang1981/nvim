@@ -88,4 +88,6 @@ vim.g.diagnostic_enable_virtual_text = 1
 vim.g.diagnostic_auto_popup_while_jump = 0
 vim.g.space_before_virtual_text = 3
 
+vim.g.completion_confirm_key = ""
 vim.g.completion_enable_snippet = 'UltiSnips'
+vim.g.completion_matching_ignore_case = 1

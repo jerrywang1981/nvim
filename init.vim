@@ -158,7 +158,7 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 
 " auto-pair
 let g:AutoPairsMapCh = 0
-let g:AutoPairsMapCR = 1
+" let g:AutoPairsMapCR = 1
 
 " ======================== goyo limelight =======================
 let g:goyo_width=100
@@ -581,17 +581,20 @@ function! s:check_back_space() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-" Use <c-space> to trigger completion.
-" inoremap <silent><expr> <c-space> coc#refresh()
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
 " position. Coc only does snippet and additional edit on confirm.
 " <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-if exists('*complete_info')
-  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-else
-  inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-endif
+" if exists('*complete_info')
+  " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+" else
+  " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+" endif
+
+" let g:completion_confirm_key = ""
+" imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 " \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
@@ -738,49 +741,12 @@ iab <expr> dts strftime("%x")
 " EOF
 
 lua require('init')
-" completion-nvim
-" let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
-" let g:diagnostic_enable_virtual_text = 1
-" let g:diagnostic_auto_popup_while_jump = 0
-" let g:space_before_virtual_text = 3
 
 " function! LSPRename()
     " let s:newName = input('Enter new name: ', expand('<cword>'))
     " echom "s:newName = " . s:newName
     " lua vim.lsp.buf.rename(s:newName)
 " endfunction
-
-
-function! s:ConfigureBuffer()
-  setlocal omnifunc=v:lua.vim.lsp.omnifunc
-  " nnoremap <silent> <localleader>gD    <cmd>lua vim.lsp.buf.declaration()<CR>
-  " nnoremap <silent> <localleader>gd    <cmd>lua vim.lsp.buf.definition()<CR>
-  " nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()<CR>
-  " nnoremap <silent> <localleader>gi <cmd>lua vim.lsp.buf.implementation()<CR>
-  " nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
-  " nnoremap <silent> <localleader>gr    <cmd>lua vim.lsp.buf.references()<CR>
-
-  " nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
-  " nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
-  " nnoremap <silent> <c-k> <cmd>lua vim.lsp.buf.signature_help()<CR>
-
-  " nnoremap <silent><nowait> <space>d  :<C-u>OpenDiagnostic<cr>
-  " nnoremap <silent> [g :<C-u>PrevDiagnostic<cr>
-  " nnoremap <silent> ]g :<C-u>NextDiagnostic<cr>
-endfunction
-
-" if has('autocmd')
-  " augroup LanguageClientAutocmds
-    " autocmd!
-"
-    " if exists('*nvim_open_win')
-      " autocmd BufEnter __LanguageClient__ call s:Bind()
-    " endif
-"
-    " autocmd FileType sh,go,c,typescript,javascript call s:ConfigureBuffer()
-    " autocmd BufWritePre *.go,*.ts,*.js lua vim.lsp.buf.formatting()
-  " augroup END
-" endif
 
 
 
