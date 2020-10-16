@@ -38,8 +38,8 @@ Plug 'wellle/targets.vim'
 " Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
 " Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'editorconfig/editorconfig-vim'
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-Plug 'junegunn/limelight.vim'
+" Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
+" Plug 'junegunn/limelight.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'honza/dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'luochen1990/rainbow'
@@ -57,7 +57,9 @@ Plug 'puremourning/vimspector'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
+Plug 'nvim-lua/lsp-status.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
+Plug 'jerrywang1981/nvim-util.lua'
 call plug#end()
 
 " filetype plugin indent on
@@ -161,12 +163,12 @@ let g:AutoPairsMapCh = 0
 " let g:AutoPairsMapCR = 1
 
 " ======================== goyo limelight =======================
-let g:goyo_width=100
-let g:goyo_height=80
-let g:goyo_linenr=1
-nnoremap <silent> <space>0 :<c-u>Goyo<cr>
-autocmd! User GoyoEnter Limelight
-autocmd! User GoyoLeave Limelight!
+" let g:goyo_width=100
+" let g:goyo_height=80
+" let g:goyo_linenr=1
+" nnoremap <silent> <space>0 :<c-u>Goyo<cr>
+" autocmd! User GoyoEnter Limelight
+" autocmd! User GoyoLeave Limelight!
 
 
 " autocmd
@@ -180,11 +182,11 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", t
 
 " ===============fzf settings, keep one only for fzf or leaderf =======
 " export FZF_DEFAULT_COMMAND='rg --files'
-noremap <silent> <c-p> :<c-u>Files<cr>
-noremap <silent> <c-m> :<c-u>History<cr>
-noremap <silent> <leader>fb :<c-u>Buffers<cr>
-noremap <silent> <leader>fs :<c-u>Rg<cr>
-xnoremap <silent> <leader>fs :<c-u>Rg <c-r><c-w><cr>
+noremap <silent> <c-p> <cmd>Files<cr>
+noremap <silent> <c-m> <cmd>History<cr>
+noremap <silent> <leader>fb <cmd>Buffers<cr>
+noremap <silent> <leader>fs <cmd>Rg<cr>
+xnoremap <silent> <leader>fs <cmd>Rg <c-r><c-w><cr>
 let g:fzf_preview_window = ''
 " let g:fzf_preview_window = 'right:60%'
 " let g:fzf_layout = {'down': '30%'}
@@ -234,7 +236,7 @@ let g:fzf_preview_window = ''
 
 
 " ================markdown-preview==================
-let g:mkdp_auto_close = 0
+" let g:mkdp_auto_close = 0
 
 " =================editorconfig-vim===================
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -293,8 +295,8 @@ map g# <Plug>(incsearch-nohl-g#)
 
 
 " -----------key mapping start------------
-nmap <Leader>ev :e $MYVIMRC<cr>
-nmap <Leader>sv :so $MYVIMRC<cr>
+nmap <Leader>ev <cmd>exe 'edit' $MYVIMRC<cr>
+" nmap <Leader>sv :so $MYVIMRC<cr>
 
 map <up> <Nop>
 map <down> <Nop>
@@ -345,7 +347,7 @@ let g:netrw_winsize = 25
 
 
 " =============================== nvim-tree.lua settings ===========================
-nmap <silent> <space>1 :<c-u>LuaTreeToggle<CR>
+nmap <silent> <space>1 <cmd>LuaTreeToggle<CR>
 let g:lua_tree_show_icons = {
     \ 'git': 0,
     \ 'folders': 0,
@@ -370,8 +372,8 @@ let g:undotree_SplitWidth = 24
 
 
 
-autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
+" autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
+" autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
 
 
 " ======================= lightline ============================
@@ -383,7 +385,8 @@ let g:lightline = {
       \   'right':[ ['lineinfo'],
       \             ['percent'],
       \             ['fileformat','fileencoding', 'filetype'],
-      \             ['tnt']
+      \             ['tnt'],
+      \             ['lspstatus']
       \             ],
       \ },
       \ 'inactive': {
@@ -407,13 +410,14 @@ let g:lightline = {
       \   'readonly': 'LightLineReadonly',
       \   'filename': 'LightLineFname',
       \   'filetype': 'LightLineFiletype',
+      \   'lspstatus': 'LspStatus',
       \   'fileformat': 'LightLineFileformat',
       \ },
       \ 'subseparator': { 'left': '|', 'right': '|' },
       \ 'component_type': {'buffers': 'tabsel'},
       \ }
 
-function! LightLineModified()
+function! LightLineModified() abort
   if &filetype == "help"
     return ""
   elseif &filetype == "defx"
@@ -427,7 +431,7 @@ function! LightLineModified()
   endif
 endfunction
 
-function! LightLineReadonly()
+function! LightLineReadonly() abort
   return &readonly && &filetype !~# '\v(help|vimfiler|unite)' ? 'RO' : ''
 endfunction
 
@@ -441,7 +445,7 @@ function! TNT()
   return 'JERRY WANG'
 endfunction
 
-function! LightLineGitGutter()
+function! LightLineGitGutter() abort
   if ! exists('*GitGutterGetHunkSummary')
         \ || ! get(g:, 'gitgutter_enabled', 0)
         \ || winwidth('.') <= 90
@@ -458,7 +462,7 @@ function! LightLineGitGutter()
   return join(ret, ' ')
 endfunction
 
-function! LightLineFname()
+function! LightLineFname() abort
   let icon = (strlen(&filetype) ? ' ' : 'no ft')
   let filename = LightLineFilename()
   let ret = [filename,icon]
@@ -468,18 +472,26 @@ function! LightLineFname()
   return join([filename, icon],'')
 endfunction
 
-function! LightLineFilename()
+function! LightLineFilename() abort
   return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
         \ ('' != expand('%:t') ? expand('%:t') : '') .
         \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
 endfunction
 
-function! LightLineFiletype()
+function! LightLineFiletype() abort
   return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ': 'no ft') : ''
 endfunction
 
-function! LightLineFileformat()
+function! LightLineFileformat() abort
   return winwidth(0) > 70 ? (&fileformat . ' ') : ''
+endfunction
+
+" Statusline
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+  return ''
 endfunction
 
 let g:lightline#bufferline#show_number  = 3
@@ -576,10 +588,10 @@ let g:closetag_close_shortcut = '<leader>>'
 
 
 
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
+" function! s:check_back_space() abort
+  " let col = col('.') - 1
+  " return !col || getline('.')[col - 1]  =~# '\s'
+" endfunction
 
 
 " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
@@ -592,8 +604,8 @@ endfunction
 " endif
 
 " let g:completion_confirm_key = ""
-" imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
-                 " \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 
 
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -740,7 +752,14 @@ iab <expr> dts strftime("%x")
   " require'nvim_lsp'.vimls.setup{}
 " EOF
 
+lua vim.lsp.set_log_level(0)
+
+function! OpenLSPLog() abort
+  exe 'edit' v:lua.vim.lsp.get_log_path()
+endfunction
+
 lua require('init')
+
 
 " function! LSPRename()
     " let s:newName = input('Enter new name: ', expand('<cword>'))
@@ -847,11 +866,10 @@ let g:terminal_color_14 = '#9AEDFE'
 
 
 " vimspector
-let g:vimspector_enable_mappings = 'HUMAN'
+" let g:vimspector_enable_mappings = 'HUMAN'
 
-nmap <leader>dd :call vimspector#Launch()<cr>
-nmap <leader>dx :VimspectorReset<cr>
-nmap <leader>de :VimspectorEval
-nmap <leader>dw :VimspectorWatch
-nmap <leader>do :VimspectorShowOutput
-autocmd FileType java nmap <leader>dd :CocCommand java.debug.vimspector.start<cr>
+" nmap <leader>dd :call vimspector#Launch()<cr>
+" nmap <leader>dx :VimspectorReset<cr>
+" nmap <leader>de :VimspectorEval
+" nmap <leader>dw :VimspectorWatch
+" nmap <leader>do :VimspectorShowOutput
