@@ -57,7 +57,7 @@ Plug 'puremourning/vimspector'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
-Plug 'nvim-lua/lsp-status.nvim'
+" Plug 'nvim-lua/lsp-status.nvim'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jerrywang1981/nvim-util.lua'
 call plug#end()
@@ -152,7 +152,6 @@ endif
 let g:gruvbox_invert_selection='0'
 set background=dark
 " colorscheme dracula
-" colorscheme nord
 colorscheme gruvbox
 
 " for quickfix window
@@ -381,12 +380,11 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \ 'active': {
       \   'left': [ ['mode', 'paste'],
-      \             ['gitbranch', 'gitgutter'],['filename', 'currentfunction']],
+      \             ['gitbranch', 'gitgutter'],['filename']],
       \   'right':[ ['lineinfo'],
       \             ['percent'],
       \             ['fileformat','fileencoding', 'filetype'],
-      \             ['tnt'],
-      \             ['lspstatus']
+      \             ['tnt']
       \             ],
       \ },
       \ 'inactive': {
@@ -410,7 +408,6 @@ let g:lightline = {
       \   'readonly': 'LightLineReadonly',
       \   'filename': 'LightLineFname',
       \   'filetype': 'LightLineFiletype',
-      \   'lspstatus': 'LspStatus',
       \   'fileformat': 'LightLineFileformat',
       \ },
       \ 'subseparator': { 'left': '|', 'right': '|' },
@@ -435,14 +432,14 @@ function! LightLineReadonly() abort
   return &readonly && &filetype !~# '\v(help|vimfiler|unite)' ? 'RO' : ''
 endfunction
 
-function! TNT()
+function! TNT() abort
   let map = { 'V': 'n', "\<C-v>": 'n', 's': 'n', 'v': 'n', "\<C-s>": 'n', 'c': 'n', 'R': 'n'}
   let mode = get(map, mode()[0], mode()[0])
   let bgcolor = {'n': [240, '#585858'], 'i': [31, '#0087af']}
   let color = get(bgcolor, mode, bgcolor.n)
   exe printf('hi TNTColor ctermfg=196 ctermbg=%d guifg=#88ffff guibg=%s term=bold cterm=bold',
   \ color[0], color[1])
-  return 'JERRY WANG'
+  return winwidth(0) > 70 ? 'Jerry Wang' : ''
 endfunction
 
 function! LightLineGitGutter() abort
@@ -487,12 +484,12 @@ function! LightLineFileformat() abort
 endfunction
 
 " Statusline
-function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-  return ''
-endfunction
+" function! LspStatus() abort
+  " if luaeval('#vim.lsp.buf_get_clients() > 0')
+    " return winwidth(0) > 70 ? luaeval("require('lsp-status').status()") : ''
+  " endif
+  " return ''
+" endfunction
 
 let g:lightline#bufferline#show_number  = 3
 " let g:lightline#bufferline#min_buffer_count = 1
