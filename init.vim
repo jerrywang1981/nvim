@@ -185,7 +185,7 @@ noremap <silent> <c-p> <cmd>Files<cr>
 noremap <silent> <c-m> <cmd>History<cr>
 noremap <silent> <leader>fb <cmd>Buffers<cr>
 noremap <silent> <leader>fs <cmd>Rg<cr>
-xnoremap <silent> <leader>fs <cmd>Rg <c-r><c-w><cr>
+xnoremap <silent> <leader>fs :<c-w>Rg <c-r><c-w><cr>
 let g:fzf_preview_window = ''
 " let g:fzf_preview_window = 'right:60%'
 " let g:fzf_layout = {'down': '30%'}
