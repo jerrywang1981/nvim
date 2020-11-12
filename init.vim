@@ -53,6 +53,7 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
 Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
@@ -560,6 +561,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " ---------- coc.nvim----------
 " let g:coc_disable_startup_warning=1
+" let g:coc_global_extensions = ['coc-java', 'coc-java-debug']
 " let g:coc_global_extensions = ['coc-pairs', 'coc-snippets', 'coc-emmet', 'coc-yank', 'coc-lists']
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -863,10 +865,10 @@ let g:terminal_color_14 = '#9AEDFE'
 
 
 " vimspector
-" let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_enable_mappings = 'HUMAN'
 
-" nmap <leader>dd :call vimspector#Launch()<cr>
-" nmap <leader>dx :VimspectorReset<cr>
-" nmap <leader>de :VimspectorEval
-" nmap <leader>dw :VimspectorWatch
-" nmap <leader>do :VimspectorShowOutput
+nmap <leader>dd :call vimspector#Launch()<cr>
+nmap <leader>dx :VimspectorReset<cr>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
