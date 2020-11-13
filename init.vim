@@ -59,6 +59,7 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 " Plug 'nvim-lua/lsp-status.nvim'
+" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jerrywang1981/nvim-util.lua'
 call plug#end()
@@ -349,12 +350,30 @@ let g:netrw_winsize = 25
 " =============================== nvim-tree.lua settings ===========================
 nmap <silent> <space>1 <cmd>LuaTreeToggle<CR>
 let g:lua_tree_show_icons = {
-    \ 'git': 0,
-    \ 'folders': 0,
+    \ 'git': 1,
+    \ 'folders': 1,
     \ 'files': 0,
+    \ 'icon': 0,
     \}
 let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', 'tmp' ]
 let g:lua_tree_hide_dotfiles = 1
+let g:lua_tree_indent_markers = 1
+
+let g:lua_tree_icons = {
+    \ 'default': '',
+    \ 'symlink': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★"
+    \   },
+    \ 'folder': {
+    \   'default': "",
+    \   'open': ""
+    \   }
+    \ }
 
 "--------undo toggle---------
 
