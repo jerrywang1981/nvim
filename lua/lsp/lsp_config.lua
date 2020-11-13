@@ -38,6 +38,7 @@ end
 
 
 local on_attach_vim = function(client, bufnr)
+  print("LSP starting")
   require('completion').on_attach(client, bufnr)
   require('diagnostic').on_attach(client, bufnr)
   -- lsp_status.on_attach(client, bufnr)
@@ -91,6 +92,9 @@ nvim_lsp.bashls.setup{
 
 nvim_lsp.jsonls.setup{
   on_attach=on_attach_vim_h,
+  init_options = {
+    provideFormatter = true
+  }
   -- capabilities = lsp_status.capabilities
 }
 
@@ -102,14 +106,13 @@ nvim_lsp.sqlls.setup{
   on_attach=on_attach_vim,
   -- capabilities = lsp_status.capabilities
 }
-nvim_lsp.sumneko_lua.setup{
-  on_attach=on_attach_vim,
-  cmd = {
-    global.home.."/lua-language-server/bin/macOS/lua-language-server", "-E",
-    global.home.."/lua-language-server/main.lua"
-  },
-  -- capabilities = lsp_status.capabilities
-}
+-- nvim_lsp.sumneko_lua.setup{
+  -- on_attach=on_attach_vim,
+  -- cmd = {
+    -- global.home.."/lua-language-server/bin/macOS/lua-language-server", "-E",
+    -- global.home.."/lua-language-server/main.lua"
+  -- },
+-- }
 
 -- nvim_lsp.jdtls.setup{}
 nvim_lsp.jdtls.setup{
@@ -119,6 +122,7 @@ nvim_lsp.jdtls.setup{
       "-javaagent:"..vim.loop.os_homedir().."/lombok.jar",
       "-XX:+UseG1GC",
       "-XX:+UseStringDeduplication",
+      "-XX:ParallelGCThreads=8",
     },
   },
   root_dir=nvim_lsp.util.root_pattern(".git", "pom.xml", "build.xml"),
@@ -135,6 +139,7 @@ local strategy = {'exact', 'substring', 'fuzzy'}
 vim.g.completion_matching_strategy_list = strategy;
 
 vim.g.diagnostic_enable_virtual_text = 1
+vim.g.diagnostic_enable_underline = 1
 vim.g.diagnostic_auto_popup_while_jump = 0
 vim.g.space_before_virtual_text = 3
 
