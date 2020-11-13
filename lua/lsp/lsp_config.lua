@@ -1,11 +1,9 @@
 local vim = vim
 local global=require('global')
 local nvim_lsp = require'nvim_lsp'
--- local lsp_status = require('lsp-status')
 local nvim_util_mapping = require'nvim-util.mapping'
 local map_current_buf_key = nvim_util_mapping.map_current_buf_key
 
--- lsp_status.register_progress()
 
 local map_buf_keys = function()
   map_current_buf_key('n','gd','<cmd>lua vim.lsp.buf.declaration()<CR>')
@@ -41,7 +39,6 @@ local on_attach_vim = function(client, bufnr)
   print("LSP starting")
   require('completion').on_attach(client, bufnr)
   require('diagnostic').on_attach(client, bufnr)
-  -- lsp_status.on_attach(client, bufnr)
 
   -- map the buffer keys
   map_buf_keys()
@@ -63,31 +60,24 @@ end
 
 nvim_lsp.tsserver.setup{
   on_attach=on_attach_vim,
-  -- capabilities = lsp_status.capabilities
 }
 
 nvim_lsp.gopls.setup{
   on_attach=on_attach_vim_go,
-  -- capabilities = lsp_status.capabilities
 }
 
--- nvim_lsp.gopls.setup{}
 nvim_lsp.html.setup{
   on_attach=on_attach_vim_h,
-  -- capabilities = lsp_status.capabilities
 }
 nvim_lsp.vuels.setup{
   on_attach=on_attach_vim,
-  -- capabilities = lsp_status.capabilities
 }
 nvim_lsp.cssls.setup{
   on_attach=on_attach_vim,
-  -- capabilities = lsp_status.capabilities
 }
 
 nvim_lsp.bashls.setup{
   on_attach=on_attach_vim,
-  -- capabilities = lsp_status.capabilities
 }
 
 nvim_lsp.jsonls.setup{
@@ -95,24 +85,22 @@ nvim_lsp.jsonls.setup{
   init_options = {
     provideFormatter = true
   }
-  -- capabilities = lsp_status.capabilities
 }
 
 nvim_lsp.vimls.setup{
   on_attach=on_attach_vim,
-  -- capabilities = lsp_status.capabilities
 }
 nvim_lsp.sqlls.setup{
   on_attach=on_attach_vim,
-  -- capabilities = lsp_status.capabilities
 }
--- nvim_lsp.sumneko_lua.setup{
-  -- on_attach=on_attach_vim,
-  -- cmd = {
-    -- global.home.."/lua-language-server/bin/macOS/lua-language-server", "-E",
-    -- global.home.."/lua-language-server/main.lua"
-  -- },
--- }
+
+nvim_lsp.sumneko_lua.setup{
+  on_attach=on_attach_vim,
+  cmd = {
+    global.home.."/lua-language-server/bin/macOS/lua-language-server", "-E",
+    global.home.."/lua-language-server/main.lua"
+  },
+}
 
 -- nvim_lsp.jdtls.setup{}
 nvim_lsp.jdtls.setup{
@@ -126,12 +114,10 @@ nvim_lsp.jdtls.setup{
     },
   },
   root_dir=nvim_lsp.util.root_pattern(".git", "pom.xml", "build.xml"),
-  -- capabilities = lsp_status.capabilities
 }
 
 nvim_lsp.jedi_language_server.setup{
   on_attach=on_attach_vim,
-  -- capabilities = lsp_status.capabilities
 }
 -- nvim_lsp.yamlls.setup{on_attach=on_attach_vim}
 

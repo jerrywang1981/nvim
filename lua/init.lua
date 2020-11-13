@@ -5,4 +5,8 @@ function _G.dump(...)
     print(unpack(objects))
 end
 
+-- require'nvim-web-devicons'.setup{
+  -- default = true;
+-- }
+
 require('lsp.lsp_config')

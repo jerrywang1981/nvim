@@ -53,11 +53,13 @@ Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
 Plug 'puremourning/vimspector'
+Plug 'szw/vim-maximizer'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 Plug 'nvim-lua/diagnostic-nvim'
 " Plug 'nvim-lua/lsp-status.nvim'
+" Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jerrywang1981/nvim-util.lua'
 call plug#end()
@@ -348,12 +350,30 @@ let g:netrw_winsize = 25
 " =============================== nvim-tree.lua settings ===========================
 nmap <silent> <space>1 <cmd>LuaTreeToggle<CR>
 let g:lua_tree_show_icons = {
-    \ 'git': 0,
-    \ 'folders': 0,
+    \ 'git': 1,
+    \ 'folders': 1,
     \ 'files': 0,
+    \ 'icon': 0,
     \}
 let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', 'tmp' ]
 let g:lua_tree_hide_dotfiles = 1
+let g:lua_tree_indent_markers = 1
+
+let g:lua_tree_icons = {
+    \ 'default': '',
+    \ 'symlink': '',
+    \ 'git': {
+    \   'unstaged': "✗",
+    \   'staged': "✓",
+    \   'unmerged': "",
+    \   'renamed': "➜",
+    \   'untracked': "★"
+    \   },
+    \ 'folder': {
+    \   'default': "",
+    \   'open': ""
+    \   }
+    \ }
 
 "--------undo toggle---------
 
@@ -560,6 +580,7 @@ let g:closetag_close_shortcut = '<leader>>'
 
 " ---------- coc.nvim----------
 " let g:coc_disable_startup_warning=1
+" let g:coc_global_extensions = ['coc-java', 'coc-java-debug']
 " let g:coc_global_extensions = ['coc-pairs', 'coc-snippets', 'coc-emmet', 'coc-yank', 'coc-lists']
 
 " Use tab for trigger completion with characters ahead and navigate.
@@ -863,10 +884,10 @@ let g:terminal_color_14 = '#9AEDFE'
 
 
 " vimspector
-" let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_enable_mappings = 'HUMAN'
 
-" nmap <leader>dd :call vimspector#Launch()<cr>
-" nmap <leader>dx :VimspectorReset<cr>
-" nmap <leader>de :VimspectorEval
-" nmap <leader>dw :VimspectorWatch
-" nmap <leader>do :VimspectorShowOutput
+nmap <leader>dd :call vimspector#Launch()<cr>
+nmap <leader>dx :VimspectorReset<cr>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput
