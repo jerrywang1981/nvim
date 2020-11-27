@@ -8,6 +8,7 @@ function global.load_variables()
   global.is_windows = jit.os == 'Windows'
   global.vim_path    = home .. path_sep..'.config'..path_sep..'nvim'
   global.cache_dir   = home .. path_sep..'.cache'..path_sep..'vim'..path_sep
+  global.nvim_cache_dir   = home .. path_sep..'.cache'..path_sep..'nvim'..path_sep
   -- global.modules_dir = global.vim_path .. path_sep..'modules'
   global.path_sep = path_sep
   global.home = home

@@ -57,7 +57,7 @@ Plug 'szw/vim-maximizer'
 " Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-Plug 'nvim-lua/diagnostic-nvim'
+" Plug 'nvim-lua/diagnostic-nvim'
 " Plug 'nvim-lua/lsp-status.nvim'
 " Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
@@ -778,6 +778,8 @@ endfunction
 
 lua require('init')
 
+command! -nargs=0 OR :call v:lua.require('nvim-util.actions').organize_imports()<cr>
+" require'lsp.lsp_util'.organize_imports<cr>
 
 " function! LSPRename()
     " let s:newName = input('Enter new name: ', expand('<cword>'))

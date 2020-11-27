@@ -1,6 +1,6 @@
 local vim = vim
 local global=require('global')
-local nvim_lsp = require'nvim_lsp'
+local lspconfig = require'lspconfig'
 local nvim_util_mapping = require'nvim-util.mapping'
 local map_current_buf_key = nvim_util_mapping.map_current_buf_key
 
@@ -29,16 +29,18 @@ local map_buf_keys = function()
   map_current_buf_key('n', ']g', '<cmd>NextDiagnostic<cr>')
 
   map_current_buf_key('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
+  -- vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
+  vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
 end
+
 
 
 
 local on_attach_vim = function(client, bufnr)
   print("LSP starting")
   require('completion').on_attach(client, bufnr)
-  require('diagnostic').on_attach(client, bufnr)
+  -- require('diagnostic').on_attach(client, bufnr)
 
   -- map the buffer keys
   map_buf_keys()
@@ -49,7 +51,9 @@ end
 
 local on_attach_vim_go = function(client, bufnr)
   on_attach_vim(client, bufnr)
-  vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
+  vim.api.nvim_command[[autocmd BufWritePre *.go lua require'nvim-util.actions'.organize_imports_format()]]
+  -- vim.api.nvim_command[[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)]]
+  -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
 end
 
 local on_attach_vim_h = function(client, bufnr)
@@ -58,52 +62,52 @@ local on_attach_vim_h = function(client, bufnr)
 end
 
 
-nvim_lsp.tsserver.setup{
+lspconfig.tsserver.setup{
   on_attach=on_attach_vim,
 }
 
-nvim_lsp.gopls.setup{
+lspconfig.gopls.setup{
   on_attach=on_attach_vim_go,
 }
 
-nvim_lsp.html.setup{
+lspconfig.html.setup{
   on_attach=on_attach_vim_h,
 }
-nvim_lsp.vuels.setup{
+lspconfig.vuels.setup{
   on_attach=on_attach_vim,
 }
-nvim_lsp.cssls.setup{
-  on_attach=on_attach_vim,
-}
-
-nvim_lsp.bashls.setup{
+lspconfig.cssls.setup{
   on_attach=on_attach_vim,
 }
 
-nvim_lsp.jsonls.setup{
+lspconfig.bashls.setup{
+  on_attach=on_attach_vim,
+}
+
+lspconfig.jsonls.setup{
   on_attach=on_attach_vim_h,
   init_options = {
     provideFormatter = true
   }
 }
 
-nvim_lsp.vimls.setup{
+lspconfig.vimls.setup{
   on_attach=on_attach_vim,
 }
-nvim_lsp.sqlls.setup{
+lspconfig.sqlls.setup{
   on_attach=on_attach_vim,
 }
 
-nvim_lsp.sumneko_lua.setup{
+lspconfig.sumneko_lua.setup{
   on_attach=on_attach_vim,
-  cmd = {
-    global.home.."/lua-language-server/bin/macOS/lua-language-server", "-E",
-    global.home.."/lua-language-server/main.lua"
-  },
+   -- cmd = {
+     -- global.nvim_cache_dir .. "nvim_lsp/sumneko_lua/lua-language-server/bin/" .. (global.is_linux and "Linux" or "macOS") .."/lua-language-server", "-E",
+     -- global.nvim_cache_dir .. "nvim_lsp/sumneko_lua/lua-language-server/main.lua"
+   -- },
 }
 
--- nvim_lsp.jdtls.setup{}
-nvim_lsp.jdtls.setup{
+-- lspconfig.jdtls.setup{}
+lspconfig.jdtls.setup{
   on_attach=on_attach_vim,
   init_options={
     jvm_args = {
@@ -113,22 +117,37 @@ nvim_lsp.jdtls.setup{
       "-XX:ParallelGCThreads=8",
     },
   },
-  root_dir=nvim_lsp.util.root_pattern(".git", "pom.xml", "build.xml"),
+  root_dir=lspconfig.util.root_pattern(".git", "pom.xml", "build.xml"),
 }
 
-nvim_lsp.jedi_language_server.setup{
+lspconfig.jedi_language_server.setup {
   on_attach=on_attach_vim,
 }
--- nvim_lsp.yamlls.setup{on_attach=on_attach_vim}
+-- lspconfig.yamlls.setup{on_attach=on_attach_vim}
 
 local strategy = {'exact', 'substring', 'fuzzy'}
 vim.g.completion_matching_strategy_list = strategy;
 
-vim.g.diagnostic_enable_virtual_text = 1
-vim.g.diagnostic_enable_underline = 1
-vim.g.diagnostic_auto_popup_while_jump = 0
-vim.g.space_before_virtual_text = 3
+-- vim.g.diagnostic_enable_virtual_text = 1
+-- vim.g.diagnostic_enable_underline = 1
+-- vim.g.diagnostic_auto_popup_while_jump = 0
+-- vim.g.space_before_virtual_text = 3
 
 vim.g.completion_confirm_key = ""
 vim.g.completion_enable_snippet = 'UltiSnips'
 vim.g.completion_matching_ignore_case = 1
+
+
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+ vim.lsp.diagnostic.on_publish_diagnostics, {
+   -- Enable underline, use default values
+   underline = true,
+   -- Enable virtual text, override spacing to 4
+   virtual_text = {
+     spacing = 0,
+   },
+   -- Disable a feature
+   update_in_insert = false,
+ }
+)
