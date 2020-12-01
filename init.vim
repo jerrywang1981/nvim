@@ -47,6 +47,7 @@ Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
 " Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'gruvbox-community/gruvbox'
+Plug 'mhartington/oceanic-next'
 Plug 'haya14busa/incsearch.vim'
 Plug 'haya14busa/incsearch-fuzzy.vim'
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -59,9 +60,12 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 " Plug 'nvim-lua/diagnostic-nvim'
 " Plug 'nvim-lua/lsp-status.nvim'
-" Plug 'kyazdani42/nvim-web-devicons'
+Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jerrywang1981/nvim-util.lua'
+" Plug 'nvim-lua/popup.nvim'
+" Plug 'nvim-lua/plenary.nvim'
+" Plug 'nvim-telescope/telescope.nvim'
 call plug#end()
 
 " filetype plugin indent on
@@ -145,16 +149,19 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip,*/venv/*,*/node_modules/*
 " colorscheme dracula
 " colorscheme codedark
 
-let g:gruvbox_italic=1
-let g:gruvbox_contrast_dark='hard'
+" let g:gruvbox_italic=1
+" let g:gruvbox_contrast_dark='hard'
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
-let g:gruvbox_invert_selection='0'
+" let g:gruvbox_invert_selection='0'
 set background=dark
 " colorscheme dracula
-colorscheme gruvbox
+" colorscheme gruvbox
+let g:oceanic_next_terminal_bold = 0
+let g:oceanic_next_terminal_italic = 1
+colorscheme OceanicNext
 
 " for quickfix window
 autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
@@ -349,31 +356,31 @@ let g:netrw_winsize = 25
 
 " =============================== nvim-tree.lua settings ===========================
 nmap <silent> <space>1 <cmd>LuaTreeToggle<CR>
-let g:lua_tree_show_icons = {
-    \ 'git': 1,
-    \ 'folders': 1,
-    \ 'files': 0,
-    \ 'icon': 0,
-    \}
+" let g:lua_tree_show_icons = {
+    " \ 'git': 1,
+    " \ 'folders': 1,
+    " \ 'files': 1,
+    " \ 'icon': 1,
+    " \}
 let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', 'tmp' ]
 let g:lua_tree_hide_dotfiles = 1
 let g:lua_tree_indent_markers = 1
 
-let g:lua_tree_icons = {
-    \ 'default': '',
-    \ 'symlink': '',
-    \ 'git': {
-    \   'unstaged': "✗",
-    \   'staged': "✓",
-    \   'unmerged': "",
-    \   'renamed': "➜",
-    \   'untracked': "★"
-    \   },
-    \ 'folder': {
-    \   'default': "",
-    \   'open': ""
-    \   }
-    \ }
+" let g:lua_tree_icons = {
+    " \ 'default': '',
+    " \ 'symlink': '',
+    " \ 'git': {
+    " \   'unstaged': "✗",
+    " \   'staged': "✓",
+    " \   'unmerged': "",
+    " \   'renamed': "➜",
+    " \   'untracked': "★"
+    " \   },
+    " \ 'folder': {
+    " \   'default': "",
+    " \   'open': ""
+    " \   }
+    " \ }
 
 "--------undo toggle---------
 
@@ -776,7 +783,12 @@ function! OpenLSPLog() abort
   exe 'edit' v:lua.vim.lsp.get_log_path()
 endfunction
 
+function! ClearLSPLog() abort
+  lua os.remove(vim.lsp.get_log_path())
+endfunction
+
 lua require('init')
+
 
 command! -nargs=0 OR :call v:lua.require('nvim-util.actions').organize_imports()<cr>
 " require'lsp.lsp_util'.organize_imports<cr>

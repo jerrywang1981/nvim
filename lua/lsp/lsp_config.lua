@@ -1,6 +1,7 @@
 local vim = vim
 local global=require('global')
 local lspconfig = require'lspconfig'
+local log = require 'vim.lsp.log'
 local nvim_util_mapping = require'nvim-util.mapping'
 local map_current_buf_key = nvim_util_mapping.map_current_buf_key
 
@@ -29,6 +30,7 @@ local map_buf_keys = function()
   map_current_buf_key('n', ']g', '<cmd>NextDiagnostic<cr>')
 
   map_current_buf_key('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
+  -- map_current_buf_key('n', '<space>a', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
   -- vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
   vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -38,13 +40,13 @@ end
 
 
 local on_attach_vim = function(client, bufnr)
-  print("LSP starting")
+  log.info("LSP starting")
   require('completion').on_attach(client, bufnr)
   -- require('diagnostic').on_attach(client, bufnr)
 
   -- map the buffer keys
   map_buf_keys()
-  print("LSP started")
+  log.info("LSP started")
   -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
   -- vim.api.nvim_command[[autocmd BufWritePre *.go,*.ts,*.js,*.java lua vim.lsp.buf.formatting()]]
 end
