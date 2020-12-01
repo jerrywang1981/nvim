@@ -17,7 +17,7 @@ local map_buf_keys = function()
 	-- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 	-- map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 	-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
-	-- map('n','<leader>ee','<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>')
+  map_current_buf_key('n','<localleader>ld','<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
   map_current_buf_key('n','<localleader>rn','<cmd>lua vim.lsp.buf.rename()<CR>')
   map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 	-- map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
@@ -25,9 +25,9 @@ local map_buf_keys = function()
 
 
   -- diagnostics setting
-  map_current_buf_key('n', '<space>d', '<cmd>OpenDiagnostic<cr>')
-  map_current_buf_key('n', '[g', '<cmd>PrevDiagnostic<cr>')
-  map_current_buf_key('n', ']g', '<cmd>NextDiagnostic<cr>')
+  map_current_buf_key('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>')
+  -- map_current_buf_key('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
+  -- map_current_buf_key('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>')
 
   map_current_buf_key('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
   -- map_current_buf_key('n', '<space>a', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
