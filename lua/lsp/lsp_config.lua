@@ -127,12 +127,14 @@ lspconfig.sumneko_lua.setup{
    -- },
 }
 
+
+      -- "-javaagent:"..vim.loop.os_homedir().."/lombok.jar",
 -- lspconfig.jdtls.setup{}
 lspconfig.jdtls.setup{
   on_attach=on_attach_vim,
   init_options={
     jvm_args = {
-      "-javaagent:"..vim.loop.os_homedir().."/lombok.jar",
+      "-javaagent:" .. global.vim_path .. global.path_sep .. "f" .. global.path_sep .. "lombok.jar",
       "-XX:+UseG1GC",
       "-XX:+UseStringDeduplication",
       "-XX:ParallelGCThreads=8",
