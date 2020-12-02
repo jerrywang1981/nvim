@@ -35,17 +35,12 @@ Plug 'mattn/emmet-vim'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'wellle/targets.vim'
-" Plug 'Yggdroot/LeaderF', { 'do': './install.sh' }
-" Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app & npm install'  }
 Plug 'editorconfig/editorconfig-vim'
-" Plug 'junegunn/goyo.vim', { 'on': 'Goyo' }
-" Plug 'junegunn/limelight.vim'
 Plug 'elzr/vim-json', { 'for': 'json' }
 Plug 'honza/dockerfile.vim', { 'for': 'Dockerfile' }
 Plug 'luochen1990/rainbow'
 Plug 'itchyny/lightline.vim'
 Plug 'mengelbrecht/lightline-bufferline'
-" Plug 'dracula/vim', { 'as': 'dracula' }
 Plug 'gruvbox-community/gruvbox'
 Plug 'mhartington/oceanic-next'
 Plug 'haya14busa/incsearch.vim'
@@ -55,11 +50,8 @@ Plug 'junegunn/fzf.vim'
 Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
 Plug 'puremourning/vimspector'
 Plug 'szw/vim-maximizer'
-" Plug 'neoclide/coc.nvim', {'branch': 'release'}
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
-" Plug 'nvim-lua/diagnostic-nvim'
-" Plug 'nvim-lua/lsp-status.nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jerrywang1981/nvim-util.lua'
@@ -71,7 +63,6 @@ call plug#end()
 " filetype plugin indent on
 set path+=**
 set updatetime=500
-" set directory=~/tmp,/tmp
 set foldmethod=indent
 set foldlevel=99
 set noswapfile
@@ -125,13 +116,7 @@ set nowritebackup
 set cmdheight=2
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
-
-if has("patch-8.1.1564")
-  " Recently vim can merge signcolumn and number column into one
-  set signcolumn=number
-else
-  set signcolumn=yes
-endif
+set signcolumn=yes
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -170,17 +155,8 @@ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
 let g:AutoPairsMapCh = 0
 " let g:AutoPairsMapCR = 1
 
-" ======================== goyo limelight =======================
-" let g:goyo_width=100
-" let g:goyo_height=80
-" let g:goyo_linenr=1
-" nnoremap <silent> <space>0 :<c-u>Goyo<cr>
-" autocmd! User GoyoEnter Limelight
-" autocmd! User GoyoLeave Limelight!
-
 
 " autocmd
-" autocmd InsertEnter * norm zz
 autocmd BufWritePre * %s/\s\+$//e
 
 
@@ -198,48 +174,6 @@ xnoremap <silent> <leader>fs :<c-w>Rg <c-r><c-w><cr>
 let g:fzf_preview_window = ''
 " let g:fzf_preview_window = 'right:60%'
 " let g:fzf_layout = {'down': '30%'}
-
-" ==============leaderf settigs, keep one only for leader or fzf=============
-" let g:Lf_HideHelp = 1
-" let g:Lf_UseCache = 0
-" let g:Lf_UseVersionControlTool = 0
-" let g:Lf_IgnoreCurrentBufferName = 1
-" let g:Lf_ShowDevIcons=0
-"
-" let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
-" let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
-"
-" let g:Lf_ShortcutF = "<c-p>"
-" let g:Lf_ShortcutB = "<leader>fb"
-" noremap <c-m> :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
-" noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
-" noremap <leader>fs :<C-U><C-R>=printf("Leaderf rg --stayOpen %s", "")<CR><CR>
-" xnoremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --stayOpen -F -e %s ", leaderf#Rg#visual())<CR>
-" noremap <leader>fS :<C-U>Leaderf! rg --recall<CR>
-
-" let g:Lf_CommandMap = {'<Tab>': ['<ESC>']}
-" let g:Lf_DefaultMode = 'NameOnly'
-" let g:Lf_PythonVersion=3
-" let g:Lf_WindowHeight = 0.3
-" let g:Lf_WorkingDirectoryMode = 'Ac'
-" let g:Lf_GtagsAutoGenerate = 0
-" let g:Lf_Gtagslabel = 'native-pygments'
-
-" let g:Lf_WildIgnore = {
-  " \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
-  " \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-  " \}
-" let g:Lf_MruWildIgnore = {
-  " \ 'dir': ['.svn','.git','.hg', 'node_modules', 'dist', 'venv'],
-  " \ 'file': ['*.sw?','~$*','*.bak','*.exe','*.o','*.so','*.py[co]']
-  " \}
-" let g:Lf_RgConfig = [
-  " \ "--max-columns=300",
-  " \ "--glob=!node_modules/*",
-  " \ "--glob=!venv/*",
-  " \ "--glob=!dist/*",
-  " \ ]
-
 
 
 
@@ -366,8 +300,9 @@ let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', 'tmp' ]
 let g:lua_tree_hide_dotfiles = 1
 let g:lua_tree_indent_markers = 1
 
-" let g:lua_tree_icons = {
-    " \ 'default': '',
+let g:lua_tree_icons = {
+    \ 'default': '*'
+    \ }
     " \ 'symlink': '',
     " \ 'git': {
     " \   'unstaged': "✗",
@@ -380,7 +315,6 @@ let g:lua_tree_indent_markers = 1
     " \   'default': "",
     " \   'open': ""
     " \   }
-    " \ }
 
 "--------undo toggle---------
 
@@ -510,13 +444,6 @@ function! LightLineFileformat() abort
   return winwidth(0) > 70 ? (&fileformat . ' ') : ''
 endfunction
 
-" Statusline
-" function! LspStatus() abort
-  " if luaeval('#vim.lsp.buf_get_clients() > 0')
-    " return winwidth(0) > 70 ? luaeval("require('lsp-status').status()") : ''
-  " endif
-  " return ''
-" endfunction
 
 let g:lightline#bufferline#show_number  = 3
 " let g:lightline#bufferline#min_buffer_count = 1
@@ -584,50 +511,6 @@ let g:closetag_shortcut = '>'
 let g:closetag_close_shortcut = '<leader>>'
 
 
-
-" ---------- coc.nvim----------
-" let g:coc_disable_startup_warning=1
-" let g:coc_global_extensions = ['coc-java', 'coc-java-debug']
-" let g:coc_global_extensions = ['coc-pairs', 'coc-snippets', 'coc-emmet', 'coc-yank', 'coc-lists']
-
-" Use tab for trigger completion with characters ahead and navigate.
-" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
-" other plugin before putting this into your config.
-" inoremap <silent><expr> <TAB>
-      " \ pumvisible() ? "\<C-n>" :
-      " \ <SID>check_back_space() ? "\<TAB>" :
-      " \ coc#refresh()
-
-" inoremap <silent><expr> <TAB>
-      " \ pumvisible() ? coc#_select_confirm() :
-      " \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      " \ <SID>check_back_space() ? "\<TAB>" :
-      " \ coc#refresh()
-
-" inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-" Use <C-j> for jump to next placeholder, it's default of coc.nvim
-" let g:coc_snippet_next = '<c-j>'
-" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
-" let g:coc_snippet_prev = '<c-k>'
-
-
-
-" function! s:check_back_space() abort
-  " let col = col('.') - 1
-  " return !col || getline('.')[col - 1]  =~# '\s'
-" endfunction
-
-
-" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
-" position. Coc only does snippet and additional edit on confirm.
-" <cr> could be remapped by other vim plugin, try `:verbose imap <CR>`.
-" if exists('*complete_info')
-  " inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-" else
-  " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-" endif
-
 " let g:completion_confirm_key = ""
 imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ?
                  \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
@@ -639,145 +522,11 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 
-" Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
-" nmap <silent> [g <Plug>(coc-diagnostic-prev)
-" nmap <silent> ]g <Plug>(coc-diagnostic-next)
-
-" GoTo code navigation.
-" nmap <silent> <localleader>gd <Plug>(coc-definition)
-" nmap <silent> <localleader>gy <Plug>(coc-type-definition)
-" nmap <silent> <localleader>gi <Plug>(coc-implementation)
-" nmap <silent> <localleader>gr <Plug>(coc-references)
-" nmap <silent> <localleader>rn <Plug>(coc-rename)
-
-
-" Use K to show documentation in preview window.
-" nnoremap <silent> K :call <SID>show_documentation()<CR>
-
-" function! s:show_documentation()
-  " if (index(['vim','help'], &filetype) >= 0)
-    " execute 'h '.expand('<cword>')
-  " else
-    " call CocAction('doHover')
-  " endif
-" endfunction
-
-" Highlight the symbol and its references when holding the cursor.
-" autocmd CursorHold * silent call CocActionAsync('highlight')
-
-
-" Formatting selected code.
-" xmap <leader>f  <Plug>(coc-format-selected)
-" nmap <leader>f  <Plug>(coc-format-selected)
-
-" augroup mygroup
-  " autocmd!
-  " autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
-  " autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
-" augroup end
-
-" Applying codeAction to the selected region.
-" Example: `<leader>aap` for current paragraph
-" xmap <leader>a  <Plug>(coc-codeaction-selected)
-" nmap <leader>a  <Plug>(coc-codeaction-selected)
-
-" Remap keys for applying codeAction to the current buffer.
-" nmap <leader>ac  <Plug>(coc-codeaction)
-" Apply AutoFix to problem on the current line.
-" nmap <leader>qf  <Plug>(coc-fix-current)
-
-" Map function and class text objects
-" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
-" xmap if <Plug>(coc-funcobj-i)
-" omap if <Plug>(coc-funcobj-i)
-" xmap af <Plug>(coc-funcobj-a)
-" omap af <Plug>(coc-funcobj-a)
-" xmap ic <Plug>(coc-classobj-i)
-" omap ic <Plug>(coc-classobj-i)
-" xmap ac <Plug>(coc-classobj-a)
-" omap ac <Plug>(coc-classobj-a)
-
-" Use CTRL-S for selections ranges.
-" Requires 'textDocument/selectionRange' support of LS, ex: coc-tsserver
-" nmap <silent> <C-s> <Plug>(coc-range-select)
-" xmap <silent> <C-s> <Plug>(coc-range-select)
-
-" Add `:Format` command to format current buffer.
-" command! -nargs=0 Format :call CocAction('format')
-
-" Add `:Fold` command to fold current buffer.
-" command! -nargs=? Fold :call     CocAction('fold', <f-args>)
-
-" Add `:OR` command for organize imports of the current buffer.
-" command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
-
-" Add (Neo)Vim's native statusline support.
-" NOTE: Please see `:h coc-status` for integrations with external plugins that
-" provide custom statusline: lightline.vim, vim-airline.
-" set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Mappings for CoCList
-" Show all diagnostics.
-" nnoremap <silent><nowait> <space>d  :<C-u>CocList diagnostics<cr>
-" show all actions
-" nnoremap <silent><nowait> <space>a  :<C-u>CocList actions<cr>
-" Manage extensions.
-" nnoremap <silent><nowait> <space>e  :<C-u>CocList extensions<cr>
-
-" nnoremap <silent><nowait> <space>e :<c-u>CocCommand explorer<CR>
-
-" nmap <space>e :CocCommand explorer<CR>
-" autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
-
-" Show commands.
-" nnoremap <silent><nowait> <space>c  :<C-u>CocList commands<cr>
-" Find symbol of current document.
-" nnoremap <silent><nowait> <space>o  :<C-u>CocList outline<cr>
-" Search workspace symbols.
-" nnoremap <silent><nowait> <space>s  :<C-u>CocList -I symbols<cr>
-" Do default action for next item.
-" nnoremap <silent><nowait> <space>j  :<C-u>CocNext<CR>
-" Do default action for previous item.
-" nnoremap <silent><nowait> <space>k  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-" nnoremap <silent><nowait> <space>p  :<C-u>CocListResume<CR>
-
-" nnoremap <silent> <space>y  :<C-u>CocList -A --normal yank<cr>
-
-" autocmd BufWritePre *.go :call CocAction('runCommand', 'editor.action.organizeImport')
-" autocmd BufWritePre *.go :call CocAction('format')
-" ---------- end of coc
-
-
 " ----- abbr
 iab jwm Jerry Wang <jianjunw@cn.ibm.com>
 iab jwgm Jerry Wang <wangjianjun@gmail.com>
 iab <expr> dts strftime("%x")
 
-
-" nvim-lsp
-
-" pip install python-language-server
-"
-"
-" npm i -g bash-language-server vscode-css-languageserver-bin dockerfile-language-server-nodejs typescript-language-server vscode-html-languageserver-bin vscode-json-languageserver vls yaml-language-server vim-language-server
-"
-" lua << EOF
-  " require'nvim_lsp'.gopls.setup{}
-  " require'nvim_lsp'.tsserver.setup{}
-  " require'nvim_lsp'.bashls.setup{}
-  " require'nvim_lsp'.cssls.setup{}
-  " require'nvim_lsp'.dockerls.setup{}
-  " require'nvim_lsp'.html.setup{}
-  " require'nvim_lsp'.jsonls.setup{}
-  " require'nvim_lsp'.vuels.setup{}
-  " require'nvim_lsp'.yamlls.setup{}
-  " require'nvim_lsp'.pyls.setup{}
-  " require'nvim_lsp'.vimls.setup{}
-" EOF
-
-lua vim.lsp.set_log_level(0)
 
 function! OpenLSPLog() abort
   exe 'edit' v:lua.vim.lsp.get_log_path()
@@ -791,14 +540,6 @@ lua require('init')
 
 
 command! -nargs=0 OR :call v:lua.require('nvim-util.actions').organize_imports()<cr>
-" require'lsp.lsp_util'.organize_imports<cr>
-
-" function! LSPRename()
-    " let s:newName = input('Enter new name: ', expand('<cword>'))
-    " echom "s:newName = " . s:newName
-    " lua vim.lsp.buf.rename(s:newName)
-" endfunction
-
 
 
 " ================= startify ==========================

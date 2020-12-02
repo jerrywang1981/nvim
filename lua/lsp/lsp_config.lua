@@ -5,6 +5,25 @@ local log = require 'vim.lsp.log'
 local nvim_util_mapping = require'nvim-util.mapping'
 local map_current_buf_key = nvim_util_mapping.map_current_buf_key
 
+require'nvim-web-devicons'.setup {
+  override = {
+    Dockerfile = {
+      icon = "",
+      color = "#cc3e44",
+      name = "Dockerfile",
+    },
+    ["cmd"] = {
+      icon = "",
+      color = "#4d5a5e",
+      name = "Cmd",
+    },
+    xml = {
+      icon = "",
+      color = "#e37933",
+      name = "Xml",
+    }
+  }
+}
 
 local map_buf_keys = function()
   map_current_buf_key('n','gd','<cmd>lua vim.lsp.buf.declaration()<CR>')
@@ -26,8 +45,8 @@ local map_buf_keys = function()
 
   -- diagnostics setting
   map_current_buf_key('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>')
-  -- map_current_buf_key('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
-  -- map_current_buf_key('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>')
+  map_current_buf_key('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
+  map_current_buf_key('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>')
 
   map_current_buf_key('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
   -- map_current_buf_key('n', '<space>a', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])

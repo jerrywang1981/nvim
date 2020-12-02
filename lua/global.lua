@@ -1,11 +1,11 @@
 local global = {}
-local home    = os.getenv("HOME")
-local path_sep = global.is_windows and '\\' or '/'
+local home = os.getenv("HOME")
 
 function global.load_variables()
   global.is_mac     = jit.os == 'OSX'
   global.is_linux   = jit.os == 'Linux'
   global.is_windows = jit.os == 'Windows'
+  local path_sep = global.is_windows and '\\' or '/'
   global.vim_path    = home .. path_sep..'.config'..path_sep..'nvim'
   global.cache_dir   = home .. path_sep..'.cache'..path_sep..'vim'..path_sep
   global.nvim_cache_dir   = home .. path_sep..'.cache'..path_sep..'nvim'..path_sep
