@@ -55,6 +55,7 @@ Plug 'nvim-lua/completion-nvim'
 Plug 'kyazdani42/nvim-web-devicons'
 Plug 'kyazdani42/nvim-tree.lua'
 Plug 'jerrywang1981/nvim-util.lua'
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Plug 'nvim-lua/popup.nvim'
 " Plug 'nvim-lua/plenary.nvim'
 " Plug 'nvim-telescope/telescope.nvim'
@@ -178,7 +179,7 @@ let g:fzf_preview_window = ''
 
 
 " ================markdown-preview==================
-" let g:mkdp_auto_close = 0
+let g:mkdp_auto_close = 1
 
 " =================editorconfig-vim===================
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
