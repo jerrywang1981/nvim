@@ -3,8 +3,8 @@ local global=require('jw.global')
 local lspconfig = require'lspconfig'
 local lsp_status = require('lsp-status')
 local log = require 'vim.lsp.log'
-local nvim_util_mapping = require'nvim-util.mapping'
-local map_current_buf_key = nvim_util_mapping.map_current_buf_key
+local util = require'jw.util'
+local map_current_buf_key = util.map_current_buf_key
 
 lsp_status.register_progress()
 
@@ -55,7 +55,7 @@ end
 
 local on_attach_vim_go = function(client, bufnr)
   on_attach_vim(client, bufnr)
-  vim.api.nvim_command[[autocmd BufWritePre *.go lua require'nvim-util.actions'.organize_imports_format()]]
+  vim.api.nvim_command[[autocmd BufWritePre *.go lua require'jw.util'.organize_imports_format()]]
   -- vim.api.nvim_command[[autocmd BufWritePre *.go lua vim.lsp.buf.formatting_sync(nil, 1000)]]
   -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync(nil, 1000)]]
 end

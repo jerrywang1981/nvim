@@ -1,5 +1,37 @@
+local vim = vim
 
+--[[
+-- for auto-pairs
+--]]
+vim.g.AutoPairsMapCh = 0
 
+--[[
+--dev icons
+--]]
+require'nvim-web-devicons'.setup {
+  override = {
+    Dockerfile = {
+      icon = "",
+      color = "#cc3e44",
+      name = "Dockerfile",
+    },
+    ["cmd"] = {
+      icon = "",
+      color = "#4d5a5e",
+      name = "Cmd",
+    },
+    xml = {
+      icon = "",
+      color = "#e37933",
+      name = "Xml",
+    }
+  }
+}
+
+--[[
+--
+-- nvim-treesitter
+--]]
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
     "lua",
@@ -23,7 +55,7 @@ require'nvim-treesitter.configs'.setup {
     "bash",
     "toml",
     "css",
-  }, -- "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  },
   highlight = {
     enable = true,              -- false will disable the whole extension
     disable = { "elm" },  -- list of language that will be disabled

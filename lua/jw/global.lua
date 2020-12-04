@@ -1,5 +1,5 @@
-local global = {}
 local vim = vim
+local global = {}
 local home = os.getenv("HOME")
 
 function global.load_variables()
@@ -94,5 +94,11 @@ function global.push_config()
   print("===pushed nvim config to remote====")
 end
 
+
+-- taken from https://github.com/nanotee/nvim-lua-guide
+function _G.dump(...)
+    local objects = vim.tbl_map(vim.inspect, {...})
+    print(unpack(objects))
+end
 
 return global

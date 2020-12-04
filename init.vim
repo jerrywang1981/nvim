@@ -93,20 +93,6 @@ let g:oceanic_next_terminal_bold = 0
 let g:oceanic_next_terminal_italic = 1
 colorscheme OceanicNext
 
-" for quickfix window
-autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR>
-
-" auto-pair
-let g:AutoPairsMapCh = 0
-" let g:AutoPairsMapCR = 1
-
-
-" autocmd
-autocmd BufWritePre * %s/\s\+$//e
-
-autocmd BufWritePost plugins.lua PackerCompile
-
-autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=500})
 
 
 " ===============fzf settings, keep one only for fzf or leaderf =======
@@ -116,8 +102,8 @@ noremap <silent> <c-m> <cmd>History<cr>
 noremap <silent> <leader>fb <cmd>Buffers<cr>
 noremap <silent> <leader>fs <cmd>Rg<cr>
 xnoremap <silent> <leader>fs :<c-w>Rg <c-r><c-w><cr>
-let g:fzf_preview_window = ''
-" let g:fzf_preview_window = 'right:60%'
+" let g:fzf_preview_window = ''
+let g:fzf_preview_window = [ 'right:60%:hidden', 'ctrl-/']
 " let g:fzf_layout = {'down': '30%'}
 
 
@@ -139,7 +125,7 @@ autocmd User fugitive
   \ endif
 
 " ===================rainbow=================
-let g:rainbow_active = 1
+" let g:rainbow_active = 1
 
 " ================= emmet-vim ================
 let g:user_emmet_install_global = 0
@@ -151,8 +137,8 @@ let g:rooter_silent_chdir = 1
 " ==================== identLine =====================
 let g:indentLine_color_term = 239
 let g:indentLine_color_gui = '#338833'
-let g:indentLine_bufTypeExclude = ['help', 'terminal', 'netrw']
-let g:indentLine_fileTypeExclude = ['defx', 'netrw', 'denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer']
+let g:indentLine_bufTypeExclude = ['help', 'terminal', 'netrw', 'packer']
+let g:indentLine_fileTypeExclude = ['defx', 'netrw', 'denite', 'startify', 'tagbar', 'vista_kind', 'help', 'coc-explorer', 'packer']
 
 
 " ================== easymotion ====================
@@ -499,7 +485,7 @@ function! NvimConfigPush() abort
 endfunction
 
 
-command! -nargs=0 OR :call v:lua.require('nvim-util.actions').organize_imports()<cr>
+command! -nargs=0 OR :call v:lua.require('jw.util').organize_imports()<cr>
 
 
 " ================= startify ==========================
