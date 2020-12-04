@@ -15,6 +15,12 @@ vim.cmd [[packadd packer.nvim]]
 local packer = require('packer')
 local use = packer.use
 
+packer.init{
+  git = {
+    clone_timeout = 600,
+  },
+}
+
 return packer.startup(function()
 
   -- Packer can manage itself as an optional plugin
