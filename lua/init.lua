@@ -11,4 +11,6 @@ end
 
 vim.lsp.set_log_level(0)
 
-require('lsp.lsp_config')
+require('jw.lsp_config')
+require('jw.treesitter')
+require('jw.devicons')
