@@ -7,6 +7,7 @@ local autocmd_str = {
   [[ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR> ]],
   [[ autocmd BufWritePre * %s/\s\+$//e ]],
   [[ autocmd BufWritePost plugins.lua PackerCompile ]],
+  [[ autocmd BufReadPost fugitive://* set bufhidden=delete ]],
 }
 
 util.set_autocmd_list(autocmd_str)

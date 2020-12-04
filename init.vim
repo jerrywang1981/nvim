@@ -8,60 +8,60 @@ let maplocalleader=','
 
 " filetype plugin indent on
 set path+=**
-set updatetime=500
-set foldmethod=indent
-set foldlevel=99
-set noswapfile
-set autoindent
-set encoding=utf-8
+" set updatetime=500
+" set foldmethod=indent
+" set foldlevel=99
+" set noswapfile
+" set autoindent
+" set encoding=utf-8
 set clipboard+=unnamedplus  " use the clipboards of vim and win
 set go+=a               " Visual selection automatically copied to the clipboard
-set number
-set relativenumber
-set showtabline=2
+" set number
+" set relativenumber
+" set showtabline=2
 set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 set guioptions-=b
-set nowrap
-set fileformat=unix
-set cindent
+" set nowrap
+" set fileformat=unix
+" set cindent
 set colorcolumn=80
-set tabstop=2
-set shiftwidth=2
-set softtabstop=2
-set showmatch
-set scrolloff=5
-set laststatus=2
-set fenc=utf-8
+" set tabstop=2
+" set shiftwidth=2
+" set softtabstop=2
+" set showmatch
+" set scrolloff=5
+" set laststatus=2
+" set fenc=utf-8
 set backspace=indent,eol,start
 set omnifunc=syntaxcomplete#Complete
 set suffixesadd=.java
-set mouse=a
-set selection=exclusive
+" set mouse=a
+" set selection=exclusive
 set selectmode=mouse,key
-set matchtime=5
-set ignorecase
-set incsearch
-set hlsearch
-set expandtab
+" set matchtime=5
+" set ignorecase
+" set incsearch
+" set hlsearch
+" set expandtab
 set whichwrap+=<,>,h,l
-set autoread
-set cursorline
-set cursorcolumn
-set history=200
-set fixendofline
+" set autoread
+" set cursorline
+" set cursorcolumn
+" set history=200
+" set fixendofline
 set diffopt+=vertical
-set termguicolors
-set visualbell
-set hidden
-set nobackup
-set nowritebackup
-set cmdheight=2
+" set termguicolors
+" set visualbell
+" set hidden
+" set nobackup
+" set nowritebackup
+" set cmdheight=2
 set completeopt=menuone,noinsert,noselect
 set shortmess+=c
-set signcolumn=yes
+" set signcolumn=yes
 
 silent !mkdir -p ~/.config/nvim/tmp/backup
 silent !mkdir -p ~/.config/nvim/tmp/undo
@@ -86,24 +86,24 @@ if exists('+termguicolors')
   let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 " let g:gruvbox_invert_selection='0'
-set background=dark
+" set background=dark
 " colorscheme dracula
 " colorscheme gruvbox
-let g:oceanic_next_terminal_bold = 0
-let g:oceanic_next_terminal_italic = 1
-colorscheme OceanicNext
+" let g:oceanic_next_terminal_bold = 0
+" let g:oceanic_next_terminal_italic = 1
+" colorscheme OceanicNext
 
 
 
 " ===============fzf settings, keep one only for fzf or leaderf =======
 " export FZF_DEFAULT_COMMAND='rg --files'
-noremap <silent> <c-p> <cmd>Files<cr>
-noremap <silent> <c-m> <cmd>History<cr>
-noremap <silent> <leader>fb <cmd>Buffers<cr>
-noremap <silent> <leader>fs <cmd>Rg<cr>
-xnoremap <silent> <leader>fs :<c-w>Rg <c-r><c-w><cr>
+" noremap <silent> <c-p> <cmd>Files<cr>
+" noremap <silent> <c-m> <cmd>History<cr>
+" noremap <silent> <leader>fb <cmd>Buffers<cr>
+" noremap <silent> <leader>fs <cmd>Rg<cr>
+" xnoremap <silent> <leader>fs :<c-w>Rg <c-r><c-w><cr>
 " let g:fzf_preview_window = ''
-let g:fzf_preview_window = [ 'right:60%:hidden', 'ctrl-/']
+" let g:fzf_preview_window = [ 'right:60%:hidden', 'ctrl-/']
 " let g:fzf_layout = {'down': '30%'}
 
 
@@ -118,7 +118,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
 let g:vim_json_syntax_conceal = 0
 
 " =============== vim-fugitive===================
-autocmd BufReadPost fugitive://* set bufhidden=delete
+" autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd User fugitive
   \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
   \   nnoremap <buffer> .. :edit %:h<CR> |
@@ -128,8 +128,8 @@ autocmd User fugitive
 " let g:rainbow_active = 1
 
 " ================= emmet-vim ================
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
+" let g:user_emmet_install_global = 0
+" autocmd FileType html,css EmmetInstall
 
 " ================== vim-rooter =================
 let g:rooter_silent_chdir = 1

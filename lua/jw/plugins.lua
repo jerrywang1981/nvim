@@ -46,7 +46,6 @@ return packer.startup(function()
   use 'editorconfig/editorconfig-vim'
   use 'itchyny/lightline.vim'
   use 'mengelbrecht/lightline-bufferline'
-  -- use 'gruvbox-community/gruvbox'
   use 'mhartington/oceanic-next'
   use 'haya14busa/incsearch.vim'
   use 'haya14busa/incsearch-fuzzy.vim'
@@ -57,7 +56,6 @@ return packer.startup(function()
   use 'nvim-lua/lsp-status.nvim'
   use 'kyazdani42/nvim-web-devicons'
   use 'kyazdani42/nvim-tree.lua'
-  -- use 'jerrywang1981/nvim-util.lua'
   use 'junegunn/fzf.vim'
 
   use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
