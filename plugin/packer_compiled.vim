@@ -10,33 +10,33 @@ local plugins = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/Users/jerry/.local/share/nvim/site/pack/packer/opt/dockerfile.vim"
+    path = "/home/jerry/.local/share/nvim/site/pack/packer/opt/dockerfile.vim"
   },
   ["gv.vim"] = {
     commands = { "GV" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/Users/jerry/.local/share/nvim/site/pack/packer/opt/gv.vim"
+    path = "/home/jerry/.local/share/nvim/site/pack/packer/opt/gv.vim"
   },
   neoterm = {
     commands = { "Ttoggle" },
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/Users/jerry/.local/share/nvim/site/pack/packer/opt/neoterm"
+    path = "/home/jerry/.local/share/nvim/site/pack/packer/opt/neoterm"
   },
   ["packer.nvim"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/Users/jerry/.local/share/nvim/site/pack/packer/opt/packer.nvim"
+    path = "/home/jerry/.local/share/nvim/site/pack/packer/opt/packer.nvim"
   },
   ["vim-json"] = {
     loaded = false,
     only_sequence = false,
     only_setup = false,
-    path = "/Users/jerry/.local/share/nvim/site/pack/packer/opt/vim-json"
+    path = "/home/jerry/.local/share/nvim/site/pack/packer/opt/vim-json"
   }
 }
 
