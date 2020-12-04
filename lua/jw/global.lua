@@ -1,4 +1,5 @@
 local global = {}
+local vim = vim
 local home = os.getenv("HOME")
 
 function global.load_variables()
@@ -74,5 +75,24 @@ function global.has_key (tab,idx)
 end
 
 global.load_variables()
+
+function global.pull_config()
+  local c = global.vim_path
+  local cmd1 = "cd " .. c
+  local cmd2 = "git pull"
+  print("===pulling nvim config to local====")
+  print(vim.fn.system(cmd1 .. " && " .. cmd2))
+  print("===pulled nvim config to local====")
+end
+
+function global.push_config()
+  local c = global.vim_path
+  local cmd1 = "cd " .. c
+  local cmd2 = "git push"
+  print("===pushing nvim config to remove====")
+  print(vim.fn.system(cmd1 .. " && " .. cmd2))
+  print("===pushed nvim config to remote====")
+end
+
 
 return global

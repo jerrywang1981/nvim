@@ -540,6 +540,14 @@ endfunction
 
 lua require('init')
 
+function! NvimConfigPull() abort
+  lua require'jw.global'.pull_config()
+endfunction
+
+function! NvimConfigPush() abort
+  lua require'jw.global'.push_config()
+endfunction
+
 
 command! -nargs=0 OR :call v:lua.require('nvim-util.actions').organize_imports()<cr>
 
