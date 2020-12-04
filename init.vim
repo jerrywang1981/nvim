@@ -6,62 +6,6 @@ let mapleader=','
 noremap \ ,
 let maplocalleader=','
 
-if empty(glob('~/.local/share/nvim/site/autoload/plug.vim'))
-  silent !curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-
-call plug#begin('~/.local/share/nvim/plugged')
-
-Plug 'easymotion/vim-easymotion'
-Plug 'mhinz/vim-startify'
-Plug 'alvan/vim-closetag'
-Plug 'Yggdroot/indentLine'
-Plug 'jiangmiao/auto-pairs'
-Plug 'preservim/nerdcommenter'
-Plug 'kshenoy/vim-signature'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-unimpaired'
-Plug 'junegunn/gv.vim', { 'on': 'GV' }
-Plug 'tpope/vim-repeat'
-Plug 'airblade/vim-rooter'
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'mbbill/undotree'
-Plug 'mattn/emmet-vim'
-Plug 'SirVer/ultisnips'
-Plug 'honza/vim-snippets'
-Plug 'wellle/targets.vim'
-Plug 'editorconfig/editorconfig-vim'
-Plug 'elzr/vim-json', { 'for': 'json' }
-Plug 'honza/dockerfile.vim', { 'for': 'Dockerfile' }
-Plug 'luochen1990/rainbow'
-Plug 'itchyny/lightline.vim'
-Plug 'mengelbrecht/lightline-bufferline'
-Plug 'gruvbox-community/gruvbox'
-Plug 'mhartington/oceanic-next'
-Plug 'haya14busa/incsearch.vim'
-Plug 'haya14busa/incsearch-fuzzy.vim'
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-Plug 'kassio/neoterm', { 'on': 'Ttoggle'}
-Plug 'puremourning/vimspector'
-Plug 'szw/vim-maximizer'
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-lua/completion-nvim'
-Plug 'kyazdani42/nvim-web-devicons'
-Plug 'kyazdani42/nvim-tree.lua'
-Plug 'jerrywang1981/nvim-util.lua'
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-Plug 'nvim-treesitter/playground'
-" Plug 'nvim-lua/popup.nvim'
-" Plug 'nvim-lua/plenary.nvim'
-" Plug 'nvim-telescope/telescope.nvim'
-call plug#end()
-
 " filetype plugin indent on
 set path+=**
 set updatetime=500
@@ -91,7 +35,6 @@ set showmatch
 set scrolloff=5
 set laststatus=2
 set fenc=utf-8
-" set backspace=2
 set backspace=indent,eol,start
 set omnifunc=syntaxcomplete#Complete
 set suffixesadd=.java
@@ -161,10 +104,10 @@ let g:AutoPairsMapCh = 0
 " autocmd
 autocmd BufWritePre * %s/\s\+$//e
 
+autocmd BufWritePost plugins.lua PackerCompile
 
 autocmd TextYankPost * silent! lua vim.highlight.on_yank({higroup="IncSearch", timeout=500})
 
-" =============== either fzf or leaderf, keey one =====================
 
 " ===============fzf settings, keep one only for fzf or leaderf =======
 " export FZF_DEFAULT_COMMAND='rg --files'
@@ -334,10 +277,6 @@ let g:undotree_SplitWidth = 24
 
 
 
-" autocmd FileType qf nnoremap <silent><buffer> p :PreviewQuickfix<cr>
-" autocmd FileType qf nnoremap <silent><buffer> P :PreviewClose<cr>
-
-
 " ======================= lightline ============================
 let g:lightline = {
       \ 'colorscheme': 'wombat',
@@ -347,7 +286,8 @@ let g:lightline = {
       \   'right':[ ['lineinfo'],
       \             ['percent'],
       \             ['fileformat','fileencoding', 'filetype'],
-      \             ['tnt']
+      \             ['tnt'],
+      \             ['lspstatus']
       \             ],
       \ },
       \ 'inactive': {
@@ -370,6 +310,7 @@ let g:lightline = {
       \   'gitgutter': 'LightLineGitGutter',
       \   'readonly': 'LightLineReadonly',
       \   'filename': 'LightLineFname',
+      \   'lspstatus': 'LspStatus',
       \   'filetype': 'LightLineFiletype',
       \   'fileformat': 'LightLineFileformat',
       \ },
@@ -444,6 +385,15 @@ endfunction
 
 function! LightLineFileformat() abort
   return winwidth(0) > 70 ? (&fileformat . ' ') : ''
+endfunction
+
+" Statusline
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
 endfunction
 
 

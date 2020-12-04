@@ -1,10 +1,12 @@
 local vim = vim
 local global=require('jw.global')
 local lspconfig = require'lspconfig'
+local lsp_status = require('lsp-status')
 local log = require 'vim.lsp.log'
 local nvim_util_mapping = require'nvim-util.mapping'
 local map_current_buf_key = nvim_util_mapping.map_current_buf_key
 
+lsp_status.register_progress()
 
 local map_buf_keys = function()
   map_current_buf_key('n','gd','<cmd>lua vim.lsp.buf.declaration()<CR>')
@@ -66,10 +68,12 @@ end
 
 lspconfig.tsserver.setup{
   on_attach=on_attach_vim,
+  capabilities = lsp_status.capabilities,
 }
 
 lspconfig.gopls.setup{
   on_attach=on_attach_vim_go,
+  capabilities = lsp_status.capabilities,
 }
 
 lspconfig.html.setup{
@@ -102,6 +106,7 @@ lspconfig.sqlls.setup{
 
 lspconfig.sumneko_lua.setup{
   on_attach=on_attach_vim,
+  capabilities = lsp_status.capabilities,
    -- cmd = {
      -- global.nvim_cache_dir .. "nvim_lsp/sumneko_lua/lua-language-server/bin/" .. (global.is_linux and "Linux" or "macOS") .."/lua-language-server", "-E",
      -- global.nvim_cache_dir .. "nvim_lsp/sumneko_lua/lua-language-server/main.lua"
@@ -122,10 +127,12 @@ lspconfig.jdtls.setup{
     },
   },
   root_dir=lspconfig.util.root_pattern(".git", "pom.xml", "build.xml"),
+  capabilities = lsp_status.capabilities,
 }
 
 lspconfig.jedi_language_server.setup {
   on_attach=on_attach_vim,
+  capabilities = lsp_status.capabilities,
 }
 -- lspconfig.yamlls.setup{on_attach=on_attach_vim}
 

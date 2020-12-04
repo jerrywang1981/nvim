@@ -5,11 +5,10 @@ function _G.dump(...)
     print(unpack(objects))
 end
 
--- require'nvim-web-devicons'.setup{
-  -- default = true;
--- }
 
 vim.lsp.set_log_level(0)
+
+require('jw.plugins')
 
 require('jw.lsp_config')
 require('jw.treesitter')
