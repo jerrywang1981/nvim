@@ -20,8 +20,8 @@ vim.lsp.set_log_level(0)
 require('jw.plugins')
 require('jw.option')
 require('jw.autocmd')
-require('jw.lsp_config')
 require('jw.config')
+require('jw.lsp_config')
 
 
 

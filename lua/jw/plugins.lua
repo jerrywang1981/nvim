@@ -16,7 +16,7 @@ local use = packer.use
 
 packer.init{
   git = {
-    clone_timeout = 600,
+    clone_timeout = 1200,
   },
 }
 

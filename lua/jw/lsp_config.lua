@@ -149,7 +149,8 @@ vim.g.completion_matching_ignore_case = 1
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
  vim.lsp.diagnostic.on_publish_diagnostics, {
    -- Enable underline, use default values
-   underline = true,
+  underline = true,
+
    -- Enable virtual text, override spacing to 4
    virtual_text = {
      spacing = 0,
@@ -158,3 +159,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
    update_in_insert = false,
  }
 )
+
+-- load default highlight group for diagnostics
+require('vim.lsp.diagnostic')._define_default_signs_and_highlights()
