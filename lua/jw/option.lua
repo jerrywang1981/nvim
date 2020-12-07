@@ -21,6 +21,7 @@ vim.o.writebackup = true
 vim.o.cmdheight = 2
 vim.o.termguicolors = true
 vim.o.encoding = 'utf-8'
+vim.o.scrolloff = 5
 
 --[[
 --window options
@@ -28,7 +29,6 @@ vim.o.encoding = 'utf-8'
 vim.wo.relativenumber = true
 vim.wo.number = true
 vim.wo.wrap = false
-vim.wo.scrolloff = 5
 vim.wo.foldmethod = 'indent'
 vim.wo.foldlevel = 99
 vim.wo.cursorline = true
@@ -46,7 +46,7 @@ vim.o.tabstop = 2
 vim.o.shiftwidth = 2
 vim.o.softtabstop = 2
 vim.o.fileformat = 'unix'
-vim.o.fileencoding = 'utf-8'
+-- vim.bo.fileencoding = 'utf-8'
 vim.o.expandtab = true
 vim.o.autoread = true
 vim.o.fixendofline = true

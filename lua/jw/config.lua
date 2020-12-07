@@ -72,17 +72,20 @@ require'nvim-treesitter.configs'.setup {
     enable = true,              -- false will disable the whole extension
     disable = { "elm" },  -- list of language that will be disabled
   },
+  indent = {
+    enable = true
+  },
 }
 
 --[[
 --fzf setting
 --]]
 
-util.map_key('n', '<c-p>', [[ <cmd>Files<cr> ]])
-util.map_key('n', '<c-m>', [[ <cmd>History<cr> ]])
-util.map_key('n', '<leader>fb', [[ <cmd>Buffers<cr> ]])
-util.map_key('n', '<leader>fs', [[ <cmd>Rg<cr> ]])
-util.map_key('x', '<leader>fs', [[ :<c-w>Rg <c-r><c-w><cr> ]])
+util.map_key('n', '<c-p>', [[<cmd>Files<cr>]])
+util.map_key('n', '<c-m>', [[<cmd>History<cr>]])
+util.map_key('n', '<leader>fb', [[<cmd>Buffers<cr>]])
+util.map_key('n', '<leader>fs', [[<cmd>Rg<cr>]])
+util.map_key('x', '<leader>fs', [[:<c-w>Rg <c-r><c-w><cr>]])
 vim.g.fzf_preview_window = {  'right:60%:hidden', 'ctrl-/' }
 
 
