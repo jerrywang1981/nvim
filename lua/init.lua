@@ -14,7 +14,6 @@
 
 local vim = vim
 
-
 vim.lsp.set_log_level(0)
 
 require('jw.plugins')

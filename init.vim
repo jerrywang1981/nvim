@@ -472,7 +472,10 @@ endfunction
 
 function! ClearLSPLog() abort
   lua os.remove(vim.lsp.get_log_path())
+  " lua io.open(vim.lsp.get_log_path(),"w"):close()
 endfunction
+
+autocmd! VimLeave * call ClearLSPLog()
 
 lua require('init')
 
