@@ -19,7 +19,7 @@ local map_buf_keys = function()
 	-- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
 	-- map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
 	-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
-  map_current_buf_key('n','<localleader>ld','<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
+  -- map_current_buf_key('n','<localleader>ld','<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
   map_current_buf_key('n','<localleader>rn','<cmd>lua vim.lsp.buf.rename()<CR>')
   map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
 	-- map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
@@ -160,5 +160,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
  }
 )
 
+vim.cmd [[ autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics() ]]
 -- load default highlight group for diagnostics
 require('vim.lsp.diagnostic')._define_default_signs_and_highlights()
