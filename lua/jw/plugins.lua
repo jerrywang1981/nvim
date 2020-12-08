@@ -51,7 +51,7 @@ return packer.startup(function()
   use 'haya14busa/incsearch-fuzzy.vim'
   use 'puremourning/vimspector'
   use 'szw/vim-maximizer'
-  use 'neovim/nvim-lspconfig'
+  use { 'neovim/nvim-lspconfig' }
   use 'nvim-lua/completion-nvim'
   use 'nvim-lua/lsp-status.nvim'
   use 'kyazdani42/nvim-web-devicons'

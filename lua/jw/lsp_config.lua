@@ -62,7 +62,7 @@ end
 
 local on_attach_vim_h = function(client, bufnr)
   on_attach_vim(client, bufnr)
-  map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})<CR>')
+  map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})<CR>')
 end
 
 
