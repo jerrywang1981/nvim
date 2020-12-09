@@ -202,9 +202,9 @@ cnoremap jk <esc>
 cnoremap kj <esc>
 
 " nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
-if has('conceal')
-  set conceallevel=2 concealcursor=niv
-endif
+" if has('conceal')
+  " set conceallevel=2 concealcursor=niv
+" endif
 " Ex command mapping
 cnoremap <C-p> <Up>
 cnoremap <C-n> <Down>
@@ -478,6 +478,8 @@ endfunction
 autocmd! VimLeave * call ClearLSPLog()
 
 lua require('init')
+
+let g:indentLine_conceallevel = 0
 
 function! NvimConfigPull() abort
   lua require'jw.global'.pull_config()
