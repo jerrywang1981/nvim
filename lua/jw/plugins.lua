@@ -24,6 +24,7 @@ return packer.startup(function()
 
   -- Packer can manage itself as an optional plugin
   use {'wbthomason/packer.nvim', opt = true}
+  use 'mhartington/oceanic-next'
 
   use 'easymotion/vim-easymotion'
   use 'mhinz/vim-startify'
@@ -46,7 +47,6 @@ return packer.startup(function()
   use 'editorconfig/editorconfig-vim'
   use 'itchyny/lightline.vim'
   use 'mengelbrecht/lightline-bufferline'
-  use 'mhartington/oceanic-next'
   use 'haya14busa/incsearch.vim'
   use 'haya14busa/incsearch-fuzzy.vim'
   use 'puremourning/vimspector'
