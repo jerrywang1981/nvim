@@ -34,6 +34,7 @@ vim.wo.foldlevel = 99
 vim.wo.cursorline = true
 vim.wo.cursorcolumn = true
 vim.wo.signcolumn = 'yes'
+vim.wo.colorcolumn = '80'
 
 --[[
 --buffer options

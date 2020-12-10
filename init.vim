@@ -6,35 +6,15 @@ let mapleader=','
 noremap \ ,
 let maplocalleader=','
 
-" filetype plugin indent on
 set path+=**
-" set updatetime=500
-" set foldmethod=indent
-" set foldlevel=99
-" set noswapfile
-" set autoindent
-" set encoding=utf-8
 set clipboard+=unnamedplus  " use the clipboards of vim and win
 set go+=a               " Visual selection automatically copied to the clipboard
-" set number
-" set relativenumber
-" set showtabline=2
 set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 set guioptions-=b
-" set nowrap
-" set fileformat=unix
-" set cindent
-set colorcolumn=80
-" set tabstop=2
-" set shiftwidth=2
-" set softtabstop=2
-" set showmatch
-" set scrolloff=5
-" set laststatus=2
-" set fenc=utf-8
+" set colorcolumn=80
 set backspace=indent,eol,start
 set omnifunc=syntaxcomplete#Complete
 set suffixesadd=.java
@@ -109,7 +89,7 @@ endif
 
 
 " ================markdown-preview==================
-let g:mkdp_auto_close = 1
+" let g:mkdp_auto_close = 1
 
 " =================editorconfig-vim===================
 let g:EditorConfig_exclude_patterns = ['fugitive://.*', 'scp://.*']
@@ -329,7 +309,7 @@ function! TNT() abort
   let color = get(bgcolor, mode, bgcolor.n)
   exe printf('hi TNTColor ctermfg=196 ctermbg=%d guifg=#88ffff guibg=%s term=bold cterm=bold',
   \ color[0], color[1])
-  return winwidth(0) > 70 ? 'Jerry Wang' : ''
+  return winwidth(0) > 70 ? 'Jerry Wang' : 'Jerry'
 endfunction
 
 function! LightLineGitGutter() abort
@@ -525,22 +505,13 @@ let g:startify_custom_footer =
 
 
 " ========================= nerd-commenter =======================
-let g:NERDSpaceDelims = 1
-let g:NERDCompactSexyComs = 1
-let g:NERDCommentEmptyLines = 1
-let g:NERDTrimTrailingWhitespace = 1
-let g:NERDToggleCheckAllLines = 1
-
-" =============file explorer, eirther nerdtree or defx====================
-
-" =================== nerdtree =================================
-" noremap <silent> <leader><leader>1 :<c-u>NERDTreeToggle<CR>
-" noremap <silent> <c-1> :<c-u>NERDTreeToggle<CR>
 " let g:NERDSpaceDelims = 1
 " let g:NERDCompactSexyComs = 1
 " let g:NERDCommentEmptyLines = 1
 " let g:NERDTrimTrailingWhitespace = 1
 " let g:NERDToggleCheckAllLines = 1
+
+" =============file explorer, eirther nerdtree or defx====================
 
 
 
@@ -555,7 +526,6 @@ tnoremap <C-v><Esc> <Esc>
 
 if has('nvim')
   set inccommand=nosplit
-  " tnoremap <expr> <A-r> '<C-\><C-N>"'.nr2char(getchar()).'pi'
   tnoremap <expr> ® '<C-\><C-N>"'.nr2char(getchar()).'pi'
   highlight! link TermCursor Cursor
   highlight! TermCursorNC guibg=red guifg=white ctermbg=1 ctermfg=15
@@ -572,28 +542,28 @@ nnoremap <silent> <space>4 :<c-u>vertical botright Ttoggle<cr><C-w>l
 " vnoremap <silent> <c-s>s :TREPLSendSelection<CR>
 
 
-let g:terminal_color_0  = '#000000'
-let g:terminal_color_1  = '#FF5555'
-let g:terminal_color_2  = '#50FA7B'
-let g:terminal_color_3  = '#F1FA8C'
-let g:terminal_color_4  = '#BD93F9'
-let g:terminal_color_5  = '#FF79C6'
-let g:terminal_color_6  = '#8BE9FD'
-let g:terminal_color_7  = '#BFBFBF'
-let g:terminal_color_8  = '#4D4D4D'
-let g:terminal_color_9  = '#FF6E67'
-let g:terminal_color_10 = '#5AF78E'
-let g:terminal_color_11 = '#F4F99D'
-let g:terminal_color_12 = '#CAA9FA'
-let g:terminal_color_13 = '#FF92D0'
-let g:terminal_color_14 = '#9AEDFE'
+" let g:terminal_color_0  = '#000000'
+" let g:terminal_color_1  = '#FF5555'
+" let g:terminal_color_2  = '#50FA7B'
+" let g:terminal_color_3  = '#F1FA8C'
+" let g:terminal_color_4  = '#BD93F9'
+" let g:terminal_color_5  = '#FF79C6'
+" let g:terminal_color_6  = '#8BE9FD'
+" let g:terminal_color_7  = '#BFBFBF'
+" let g:terminal_color_8  = '#4D4D4D'
+" let g:terminal_color_9  = '#FF6E67'
+" let g:terminal_color_10 = '#5AF78E'
+" let g:terminal_color_11 = '#F4F99D'
+" let g:terminal_color_12 = '#CAA9FA'
+" let g:terminal_color_13 = '#FF92D0'
+" let g:terminal_color_14 = '#9AEDFE'
 
 
 " vimspector
-let g:vimspector_enable_mappings = 'HUMAN'
+" let g:vimspector_enable_mappings = 'HUMAN'
 
-nmap <leader>dd :call vimspector#Launch()<cr>
-nmap <leader>dx :VimspectorReset<cr>
-nmap <leader>de :VimspectorEval
-nmap <leader>dw :VimspectorWatch
-nmap <leader>do :VimspectorShowOutput
+" nmap <leader>dd :call vimspector#Launch()<cr>
+" nmap <leader>dx :VimspectorReset<cr>
+" nmap <leader>de :VimspectorEval
+" nmap <leader>dw :VimspectorWatch
+" nmap <leader>do :VimspectorShowOutput
