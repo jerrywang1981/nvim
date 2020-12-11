@@ -40,16 +40,29 @@ vim.wo.colorcolumn = '80'
 --buffer options
 --]]
 
-vim.o.swapfile = false
-vim.o.autoindent = true
-vim.o.cindent = true
-vim.o.tabstop = 2
-vim.o.shiftwidth = 2
-vim.o.softtabstop = 2
-vim.o.fileformat = 'unix'
-vim.o.fileencoding = 'utf-8'
-vim.o.expandtab = true
-vim.o.autoread = true
-vim.o.fixendofline = true
+-- vim.o.swapfile = false
+-- vim.o.autoindent = true
+-- vim.o.cindent = true
+-- vim.o.tabstop = 2
+-- vim.o.shiftwidth = 2
+-- vim.o.softtabstop = 2
+-- vim.o.fileformat = 'unix'
+-- vim.o.fileencoding = 'utf-8'
+-- vim.o.expandtab = true
+-- vim.o.autoread = true
+-- vim.o.fixendofline = true
 
+
+vim.cmd [[ set noswapfile ]]
+vim.cmd [[ set autoindent ]]
+vim.cmd [[ set cindent ]]
+vim.cmd [[ set tabstop=2 ]]
+
+vim.cmd [[ set shiftwidth=2 ]]
+vim.cmd [[ set softtabstop=2 ]]
+vim.cmd [[ set fileformat=unix ]]
+vim.cmd [[ set fileencoding='utf-8' ]]
+vim.cmd [[ set expandtab ]]
+vim.cmd [[ set autoread ]]
+vim.cmd [[ set fixendofline ]]
 
