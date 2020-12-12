@@ -33,8 +33,11 @@ function M.organize_imports (timeout_ms)
   local result = vim.lsp.buf_request_sync(0, "textDocument/codeAction", params, timeout_ms)
   if not result or vim.tbl_isempty(result) then return end
   _, result = next(result)
+  if not result or vim.tbl_isempty(result) then return end
   result = result.result
+  if not result or vim.tbl_isempty(result) then return end
   _, result = next(result)
+  if not result or vim.tbl_isempty(result) then return end
   result = result.edit
   vim.lsp.util.apply_workspace_edit(result)
 end
