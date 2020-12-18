@@ -43,12 +43,14 @@ end
 
 local on_attach_vim = function(client, bufnr)
   log.info("LSP starting")
+  print("LSP starting")
   require('completion').on_attach(client, bufnr)
   -- require('diagnostic').on_attach(client, bufnr)
 
   -- map the buffer keys
   map_buf_keys()
   log.info("LSP started")
+  print("LSP started")
   -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
   -- vim.api.nvim_command[[autocmd BufWritePre *.go,*.ts,*.js,*.java lua vim.lsp.buf.formatting()]]
 end
