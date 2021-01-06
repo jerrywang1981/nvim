@@ -4,6 +4,7 @@ local lspconfig = require'lspconfig'
 local lsp_status = require('lsp-status')
 local log = require 'vim.lsp.log'
 local util = require'jw.util'
+local path = require'lspconfig/util'.path
 local map_current_buf_key = util.map_current_buf_key
 
 lsp_status.register_progress()
@@ -65,6 +66,16 @@ local on_attach_vim_h = function(client, bufnr)
   map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})<CR>')
 end
 
+--[[
+-- npm install -g typescript typescript-language-server
+-- npm install -g vscode-html-languageserver-bin
+-- npm install -g vls
+-- npm install -g vscode-css-languageserver-bin
+-- npm install -g bash-language-server
+-- npm install -g vscode-json-languageserver
+-- npm install -g vim-language-server
+-- npm install -g sql-language-server
+--]]
 
 lspconfig.tsserver.setup{
   on_attach=on_attach_vim,
@@ -114,18 +125,48 @@ lspconfig.sumneko_lua.setup{
 }
 
 
-      -- "-javaagent:"..vim.loop.os_homedir().."/lombok.jar",
--- lspconfig.jdtls.setup{}
+-- for jdtls
+local get_os_config = function ()
+  if vim.fn.has("osx") == 1 then
+    return "config_mac"
+  elseif vim.fn.has("unix") == 1 then
+    return "config_linux"
+  else
+    return "config_win"
+  end
+end
+
+local install_dir = global.vim_path .. global.path_sep .. "f" .. global.path_sep .. "jdtls"
+
 lspconfig.jdtls.setup{
   on_attach=on_attach_vim,
-  init_options={
-    jvm_args = {
-      "-javaagent:" .. global.vim_path .. global.path_sep .. "f" .. global.path_sep .. "lombok.jar",
-      "-XX:+UseG1GC",
-      "-XX:+UseStringDeduplication",
-      "-XX:ParallelGCThreads=8",
-    },
+  cmd = {
+    "java",
+    "-Declipse.application=org.eclipse.jdt.ls.core.id1",
+    "-Dosgi.bundles.defaultStartLevel=4",
+    "-Declipse.product=org.eclipse.jdt.ls.core.product",
+    "-Dlog.level=ALL",
+    "-noverify",
+    "-Xmx1G",
+    "-javaagent:" .. global.vim_path .. global.path_sep .. "f" .. global.path_sep .. "lombok.jar",
+    "-XX:+UseG1GC",
+    "-XX:+UseStringDeduplication",
+    "-XX:ParallelGCThreads=8",
+    "-jar", install_dir .. "/plugins/org.eclipse.equinox.launcher_1.6.0.v20200915-1508.jar",
+    "-configuration", path.join { install_dir, get_os_config() },
+    "-data", path.join { vim.loop.os_homedir(), "workspace" },
+    "--add-modules=ALL-SYSTEM",
+    "--add-opens", "java.base/java.util=ALL-UNNAMED",
+    "--add-opens", "java.base/java.lang=ALL-UNNAMED"
   },
+  -- init_options={
+    -- jvm_args = {
+      -- "-javaagent:" .. global.vim_path .. global.path_sep .. "f" .. global.path_sep .. "lombok.jar",
+      -- "-XX:+UseG1GC",
+      -- "-XX:+UseStringDeduplication",
+      -- "-XX:ParallelGCThreads=8",
+    -- },
+  -- },
   root_dir=lspconfig.util.root_pattern(".git", "pom.xml", "build.xml"),
   capabilities = lsp_status.capabilities,
 }
