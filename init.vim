@@ -207,7 +207,7 @@ nmap <silent> <space>1 <cmd>LuaTreeToggle<CR>
     " \ 'files': 1,
     " \ 'icon': 1,
     " \}
-let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', 'tmp', 'target' ]
+let g:lua_tree_ignore = [ '.git', 'node_modules', '.cache', 'tmp', 'target', 'vendor' ]
 let g:lua_tree_hide_dotfiles = 1
 let g:lua_tree_indent_markers = 1
 
