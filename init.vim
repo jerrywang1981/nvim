@@ -560,10 +560,10 @@ nnoremap <silent> <space>4 :<c-u>vertical botright Ttoggle<cr><C-w>l
 
 
 " vimspector
-" let g:vimspector_enable_mappings = 'HUMAN'
+let g:vimspector_enable_mappings = 'HUMAN'
 
-" nmap <leader>dd :call vimspector#Launch()<cr>
-" nmap <leader>dx :VimspectorReset<cr>
-" nmap <leader>de :VimspectorEval
-" nmap <leader>dw :VimspectorWatch
-" nmap <leader>do :VimspectorShowOutput
+nmap <leader>dd :call vimspector#Launch()<cr>
+nmap <leader>dx :VimspectorReset<cr>
+nmap <leader>de :VimspectorEval
+nmap <leader>dw :VimspectorWatch
+nmap <leader>do :VimspectorShowOutput

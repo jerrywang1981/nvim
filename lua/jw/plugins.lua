@@ -35,6 +35,7 @@ return packer.startup(function()
   use 'easymotion/vim-easymotion'
   use 'mhinz/vim-startify'
   use 'alvan/vim-closetag'
+  use 'puremourning/vimspector'
   use 'Yggdroot/indentLine'
   use { 'jiangmiao/auto-pairs',
         config = [[
@@ -56,7 +57,7 @@ return packer.startup(function()
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-repeat'
   use 'airblade/vim-rooter'
-  use 'tpope/vim-fugitive'
+  use { 'tpope/vim-fugitive', opt = true, cmd = { 'Gstatus' } }
   use 'airblade/vim-gitgutter'
   use { 'mbbill/undotree',
         config = [[
