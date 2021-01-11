@@ -200,7 +200,7 @@ let g:netrw_winsize = 25
 
 
 " =============================== nvim-tree.lua settings ===========================
-nmap <silent> <space>1 <cmd>LuaTreeToggle<CR>
+nmap <silent> <space>1 <cmd>NvimTreeToggle<CR>
 " let g:lua_tree_show_icons = {
     " \ 'git': 1,
     " \ 'folders': 1,
