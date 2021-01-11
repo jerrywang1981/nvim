@@ -56,7 +56,10 @@ return packer.startup(function()
   use 'tpope/vim-surround'
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-repeat'
-  use 'airblade/vim-rooter'
+  use { 'airblade/vim-rooter',
+        config = [[
+          vim.g.rooter_silent_chdir = 1
+        ]] }
   use { 'tpope/vim-fugitive', opt = true, cmd = { 'Gstatus' } }
   use 'airblade/vim-gitgutter'
   use { 'mbbill/undotree',
@@ -118,6 +121,9 @@ return packer.startup(function()
   use { 'elzr/vim-json',
         opt = true,
         ft = { 'json' },
+        config = [[
+          vim.g.vim_json_syntax_conceal = 0
+        ]],
       }
   use { 'honza/dockerfile.vim', opt = true, ft = { 'Dockerfile' } }
 

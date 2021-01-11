@@ -112,7 +112,7 @@ autocmd User fugitive
 " autocmd FileType html,css EmmetInstall
 
 " ================== vim-rooter =================
-let g:rooter_silent_chdir = 1
+" let g:rooter_silent_chdir = 1
 
 " ==================== identLine =====================
 let g:indentLine_color_term = 239

@@ -77,6 +77,9 @@ end
 -- npm install -g vscode-json-languageserver
 -- npm install -g vim-language-server
 -- npm install -g sql-language-server
+--
+--
+-- yarn global add typescript typescript-language-server vscode-html-languageserver-bin vls vscode-css-languageserver-bin bash-language-server vscode-json-languageserver vim-language-server sql-language-server
 --]]
 
 lspconfig.tsserver.setup{
