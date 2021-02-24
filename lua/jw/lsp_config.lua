@@ -7,38 +7,58 @@ local util = require'jw.util'
 local path = require'lspconfig/util'.path
 local map_current_buf_key = util.map_current_buf_key
 
-lsp_status.register_progress()
 
-local map_buf_keys = function()
-  map_current_buf_key('n','gd','<cmd>lua vim.lsp.buf.declaration()<CR>')
-	map_current_buf_key('n','<c-]>','<cmd>lua vim.lsp.buf.definition()<CR>')
-	map_current_buf_key('n','K','<cmd>lua vim.lsp.buf.hover()<CR>')
-	map_current_buf_key('n','gr','<cmd>lua vim.lsp.buf.references()<CR>')
-  -- map('n','<c-k>','<cmd>lua vim.lsp.buf.signature_help()<CR>')
-	map_current_buf_key('n','<localleader>gi','<cmd>lua vim.lsp.buf.implementation()<CR>')
-	-- map('n','gt','<cmd>lua vim.lsp.buf.type_definition()<CR>')
-	-- map('n','<leader>gw','<cmd>lua vim.lsp.buf.document_symbol()<CR>')
-	-- map('n','<leader>gW','<cmd>lua vim.lsp.buf.workspace_symbol()<CR>')
-	-- map('n','<leader>af','<cmd>lua vim.lsp.buf.code_action()<CR>')
-  -- map_current_buf_key('n','<localleader>ld','<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>')
-  map_current_buf_key('n','<localleader>rn','<cmd>lua vim.lsp.buf.rename()<CR>')
-  map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-	-- map('n','<leader>ai','<cmd>lua vim.lsp.buf.incoming_calls()<CR>')
-	-- map('n','<leader>ao','<cmd>lua vim.lsp.buf.outgoing_calls()<CR>')
+local on_attach = function(client, bufnr)
+  local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
 
+  buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
 
-  -- diagnostics setting
-  map_current_buf_key('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>')
-  map_current_buf_key('n', '[g', '<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>')
-  map_current_buf_key('n', ']g', '<cmd>lua vim.lsp.diagnostic.goto_next()<cr>')
+  -- Mappings.
+  local opts = { noremap=true, silent=true }
+  buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  buf_set_keymap('n', '<c-]>', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  buf_set_keymap('n', '<localleader>gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  -- buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  -- buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  buf_set_keymap('n', '<localleader>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  -- buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  buf_set_keymap('n', '<space>d', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  buf_set_keymap('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
 
-  map_current_buf_key('n', '<space>a', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-  -- map_current_buf_key('n', '<space>a', [[<cmd>lua require('telescope.builtin').lsp_code_actions()<CR>]])
-  -- vim.cmd("setlocal omnifunc=v:lua.vim.lsp.omnifunc")
-  vim.api.nvim_buf_set_option(0, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+  -- Set some keybinds conditional on server capabilities
+  if client.resolved_capabilities.document_formatting then
+    buf_set_keymap("n", "<localleader>=", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+  elseif client.resolved_capabilities.document_range_formatting then
+    buf_set_keymap("n", "<localleader>=", [[<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})<CR>]], opts)
+  end
 
+  -- Set autocommands conditional on server_capabilities
+  if client.resolved_capabilities.document_highlight then
+    vim.api.nvim_exec([[
+      hi LspReferenceRead cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceText cterm=bold ctermbg=red guibg=LightYellow
+      hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
+      augroup lsp_document_highlight
+        autocmd! * <buffer>
+        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+      augroup END
+    ]], false)
+  end
 end
 
+
+
+
+lsp_status.register_progress()
 
 
 
@@ -47,13 +67,9 @@ local on_attach_vim = function(client, bufnr)
   print("LSP starting")
   require('completion').on_attach(client, bufnr)
   -- require('diagnostic').on_attach(client, bufnr)
-
-  -- map the buffer keys
-  map_buf_keys()
+	on_attach(client, bufnr)
   log.info("LSP started")
   print("LSP started")
-  -- vim.api.nvim_command[[autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting()]]
-  -- vim.api.nvim_command[[autocmd BufWritePre *.go,*.ts,*.js,*.java lua vim.lsp.buf.formatting()]]
 end
 
 local on_attach_vim_go = function(client, bufnr)
@@ -65,7 +81,7 @@ end
 
 local on_attach_vim_h = function(client, bufnr)
   on_attach_vim(client, bufnr)
-  map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})<CR>')
+  -- map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})<CR>')
 end
 
 --[[
@@ -110,7 +126,14 @@ lspconfig.jsonls.setup{
   on_attach=on_attach_vim_h,
   init_options = {
     provideFormatter = true
-  }
+  },
+	-- commands = {
+		-- Format = {
+			-- function()
+				-- vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$"),0})
+			-- end
+		-- }
+	-- }
 }
 
 lspconfig.vimls.setup{

@@ -60,7 +60,7 @@ return packer.startup(function()
         config = [[
           vim.g.rooter_silent_chdir = 1
         ]] }
-  use { 'tpope/vim-fugitive', opt = true, cmd = { 'Gstatus' } }
+  use { 'tpope/vim-fugitive', opt = true, cmd = { 'Gstatus', 'Gdiff', 'Glog', 'Gblame' } }
   use 'airblade/vim-gitgutter'
   use { 'mbbill/undotree',
         config = [[

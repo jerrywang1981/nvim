@@ -56,13 +56,14 @@ vim.wo.colorcolumn = '80'
 vim.cmd [[ set noswapfile ]]
 vim.cmd [[ set autoindent ]]
 vim.cmd [[ set cindent ]]
-vim.cmd [[ set tabstop=2 ]]
 
-vim.cmd [[ set shiftwidth=2 ]]
+vim.cmd [[ set tabstop=2 ]]
 vim.cmd [[ set softtabstop=2 ]]
+vim.cmd [[ set shiftwidth=2 ]]
+vim.cmd [[ set noexpandtab ]]
+
 vim.cmd [[ set fileformat=unix ]]
 vim.cmd [[ set fileencoding='utf-8' ]]
-vim.cmd [[ set expandtab ]]
 vim.cmd [[ set autoread ]]
 vim.cmd [[ set fixendofline ]]
 
