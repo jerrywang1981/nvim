@@ -40,6 +40,7 @@ local on_attach = function(client, bufnr)
     buf_set_keymap("n", "<localleader>=", [[<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})<CR>]], opts)
   end
 
+        -- autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
   -- Set autocommands conditional on server_capabilities
   if client.resolved_capabilities.document_highlight then
     vim.api.nvim_exec([[
@@ -48,7 +49,6 @@ local on_attach = function(client, bufnr)
       hi LspReferenceWrite cterm=bold ctermbg=red guibg=LightYellow
       augroup lsp_document_highlight
         autocmd! * <buffer>
-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
         autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
       augroup END
     ]], false)
