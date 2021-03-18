@@ -32,11 +32,46 @@ return packer.startup(function()
         ]],
       }
 
-  use 'easymotion/vim-easymotion'
-  use 'mhinz/vim-startify'
+  use { 'easymotion/vim-easymotion',
+			config = [=[
+				vim.api.nvim_set_keymap('', '<leader>f', '<Plug>(easymotion-bd-f)',  {  silent = true })
+				vim.api.nvim_set_keymap('n', '<leader>f', '<Plug>(easymotion-overwin-f)',  {  silent = true })
+				vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-overwin-f2)',  {  silent = true })
+				vim.api.nvim_set_keymap('', [[<leader>/]], '<Plug>(easymotion-bd-w)',  {  silent = true })
+				vim.api.nvim_set_keymap('n', [[<leader>/]], '<Plug>(easymotion-overwin-w)',  {  silent = true })
+			]=],
+			}
+  use { 'mhinz/vim-startify',
+				config = [=[
+					vim.g.startify_change_to_vcs_root = 1
+					vim.g.startify_change_to_dir = 0
+					vim.g.startify_enable_special = 0
+					vim.g.startify_lists = {{ type= 'files',     header= {'   MRU'}  } }
+					local ascii = {
+								 '       _                       __          __                  ',
+								 [[      | |                      \ \        / /                  ]],
+								 [[      | | ___ _ __ _ __ _   _   \ \  /\  / /_ _ _ __   __ _    ]],
+								 [[  _   | |/ _ \ |__| |__| | | |   \ \/  \/ / _| | |_ \ / _` |   ]],
+								 [[ | |__| |  __/ |  | |  | |_| |    \  /\  / (_| | | | | (_| |   ]],
+								 [[  \____/ \___|_|  |_|   \__| |     \/  \/ \__|_|_| |_|\__| |   ]],
+								 [[                         __/ |                         __/ | * @jerrywang1981 github  ]],
+								 [[                        |___/                         |___/  * https://jerrywang1981.github.io  ]],
+								 [[                                                             * wangjianjun@gmail.com ]],
+								 }
+					vim.g.startify_custom_header = vim.fn['startify#center'](ascii)
+					local footer = {
+										 '春风杨柳万千条, 六亿神州尽舜尧',
+										 '红雨随心翻作浪, 青山着意化为桥',
+										 '天连五岭银锄落, 地动三河铁臂摇',
+										 '借问瘟君欲何往, 纸船明烛照天烧',
+										 '                               七律二首 送瘟神',
+										 }
+					vim.g.startify_custom_footer = vim.fn['startify#center'](footer)
+				]=],
+			}
   use 'alvan/vim-closetag'
   use 'puremourning/vimspector'
-  use 'Yggdroot/indentLine'
+	-- use { 'Yggdroot/indentLine' }
   use { 'jiangmiao/auto-pairs',
         config = [[
           vim.g.AutoPairsMapCh = 0
@@ -63,16 +98,15 @@ return packer.startup(function()
   use { 'tpope/vim-fugitive', opt = true, cmd = { 'Gstatus', 'Gdiff', 'Glog', 'Gblame' } }
   use 'airblade/vim-gitgutter'
   use { 'mbbill/undotree',
-        config = [[
-          local util = require'jw.util'
-          util.map_key('n', '<space>5', ' :UndotreeToggle<CR> ')
+        config = [=[
+					vim.api.nvim_set_keymap('n', '<space>5', ' :UndotreeToggle<CR>', { silent=true })
           vim.g.undotree_DiffAutoOpen = 1
           vim.g.undotree_SetFocusWhenToggle = 1
           vim.g.undotree_ShortIndicators = 1
           vim.g.undotree_WindowLayout = 2
           vim.g.undotree_DiffpanelHeight = 8
           vim.g.undotree_SplitWidth = 24
-        ]],
+        ]=],
       }
   use { 'mattn/emmet-vim',
         config = [[
@@ -81,9 +115,55 @@ return packer.startup(function()
         ]],
       }
   use 'wellle/targets.vim'
-  use 'editorconfig/editorconfig-vim'
-  use { 'itchyny/lightline.vim', requires = 'mengelbrecht/lightline-bufferline' }
-  use { 'haya14busa/incsearch.vim', requires = 'haya14busa/incsearch-fuzzy.vim'}
+  use {'editorconfig/editorconfig-vim',
+					config = [[
+							vim.g.EditorConfig_exclude_patterns = {'fugitive://.*', 'scp://.*'}
+					]],
+			}
+  use { 'itchyny/lightline.vim',
+				requires = 'mengelbrecht/lightline-bufferline',
+				config = [=[
+					vim.api.nvim_exec([[
+						let g:lightline#bufferline#show_number  = 3
+						let g:lightline#bufferline#shorten_path = 1
+						let g:lightline#bufferline#enable_devicons = 0
+						let g:lightline#bufferline#unnamed      = '[No Name]'
+						let g:lightline#bufferline#number_map = {
+							\ 0: '₀', 1: '₁', 2: '₂', 3: '₃', 4: '₄',
+							\ 5: '₅', 6: '₆', 7: '₇', 8: '₈', 9: '₉'}
+					]], false)
+					vim.api.nvim_set_keymap('n', '<leader>1', '<Plug>lightline#bufferline#go(1)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>2', '<Plug>lightline#bufferline#go(2)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>3', '<Plug>lightline#bufferline#go(3)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>4', '<Plug>lightline#bufferline#go(4)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>5', '<Plug>lightline#bufferline#go(5)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>6', '<Plug>lightline#bufferline#go(6)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>7', '<Plug>lightline#bufferline#go(7)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>8', '<Plug>lightline#bufferline#go(8)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>9', '<Plug>lightline#bufferline#go(9)', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>0', '<Plug>lightline#bufferline#go(0)', { silent = true })
+				]=],
+	}
+  use { 'haya14busa/incsearch.vim', requires = 'haya14busa/incsearch-fuzzy.vim',
+				config = [=[
+					vim.api.nvim_exec([[
+						 if has('persistent_undo')
+							 set undofile
+							 set undodir=~/.config/nvim/tmp/undo,.
+						 endif
+					]], false)
+					vim.g['incsearch#auto_nohlsearch'] = 1
+					vim.api.nvim_set_keymap('', [[/]], '<Plug>(incsearch-forward)', {  silent = true })
+					vim.api.nvim_set_keymap('', [[?]], '<Plug>(incsearch-backward)', {  silent = true })
+					vim.api.nvim_set_keymap('', [[g/]], '<Plug>(incsearch-stay)', {  silent = true })
+					vim.api.nvim_set_keymap('', 'n', '<Plug>(incsearch-nohl-n)', {  silent = true })
+					vim.api.nvim_set_keymap('', 'N', '<Plug>(incsearch-nohl-N)', {  silent = true })
+					vim.api.nvim_set_keymap('', [[*]], [[<Plug>(incsearch-nohl-*)]], {  silent = true })
+					vim.api.nvim_set_keymap('', [[#]], [[<Plug>(incsearch-nohl-#)]], {  silent = true })
+					vim.api.nvim_set_keymap('', [[g*]], [[<Plug>(incsearch-nohl-g*)]], {  silent = true })
+					vim.api.nvim_set_keymap('', [[g#]], [[<Plug>(incsearch-nohl-g#)]], {  silent = true })
+				]=],
+	}
   use { 'nvim-lua/completion-nvim', requires = { 'SirVer/ultisnips', 'honza/vim-snippets' }}
   use {
         'neovim/nvim-lspconfig',
@@ -94,6 +174,13 @@ return packer.startup(function()
       }
   use { 'kyazdani42/nvim-tree.lua',
         requires = 'kyazdani42/nvim-web-devicons',
+				config = [[
+					vim.api.nvim_set_keymap('n', '<space>1', '<cmd>NvimTreeToggle<CR>',{ silent = true })
+					vim.g.lua_tree_hide_dotfiles = 1
+					vim.g.lua_tree_indent_markers = 1
+	    	 	vim.g.lua_tree_ignore = { '.git', 'node_modules', '.cache', 'tmp', 'target', 'vendor' }
+					vim.g.lua_tree_icons = { default='*' }
+				]],
       }
 
   use { 'junegunn/fzf.vim',
@@ -101,12 +188,11 @@ return packer.startup(function()
           { 'junegunn/fzf', run = ':call fzf#install()' },
         },
         config = [[
-          local util = require'jw.util'
-          util.map_key('n', '<c-p>', '<cmd>Files<cr>')
-          util.map_key('n', '<c-m>', '<cmd>History<cr>')
-          util.map_key('n', '<leader>fb', '<cmd>Buffers<cr>')
-          util.map_key('n', '<leader>fs', '<cmd>Rg<cr>')
-          util.map_key('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>')
+					vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
+					vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>Files<cr>', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>History<cr>', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
+					vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
           vim.g.fzf_preview_window = {  'right:60%:hidden', 'ctrl-/' }
         ]],
       }

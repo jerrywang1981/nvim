@@ -12,3 +12,20 @@ local autocmd_str = {
 
 util.set_autocmd_list(autocmd_str)
 
+
+vim.api.nvim_exec([[
+	autocmd User fugitive  if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |    nnoremap <buffer> .. :edit %:h<CR> |  endif
+
+
+	function! OpenLSPLog() abort
+		exe 'edit' v:lua.vim.lsp.get_log_path()
+	endfunction
+
+	function! ClearLSPLog() abort
+		lua os.remove(vim.lsp.get_log_path())
+	endfunction
+
+	autocmd! VimLeave * call ClearLSPLog()
+
+]], false)
+
