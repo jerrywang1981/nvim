@@ -1,6 +1,6 @@
-local vim = vim
-local api = vim.api
-local util = require'jw.util'
+-- local vim = vim
+-- local api = vim.api
+-- local util = require'jw.util'
 
 
 --[[
@@ -10,7 +10,7 @@ local util = require'jw.util'
 -- vim.o.background = 'dark'
 -- vim.g.oceanic_next_terminal_bold = 0
 -- vim.g.oceanic_next_terminal_italic = 1
-vim.cmd [[ colorscheme OceanicNext ]]
+-- vim.cmd [[ colorscheme OceanicNext ]]
 
 --[[
 -- for auto-pairs
@@ -20,30 +20,13 @@ vim.cmd [[ colorscheme OceanicNext ]]
 --[[
 --dev icons
 --]]
-require'nvim-web-devicons'.setup {
-  override = {
-    Dockerfile = {
-      icon = "",
-      color = "#cc3e44",
-      name = "Dockerfile",
-    },
-    ["cmd"] = {
-      icon = "",
-      color = "#4d5a5e",
-      name = "Cmd",
-    },
-    xml = {
-      icon = "",
-      color = "#e37933",
-      name = "Xml",
-    }
-  }
-}
+
 
 --[[
 --
 -- nvim-treesitter
 --]]
+--[[
 require'nvim-treesitter.configs'.setup {
   ensure_installed = {
     "lua",
@@ -76,6 +59,7 @@ require'nvim-treesitter.configs'.setup {
     enable = true
   },
 }
+--]]
 
 --[[
 --fzf setting
@@ -111,4 +95,5 @@ require'nvim-treesitter.configs'.setup {
 --[[
 --markdown-preview
 --]]
-vim.g.mkdp_auto_close = 1
+-- vim.g.mkdp_auto_close = 1
+

@@ -25,11 +25,13 @@ return packer.startup(function()
   -- Packer can manage itself as an optional plugin
   use {'wbthomason/packer.nvim', opt = true}
   use { 'mhartington/oceanic-next',
-        config = [[
+        config = [=[
           vim.o.background = 'dark'
           vim.g.oceanic_next_terminal_bold = 0
           vim.g.oceanic_next_terminal_italic = 1
-        ]],
+
+          vim.api.nvim_command 'colorscheme OceanicNext'
+        ]=],
       }
 
   use { 'easymotion/vim-easymotion',
@@ -89,6 +91,23 @@ return packer.startup(function()
       }
   use 'kshenoy/vim-signature'
   use 'tpope/vim-surround'
+	use {
+		'nvim-telescope/telescope.nvim',
+		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
+		config = [=[
+				vim.api.nvim_set_keymap('n', '<c-p>', [[<cmd>lua require('telescope.builtin').find_files()<cr>]], { noremap = true, silent = true })
+				vim.api.nvim_set_keymap('n', '<c-m>', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], { noremap = true, silent = true })
+				vim.api.nvim_set_keymap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
+				vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], { noremap = true, silent = true })
+
+				require('telescope').setup{
+					defaults = {
+					 preview_cutoff = 110,
+					}
+				}
+
+		]=],
+	}
   use 'tpope/vim-unimpaired'
   use 'tpope/vim-repeat'
   use { 'airblade/vim-rooter',
@@ -180,29 +199,77 @@ return packer.startup(function()
 					vim.g.lua_tree_indent_markers = 1
 	    	 	vim.g.lua_tree_ignore = { '.git', 'node_modules', '.cache', 'tmp', 'target', 'vendor' }
 					vim.g.lua_tree_icons = { default='*' }
+
+          require'nvim-web-devicons'.setup {
+            override = {
+              Dockerfile = {
+                icon = "",
+                color = "#cc3e44",
+                name = "Dockerfile",
+              },
+              ["cmd"] = {
+                icon = "",
+                color = "#4d5a5e",
+                name = "Cmd",
+              },
+              xml = {
+                icon = "",
+                color = "#e37933",
+                name = "Xml",
+              }
+            }
+          }
+
 				]],
       }
-
-  use { 'junegunn/fzf.vim',
-        requires = {
-          { 'junegunn/fzf', run = ':call fzf#install()' },
+  use { 'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = [=[
+      require'nvim-treesitter.configs'.setup {
+        ensure_installed = {
+          "lua",
+          "go",
+          "graphql",
+          "java",
+          "javascript",
+          "css",
+          "python",
+          "php",
+          "c",
+          "cpp",
+          "json",
+          "yaml",
+          "typescript",
+          "jsdoc",
+          "vue",
+          "html",
+          "regex",
+          "query",
+          "bash",
+          "toml",
+          "css",
         },
-        config = [[
-					vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
-					vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>Files<cr>', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>History<cr>', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
-					vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
-          vim.g.fzf_preview_window = {  'right:60%:hidden', 'ctrl-/' }
-        ]],
-      }
-
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
+        highlight = {
+          enable = true,              -- false will disable the whole extension
+          disable = { "elm" },  -- list of language that will be disabled
+        },
+        indent = {
+          enable = true
+        },
+}
+    ]=],
+  }
 
   -- lazy loading
   use { 'junegunn/gv.vim', opt = true, cmd = { 'GV' } }
   use { 'kassio/neoterm', opt = true, cmd = { 'Ttoggle' } }
-  use {'iamcco/markdown-preview.nvim', opt = true, run = 'cd app && yarn install', cmd = 'MarkdownPreview'}
+  use {'iamcco/markdown-preview.nvim',
+		opt = true, run = 'cd app && yarn install',
+		cmd = 'MarkdownPreview',
+		config = [[
+				vim.g.mkdp_auto_close = 1
+		]],
+	}
 
   use { 'elzr/vim-json',
         opt = true,
