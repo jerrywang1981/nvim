@@ -90,6 +90,7 @@ return packer.startup(function()
         ]],
       }
   use 'kshenoy/vim-signature'
+  -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
   use 'tpope/vim-surround'
 	use {
 		'nvim-telescope/telescope.nvim',
