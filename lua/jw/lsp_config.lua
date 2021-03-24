@@ -5,7 +5,6 @@ local lsp_status = require('lsp-status')
 local log = require 'vim.lsp.log'
 local util = require'jw.util'
 local path = require'lspconfig/util'.path
-local map_current_buf_key = util.map_current_buf_key
 
 
 local on_attach = function(client, bufnr)
@@ -81,7 +80,6 @@ end
 
 local on_attach_vim_h = function(client, bufnr)
   on_attach_vim(client, bufnr)
-  -- map_current_buf_key('n','<localleader>=', '<cmd>lua vim.lsp.buf.range_formatting({},{0,0},{vim.fn.line("$")+1,0})<CR>')
 end
 
 --[[
@@ -205,15 +203,6 @@ lspconfig.jedi_language_server.setup {
 }
 -- lspconfig.yamlls.setup{on_attach=on_attach_vim}
 
-local strategy = {'exact', 'substring', 'fuzzy'}
-vim.g.completion_matching_strategy_list = strategy;
-
-
-vim.g.completion_confirm_key = ""
-vim.g.completion_enable_snippet = 'UltiSnips'
-vim.g.completion_matching_ignore_case = 1
-
-
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
  vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -231,4 +220,4 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 
 vim.cmd [[ autocmd CursorHold * lua vim.lsp.diagnostic.show_line_diagnostics() ]]
 -- load default highlight group for diagnostics
-require('vim.lsp.diagnostic')._define_default_signs_and_highlights()
+-- require('vim.lsp.diagnostic')._define_default_signs_and_highlights()

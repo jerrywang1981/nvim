@@ -24,13 +24,29 @@ return packer.startup(function()
 
   -- Packer can manage itself as an optional plugin
   use {'wbthomason/packer.nvim', opt = true}
+  use { 'joshdick/onedark.vim',
+    config = [=[
+      vim.api.nvim_command 'colorscheme onedark'
+    ]=],
+  }
+  use { 'fenetikm/falcon',
+    config = [=[
+      -- vim.api.nvim_command 'colorscheme falcon'
+    ]=],
+  }
+  use { 'dracula/vim', as = 'dracula',
+    config = [=[
+      -- vim.api.nvim_command 'colorscheme dracula'
+    ]=],
+  }
+
   use { 'mhartington/oceanic-next',
         config = [=[
           vim.o.background = 'dark'
           vim.g.oceanic_next_terminal_bold = 0
           vim.g.oceanic_next_terminal_italic = 1
 
-          vim.api.nvim_command 'colorscheme OceanicNext'
+          -- vim.api.nvim_command 'colorscheme OceanicNext'
         ]=],
       }
 
@@ -144,9 +160,9 @@ return packer.startup(function()
 				requires = 'mengelbrecht/lightline-bufferline',
 				config = [=[
           vim.g.lightline = {
-            colorscheme = 'wombat',
+            colorscheme = 'onedark',
             active = {
-              left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'filename', 'modified', 'jerry'}},
+              left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'modified', 'jerry'}},
             },
             tabline = {
               left = { { 'buffers' } },
@@ -207,7 +223,16 @@ return packer.startup(function()
 					vim.api.nvim_set_keymap('', [[g#]], [[<Plug>(incsearch-nohl-g#)]], {  silent = true })
 				]=],
 	}
-  use { 'nvim-lua/completion-nvim', requires = { 'SirVer/ultisnips', 'honza/vim-snippets' }}
+  use { 'nvim-lua/completion-nvim', requires = { 'SirVer/ultisnips', 'honza/vim-snippets' },
+    config = [[
+      local strategy = {'exact', 'substring', 'fuzzy'}
+      vim.g.completion_matching_strategy_list = strategy
+
+      vim.g.completion_confirm_key = ""
+      vim.g.completion_enable_snippet = 'UltiSnips'
+      vim.g.completion_matching_ignore_case = 1
+    ]],
+  }
   use {
         'neovim/nvim-lspconfig',
         requires = {
