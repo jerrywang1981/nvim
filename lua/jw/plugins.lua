@@ -146,24 +146,35 @@ return packer.startup(function()
           vim.g.lightline = {
             colorscheme = 'wombat',
             active = {
-              left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'filename', 'modified', 'jerry'}}
+              left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'filename', 'modified', 'jerry'}},
             },
-            component={
-              jerry='Jerry Wang'
+            tabline = {
+              left = { { 'buffers' } },
+              right = { { 'close' } },
             },
-            component_function={
-              gitbranch= 'FugitiveHead'
-            },
+            component = { jerry = 'Jerry Wang' },
+            component_function = { gitbranch = 'FugitiveHead' },
+            component_expand = { buffers = 'lightline#bufferline#buffers' },
+            component_type = { buffers = 'tabsel' },
           }
-					vim.api.nvim_exec([[
-						let g:lightline#bufferline#show_number  = 3
-						let g:lightline#bufferline#shorten_path = 1
-						let g:lightline#bufferline#enable_devicons = 0
-						let g:lightline#bufferline#unnamed      = '[No Name]'
-						let g:lightline#bufferline#number_map = {
-							\ 0: '₀', 1: '₁', 2: '₂', 3: '₃', 4: '₄',
-							\ 5: '₅', 6: '₆', 7: '₇', 8: '₈', 9: '₉'}
-					]], false)
+
+          vim.g['lightline#bufferline#show_number'] = 3
+          vim.g['lightline#bufferline#shorten_path'] = 1
+          vim.g['lightline#bufferline#enable_devicons'] = 0
+          vim.g['lightline#bufferline#unnamed'] = '[No Name]'
+
+          vim.g['lightline#bufferline#number_map'] = {
+              '₀',
+              '₁',
+              '₂',
+              '₃',
+              '₄',
+              '₅',
+              '₆',
+              '₇',
+              '₈',
+              '₉',
+          }
 					vim.api.nvim_set_keymap('n', '<leader>1', '<Plug>lightline#bufferline#go(1)', { silent = true })
 					vim.api.nvim_set_keymap('n', '<leader>2', '<Plug>lightline#bufferline#go(2)', { silent = true })
 					vim.api.nvim_set_keymap('n', '<leader>3', '<Plug>lightline#bufferline#go(3)', { silent = true })
@@ -263,8 +274,8 @@ return packer.startup(function()
           "css",
         },
         highlight = {
-          enable = true,              -- false will disable the whole extension
-          disable = { "elm" },  -- list of language that will be disabled
+          enable = true,
+          disable = { "elm" },
         },
         indent = {
           enable = true
@@ -276,6 +287,9 @@ return packer.startup(function()
   -- lazy loading
   use { 'junegunn/gv.vim', opt = true, cmd = { 'GV' } }
   use { 'kassio/neoterm', opt = true, cmd = { 'Ttoggle' },
+    setup = [[
+      vim.api.nvim_set_keymap('n', '<space>4', ':<c-u>vertical botright Ttoggle<cr><C-w>l', { noremap = true, silent = true })
+    ]],
     config = [[
       vim.g.neoterm_autoscroll = 1
       vim.api.nvim_set_keymap('t', '<esc>', '<c-\\><c-n>', { noremap = true, silent = true })
