@@ -115,7 +115,7 @@ return packer.startup(function()
         config = [[
           vim.g.rooter_silent_chdir = 1
         ]] }
-  use { 'tpope/vim-fugitive', opt = true, cmd = { 'Gstatus', 'Gdiff', 'Glog', 'Gblame' } }
+  use { 'tpope/vim-fugitive' }
   use 'airblade/vim-gitgutter'
   use { 'mbbill/undotree',
         config = [=[
@@ -143,6 +143,18 @@ return packer.startup(function()
   use { 'itchyny/lightline.vim',
 				requires = 'mengelbrecht/lightline-bufferline',
 				config = [=[
+          vim.g.lightline = {
+            colorscheme = 'wombat',
+            active = {
+              left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'filename', 'modified', 'jerry'}}
+            },
+            component={
+              jerry='Jerry Wang'
+            },
+            component_function={
+              gitbranch= 'FugitiveHead'
+            },
+          }
 					vim.api.nvim_exec([[
 						let g:lightline#bufferline#show_number  = 3
 						let g:lightline#bufferline#shorten_path = 1
@@ -263,7 +275,13 @@ return packer.startup(function()
 
   -- lazy loading
   use { 'junegunn/gv.vim', opt = true, cmd = { 'GV' } }
-  use { 'kassio/neoterm', opt = true, cmd = { 'Ttoggle' } }
+  use { 'kassio/neoterm', opt = true, cmd = { 'Ttoggle' },
+    config = [[
+      vim.g.neoterm_autoscroll = 1
+      vim.api.nvim_set_keymap('t', '<esc>', '<c-\\><c-n>', { noremap = true, silent = true })
+      vim.api.nvim_set_keymap('t', '<c-v><esc>', '<esc>', { noremap = true, silent = true })
+    ]]
+  }
   use {'iamcco/markdown-preview.nvim',
 		opt = true, run = 'cd app && yarn install',
 		cmd = 'MarkdownPreview',

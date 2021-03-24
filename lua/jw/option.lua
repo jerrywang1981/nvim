@@ -9,6 +9,7 @@ vim.o.updatetime = 500
 vim.o.showtabline = 2
 vim.o.laststatus = 2
 vim.o.showmatch = true
+vim.o.showmode = false
 vim.o.mouse = 'a'
 vim.o.selection = 'exclusive'
 vim.o.ignorecase = true

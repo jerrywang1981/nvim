@@ -14,19 +14,18 @@
 
 local vim = vim
 
--- vim.g.mapleader = ','
--- vim.g.maplocalleader = ','
--- vim.g.solarized_termcolors=256
 vim.lsp.set_log_level(0)
+
+vim.g.solarized_termcolors=256
+vim.g.mapleader=','
+vim.g.maplocalleader=','
+vim.api.nvim_set_keymap('', [[\]], [[,]],  { noremap = true, silent = true })
+
+
 vim.api.nvim_exec([[
 filetype plugin indent on   " enable loading indent file for filetype
 runtime macros/matchit.vim
 syntax on                   " syntax highlighting
-
-let g:solarized_termcolors=256
-let mapleader=','
-noremap \ ,
-let maplocalleader=','
 
 set path+=**
 set clipboard+=unnamedplus  " use the clipboards of vim and win
