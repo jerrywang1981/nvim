@@ -112,7 +112,8 @@ return packer.startup(function()
       }
   use { 'szw/vim-maximizer',
     config = [[
-      vim.g.maximizer_default_mapping_key = '<leader>m'
+      vim.g.maximizer_set_default_mapping = 0
+      vim.api.nvim_set_keymap('n', '<space>0', '<cmd>MaximizerToggle<cr>',  {  silent = true })
     ]],
   }
   use {
