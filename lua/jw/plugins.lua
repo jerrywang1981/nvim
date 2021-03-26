@@ -112,7 +112,7 @@ return packer.startup(function()
       }
   use { 'szw/vim-maximizer',
     config = [[
-      vim.g.maximizer_default_mapping_key = '<space>0'
+      vim.g.maximizer_default_mapping_key = '<leader>m'
     ]],
   }
   use {
@@ -183,13 +183,21 @@ return packer.startup(function()
             colorscheme = 'onedark',
             active = {
               left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'modified', 'jerry'}},
+              right = { {'lineinfo'}, {'percent'}, {'fileformat','fileencoding', 'filetype'}, {'lspstatus'} },
+            },
+            inactive = {
+              left = {{'mode', 'paste'} },
+              right = { {'lineinfo'}, {'percent'} },
             },
             tabline = {
               left = { { 'buffers' } },
               right = { { 'close' } },
             },
             component = { jerry = 'Jerry Wang' },
-            component_function = { gitbranch = 'FugitiveHead' },
+            component_function = {
+              gitbranch = 'FugitiveHead',
+              lspstatus = 'LspStatus',
+            },
             component_expand = { buffers = 'lightline#bufferline#buffers' },
             component_type = { buffers = 'tabsel' },
           }
