@@ -128,18 +128,33 @@ return packer.startup(function()
   use 'kshenoy/vim-signature'
   -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
   use 'tpope/vim-surround'
+
+  use { 'junegunn/fzf.vim',
+        requires = {
+          { 'junegunn/fzf', run = ':call fzf#install()' },
+        },
+        config = [[
+					vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
+					vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>Files<cr>', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>History<cr>', { silent = true })
+					vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
+					vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
+          vim.g.fzf_preview_window = {  'right:60%:hidden', 'ctrl-/' }
+        ]],
+    }
+
 	use {
 		'nvim-telescope/telescope.nvim',
 		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
 		config = [=[
-				vim.api.nvim_set_keymap('n', '<c-p>', [[<cmd>lua require('telescope.builtin').find_files()<cr>]], { noremap = true, silent = true })
-				vim.api.nvim_set_keymap('n', '<c-m>', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], { noremap = true, silent = true })
-				vim.api.nvim_set_keymap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
-				vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], { noremap = true, silent = true })
+				-- vim.api.nvim_set_keymap('n', '<c-p>', [[<cmd>lua require('telescope.builtin').find_files({previewer = false })<cr>]], { noremap = true, silent = true })
+				-- vim.api.nvim_set_keymap('n', '<c-m>', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], { noremap = true, silent = true })
+				-- vim.api.nvim_set_keymap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
+				-- vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], { noremap = true, silent = true })
 
 				require('telescope').setup{
 					defaults = {
-					 preview_cutoff = 110,
+ 					  preview_cutoff = 110,
 					}
 				}
 
