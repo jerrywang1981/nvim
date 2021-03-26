@@ -88,13 +88,33 @@ return packer.startup(function()
 				]=],
 			}
   use 'alvan/vim-closetag'
-  use 'puremourning/vimspector'
+  use {'puremourning/vimspector',
+    config = [=[
+      vim.api.nvim_set_keymap('n', '<leader>dd', [[<Plug>VimspectorLaunch]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>d<space>', [[<Plug>VimspectorContinue]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>ds', [[<Plug>VimspectorStop]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>de', [[<cmd>VimspectorReset<cr>]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>d_', [[<Plug>VimspectorRestart]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>dp', [[<Plug>VimspectorPause]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>dbp', [[<Plug>VimspectorToggleBreakpoint]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>dcab', [[:call vimspector#ClearBreakpoints()<cr>]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>drc', [[<Plug>VimspectorRunToCursor]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>dj', [[<Plug>VimspectorStepOver]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>dl', [[<Plug>VimspectorStepInto]], {  silent = true })
+      vim.api.nvim_set_keymap('n', '<leader>dh', [[<Plug>VimspectorStepOut]], {  silent = true })
+    ]=],
+  }
 	-- use { 'Yggdroot/indentLine' }
   use { 'jiangmiao/auto-pairs',
         config = [[
           vim.g.AutoPairsMapCh = 0
         ]]
       }
+  use { 'szw/vim-maximizer',
+    config = [[
+      vim.g.maximizer_default_mapping_key = '<space>0'
+    ]],
+  }
   use {
         'preservim/nerdcommenter',
         config = [[
@@ -305,7 +325,7 @@ return packer.startup(function()
         indent = {
           enable = true
         },
-}
+      }
     ]=],
   }
 
