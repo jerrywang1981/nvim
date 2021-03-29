@@ -6,8 +6,6 @@ local autocmd_str = {
   [[ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR> ]],
   [[ autocmd BufWritePre * %s/\s\+$//e ]],
   [[ autocmd BufWritePost plugins.lua PackerCompile ]],
-  [[ autocmd BufReadPost fugitive://* set bufhidden=delete ]],
-  [[ autocmd User fugitive  if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |    nnoremap <buffer> .. :edit %:h<CR> |  endif ]],
   [[ autocmd! VimLeave * call ClearLSPLog() ]],
 }
 
