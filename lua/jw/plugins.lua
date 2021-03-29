@@ -135,11 +135,11 @@ return packer.startup(function()
           { 'junegunn/fzf', run = ':call fzf#install()' },
         },
         config = [[
-					-- vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
-					-- vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>Files<cr>', { silent = true })
-					-- vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>History<cr>', { silent = true })
-					-- vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
-					-- vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>Files<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>History<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
           vim.g.fzf_preview_window = {  'right:60%:hidden', 'ctrl-/' }
         ]],
     }
@@ -167,7 +167,12 @@ return packer.startup(function()
         config = [[
           vim.g.rooter_silent_chdir = 1
         ]] }
-  use { 'tpope/vim-fugitive' }
+  use { 'tpope/vim-fugitive',
+    config = [=[
+      vim.api.nvim_command [[ autocmd BufReadPost fugitive://* set bufhidden=delete ]]
+      vim.api.nvim_command [[ autocmd User fugitive  if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |    nnoremap <buffer> .. :edit %:h<CR> |  endif ]]
+    ]=],
+  }
   use 'airblade/vim-gitgutter'
   use { 'mbbill/undotree',
         config = [=[
@@ -268,14 +273,16 @@ return packer.startup(function()
 				]=],
 	}
   use { 'nvim-lua/completion-nvim', requires = { 'SirVer/ultisnips', 'honza/vim-snippets' },
-    config = [[
+    config = [=[
       local strategy = {'exact', 'substring', 'fuzzy'}
       vim.g.completion_matching_strategy_list = strategy
 
+      vim.api.nvim_command [[autocmd BufEnter * lua require'completion'.on_attach()]]
       vim.g.completion_confirm_key = ""
+      vim.api.nvim_command [[imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"]]
       vim.g.completion_enable_snippet = 'UltiSnips'
       vim.g.completion_matching_ignore_case = 1
-    ]],
+    ]=],
   }
   use {
         'neovim/nvim-lspconfig',
