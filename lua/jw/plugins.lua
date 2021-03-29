@@ -353,6 +353,8 @@ return packer.startup(function()
     ]=],
   }
 
+  use { 'glacambre/firenvim', run = function() vim.fn['firenvim#install'](0) end }
+
   -- lazy loading
   use { 'junegunn/gv.vim', opt = true, cmd = { 'GV' } }
   use { 'kassio/neoterm', opt = true, cmd = { 'Ttoggle' },
