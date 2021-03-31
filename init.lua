@@ -68,7 +68,6 @@ require('jw.keymapping')
 require('jw.plugins')
 require('jw.option')
 require('jw.autocmd')
-require('jw.config')
 require('jw.lsp_config')
 
 

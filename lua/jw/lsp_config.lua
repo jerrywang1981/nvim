@@ -204,8 +204,11 @@ lspconfig.jedi_language_server.setup {
 }
 -- lspconfig.yamlls.setup{on_attach=on_attach_vim}
 
+---[[
+--
 lspconfig.diagnosticls.setup{
   on_attach=on_attach_vim,
+  autostart = false,
   capabilities = lsp_status.capabilities,
     filetypes = {"javascript", "typescript"},
     root_dir = function(fname)
@@ -247,6 +250,7 @@ lspconfig.diagnosticls.setup{
     }
   }
 
+--]]
 
 
 
