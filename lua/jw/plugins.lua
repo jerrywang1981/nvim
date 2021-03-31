@@ -26,7 +26,18 @@ return packer.startup(function()
   use {'wbthomason/packer.nvim', opt = true}
   use { 'joshdick/onedark.vim',
     config = [=[
-      vim.api.nvim_command 'colorscheme onedark'
+      -- vim.api.nvim_command 'colorscheme onedark'
+     ]=],
+  }
+  use { 'glepnir/zephyr-nvim',
+    config = [[
+      -- vim.api.nvim_command 'colorscheme zephyr'
+    ]],
+  }
+  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"},
+    config = [=[
+      -- vim.o.background = "dark"
+      -- vim.cmd([[colorscheme gruvbox]])
     ]=],
   }
   use { 'fenetikm/falcon',
@@ -46,7 +57,7 @@ return packer.startup(function()
           vim.g.oceanic_next_terminal_bold = 0
           vim.g.oceanic_next_terminal_italic = 1
 
-          -- vim.api.nvim_command 'colorscheme OceanicNext'
+          vim.api.nvim_command 'colorscheme OceanicNext'
         ]=],
       }
 
@@ -323,6 +334,7 @@ return packer.startup(function()
 				]],
       }
   use { 'nvim-treesitter/nvim-treesitter',
+    requires = 'nvim-treesitter/nvim-treesitter-textobjects',
     run = ':TSUpdate',
     config = [=[
       require'nvim-treesitter.configs'.setup {
@@ -356,6 +368,30 @@ return packer.startup(function()
         indent = {
           enable = true
         },
+
+        textobjects = {
+            select = {
+              enable = true,
+              keymaps = {
+                -- You can use the capture groups defined in textobjects.scm
+                ["af"] = "@function.outer",
+                ["if"] = "@function.inner",
+                ["ac"] = "@class.outer",
+                ["ic"] = "@class.inner",
+                ["ab"] = "@block.outer",
+                ["ib"] = "@block.inner",
+
+                -- Or you can define your own textobjects like this
+                ["iF"] = {
+                  python = "(function_definition) @function",
+                  cpp = "(function_definition) @function",
+                  c = "(function_definition) @function",
+                  java = "(method_declaration) @function",
+                },
+              },
+            },
+          },
+
       }
       vim.api.nvim_exec([[
         set foldmethod=expr
@@ -385,6 +421,13 @@ return packer.startup(function()
 				vim.g.mkdp_auto_close = 1
 		]],
 	}
+
+  use { 'npxbr/glow.nvim',
+    opt = true,
+    ft = {'markdown'},
+    run = ':GlowInstall',
+    cmd = 'Glow',
+  }
 
   use { 'elzr/vim-json',
         opt = true,
