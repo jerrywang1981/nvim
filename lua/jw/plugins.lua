@@ -209,7 +209,6 @@ return packer.startup(function()
 					]],
 			}
   use { 'itchyny/lightline.vim',
-				requires = 'mengelbrecht/lightline-bufferline',
 				config = [=[
           vim.g.lightline = {
             colorscheme = 'onedark',
@@ -221,48 +220,30 @@ return packer.startup(function()
               left = {{'mode', 'paste'} },
               right = { {'lineinfo'}, {'percent'} },
             },
-            tabline = {
-              left = { { 'buffers' } },
-              right = { { 'close' } },
+            enable = {
+              tabline = 0,
             },
             component = { jerry = 'Jerry Wang' },
             component_function = {
               gitbranch = 'FugitiveHead',
               lspstatus = 'LspStatus',
             },
-            component_expand = { buffers = 'lightline#bufferline#buffers' },
-            component_type = { buffers = 'tabsel' },
           }
-
-          vim.g['lightline#bufferline#show_number'] = 3
-          vim.g['lightline#bufferline#shorten_path'] = 1
-          vim.g['lightline#bufferline#enable_devicons'] = 0
-          vim.g['lightline#bufferline#unnamed'] = '[No Name]'
-
-          vim.g['lightline#bufferline#number_map'] = {
-              '₀',
-              '₁',
-              '₂',
-              '₃',
-              '₄',
-              '₅',
-              '₆',
-              '₇',
-              '₈',
-              '₉',
-          }
-					vim.api.nvim_set_keymap('n', '<leader>1', '<Plug>lightline#bufferline#go(1)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>2', '<Plug>lightline#bufferline#go(2)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>3', '<Plug>lightline#bufferline#go(3)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>4', '<Plug>lightline#bufferline#go(4)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>5', '<Plug>lightline#bufferline#go(5)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>6', '<Plug>lightline#bufferline#go(6)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>7', '<Plug>lightline#bufferline#go(7)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>8', '<Plug>lightline#bufferline#go(8)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>9', '<Plug>lightline#bufferline#go(9)', { silent = true })
-					vim.api.nvim_set_keymap('n', '<leader>0', '<Plug>lightline#bufferline#go(0)', { silent = true })
 				]=],
 	}
+  use {'jerrywang1981/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons',
+    config = [[
+      require'bufferline'.setup{
+        options = {
+          numbers =  "mix",
+          -- number_style = "superscript",
+          mappings = true,
+          separator_style = "slant",
+        },
+      }
+      vim.api.nvim_set_keymap('n', '<leader>0', '<cmd>BufferLinePick<CR>',{ silent = true })
+    ]],
+  }
   use { 'haya14busa/incsearch.vim', requires = 'haya14busa/incsearch-fuzzy.vim',
 				config = [=[
 					vim.api.nvim_exec([[
