@@ -146,11 +146,11 @@ return packer.startup(function()
           { 'junegunn/fzf', run = ':call fzf#install()' },
         },
         config = [[
-          vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
-          vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>History<cr>', { silent = true })
-          vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Buffers<cr>', { silent = true })
-          vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
-          vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>History<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Buffers<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
+          -- vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
           vim.g.fzf_preview_window = {  'right:60%:hidden', 'ctrl-/' }
         ]],
     }
@@ -159,10 +159,10 @@ return packer.startup(function()
 		'nvim-telescope/telescope.nvim',
 		requires = {{'nvim-lua/popup.nvim'}, {'nvim-lua/plenary.nvim'}},
 		config = [=[
-        -- vim.api.nvim_set_keymap('n', '<c-p>', [[<cmd>lua require('telescope.builtin').find_files({previewer = false })<cr>]], { noremap = true, silent = true })
-        -- vim.api.nvim_set_keymap('n', '<c-m>', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], { noremap = true, silent = true })
-        -- vim.api.nvim_set_keymap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
-        -- vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<c-p>', [[<cmd>lua require('telescope.builtin').find_files({previewer = false })<cr>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<c-m>', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], { noremap = true, silent = true })
 
 				require('telescope').setup{
 					defaults = {
@@ -235,8 +235,8 @@ return packer.startup(function()
     config = [[
       require'bufferline'.setup{
         options = {
-          numbers =  "mix",
-          -- number_style = "superscript",
+          numbers =  "both",
+          number_style = { "superscript", "subscript" },
           mappings = true,
           separator_style = "slant",
         },
