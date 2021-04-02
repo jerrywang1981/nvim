@@ -147,8 +147,8 @@ return packer.startup(function()
         },
         config = [[
           vim.api.nvim_set_keymap('n', '<c-p>', '<cmd>Files<cr>', { silent = true })
-          vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>Files<cr>', { silent = true })
-          vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>History<cr>', { silent = true })
+          vim.api.nvim_set_keymap('n', '<c-m>', '<cmd>History<cr>', { silent = true })
+          vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>Buffers<cr>', { silent = true })
           vim.api.nvim_set_keymap('n', '<leader>fs', '<cmd>Rg<cr>', { silent = true })
           vim.api.nvim_set_keymap('x', '<leader>fs', ':<c-w>Rg <c-r><c-w><cr>', { silent = true })
           vim.g.fzf_preview_window = {  'right:60%:hidden', 'ctrl-/' }
