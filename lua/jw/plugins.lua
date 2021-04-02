@@ -24,32 +24,6 @@ return packer.startup(function()
 
   -- Packer can manage itself as an optional plugin
   use {'wbthomason/packer.nvim', opt = true}
-  use { 'joshdick/onedark.vim',
-    config = [=[
-      -- vim.api.nvim_command 'colorscheme onedark'
-     ]=],
-  }
-  use { 'glepnir/zephyr-nvim',
-    config = [[
-      -- vim.api.nvim_command 'colorscheme zephyr'
-    ]],
-  }
-  use {"npxbr/gruvbox.nvim", requires = {"rktjmp/lush.nvim"},
-    config = [=[
-      -- vim.o.background = "dark"
-      -- vim.cmd([[colorscheme gruvbox]])
-    ]=],
-  }
-  use { 'fenetikm/falcon',
-    config = [=[
-      -- vim.api.nvim_command 'colorscheme falcon'
-    ]=],
-  }
-  use { 'dracula/vim', as = 'dracula',
-    config = [=[
-      -- vim.api.nvim_command 'colorscheme dracula'
-    ]=],
-  }
 
   use { 'mhartington/oceanic-next',
         config = [=[
@@ -211,7 +185,7 @@ return packer.startup(function()
   use { 'itchyny/lightline.vim',
 				config = [=[
           vim.g.lightline = {
-            colorscheme = 'onedark',
+            colorscheme = 'wombat',
             active = {
               left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'modified', 'jerry'}},
               right = { {'lineinfo'}, {'percent'}, {'fileformat','fileencoding', 'filetype'}, {'lspstatus'} },
