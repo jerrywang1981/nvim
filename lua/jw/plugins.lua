@@ -25,13 +25,27 @@ return packer.startup(function()
   -- Packer can manage itself as an optional plugin
   use {'wbthomason/packer.nvim', opt = true}
 
+  use { 'NLKNguyen/papercolor-theme',
+    config = [=[
+      vim.o.background = 'dark'
+      vim.api.nvim_command 'colorscheme PaperColor'
+    ]=],
+  }
+
+  use { 'dracula/vim', as = 'dracula',
+    config = [=[
+      -- vim.o.background = 'dark'
+      -- vim.api.nvim_command 'colorscheme dracula'
+    ]=],
+  }
+
   use { 'mhartington/oceanic-next',
         config = [=[
-          vim.o.background = 'dark'
-          vim.g.oceanic_next_terminal_bold = 0
-          vim.g.oceanic_next_terminal_italic = 1
+          -- vim.o.background = 'dark'
+          -- vim.g.oceanic_next_terminal_bold = 0
+          -- vim.g.oceanic_next_terminal_italic = 1
 
-          vim.api.nvim_command 'colorscheme OceanicNext'
+          -- vim.api.nvim_command 'colorscheme OceanicNext'
         ]=],
       }
 
