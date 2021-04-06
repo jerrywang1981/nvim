@@ -205,7 +205,7 @@ return packer.startup(function()
           }
 				]=],
 	}
-  use {'jerrywang1981/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons',
+  use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons',
     config = [[
       require'bufferline'.setup{
         options = {
