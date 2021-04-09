@@ -24,7 +24,6 @@ vim.api.nvim_set_keymap('', [[\]], [[,]],  { noremap = true, silent = true })
 
 vim.api.nvim_exec([[
 filetype plugin indent on   " enable loading indent file for filetype
-runtime macros/matchit.vim
 syntax on                   " syntax highlighting
 
 set path+=**
@@ -37,7 +36,6 @@ set guioptions-=L
 set guioptions-=b
 set backspace=indent,eol,start
 set omnifunc=syntaxcomplete#Complete
-set suffixesadd=.java
 set selectmode=mouse,key
 set whichwrap+=<,>,h,l
 set diffopt+=vertical

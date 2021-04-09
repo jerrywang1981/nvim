@@ -25,17 +25,25 @@ return packer.startup(function()
   -- Packer can manage itself as an optional plugin
   use {'wbthomason/packer.nvim', opt = true}
 
-  use { 'NLKNguyen/papercolor-theme',
+  use { 'joshdick/onedark.vim',
     config = [=[
       vim.o.background = 'dark'
-      vim.api.nvim_command 'colorscheme PaperColor'
+      vim.g.onedark_terminal_italics = 1
+      vim.api.nvim_command 'colorscheme onedark'
     ]=],
   }
 
-  use { 'dracula/vim', as = 'dracula',
+  use { 'arcticicestudio/nord-vim', branch = 'develop',
     config = [=[
       -- vim.o.background = 'dark'
-      -- vim.api.nvim_command 'colorscheme dracula'
+      -- vim.api.nvim_command 'colorscheme nord'
+    ]=],
+  }
+
+  use { 'NLKNguyen/papercolor-theme',
+    config = [=[
+      -- vim.o.background = 'dark'
+      -- vim.api.nvim_command 'colorscheme PaperColor'
     ]=],
   }
 
@@ -199,7 +207,7 @@ return packer.startup(function()
   use { 'itchyny/lightline.vim',
 				config = [=[
           vim.g.lightline = {
-            colorscheme = 'wombat',
+            colorscheme = 'onedark',
             active = {
               left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'modified', 'jerry'}},
               right = { {'lineinfo'}, {'percent'}, {'fileformat','fileencoding', 'filetype'}, {'lspstatus'} },
