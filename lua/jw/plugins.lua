@@ -150,6 +150,7 @@ return packer.startup(function()
         vim.api.nvim_set_keymap('n', '<c-p>', [[<cmd>lua require('telescope.builtin').find_files({previewer = false })<cr>]], { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<c-m>', [[<cmd>lua require('telescope.builtin').oldfiles()<cr>]], { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<leader>fs', [[<cmd>lua require('telescope.builtin').live_grep()<cr>]], { noremap = true, silent = true })
+        vim.api.nvim_set_keymap('n', '<leader>fS', [[<cmd>lua require('telescope.builtin').grep_string()<cr>]], { noremap = true, silent = true })
         vim.api.nvim_set_keymap('n', '<leader>fb', [[<cmd>lua require('telescope.builtin').buffers()<cr>]], { noremap = true, silent = true })
 
 				require('telescope').setup{
@@ -252,22 +253,42 @@ return packer.startup(function()
 					vim.api.nvim_set_keymap('', [[g#]], [[<Plug>(incsearch-nohl-g#)]], {  silent = true })
 				]=],
 	}
-  use { 'nvim-lua/completion-nvim', requires = { 'SirVer/ultisnips', 'honza/vim-snippets' },
+  use {'SirVer/ultisnips', requires = { 'honza/vim-snippets' },
+    config = [[
+      vim.g.UltiSnipsExpandTrigger="<c-y>"
+    ]],
+  }
+  use {'hrsh7th/nvim-compe', requires = {  'SirVer/ultisnips', 'honza/vim-snippets' },
     config = [=[
-      local strategy = {'exact', 'substring', 'fuzzy'}
-      vim.g.completion_matching_strategy_list = strategy
+      vim.o.completeopt = "menuone,noselect"
+      require'compe'.setup {
+        enabled = true;
+        autocomplete = true;
+        debug = false;
+        min_length = 1;
+        preselect = 'enable';
+        throttle_time = 80;
+        source_timeout = 200;
+        incomplete_delay = 400;
+        max_abbr_width = 100;
+        max_kind_width = 100;
+        max_menu_width = 100;
+        documentation = true;
 
-      vim.api.nvim_command [[autocmd BufEnter * lua require'completion'.on_attach()]]
-      vim.g.completion_confirm_key = ""
-      vim.api.nvim_command [[imap <expr> <cr>  pumvisible() ? complete_info()["selected"] != "-1" ? "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"]]
-      vim.g.completion_enable_snippet = 'UltiSnips'
-      vim.g.completion_matching_ignore_case = 1
+        source = {
+          path = true;
+          buffer = true;
+          calc = true;
+          nvim_lsp = true;
+          nvim_lua = true;
+          ultisnips = true;
+        };
+      }
     ]=],
   }
   use {
         'neovim/nvim-lspconfig',
         requires = {
-          'nvim-lua/completion-nvim',
           'nvim-lua/lsp-status.nvim',
         },
       }

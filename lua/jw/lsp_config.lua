@@ -5,6 +5,9 @@ local lsp_status = require('lsp-status')
 local log = require 'vim.lsp.log'
 local util = require'jw.util'
 local path = require'lspconfig/util'.path
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities = vim.tbl_extend('keep', capabilities, lsp_status.capabilities)
 
 
 local on_attach = function(client, bufnr)
@@ -99,26 +102,30 @@ end
 
 lspconfig.tsserver.setup{
   on_attach=on_attach_vim,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 
 lspconfig.gopls.setup{
   on_attach=on_attach_vim_go,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 
 lspconfig.html.setup{
   on_attach=on_attach_vim_h,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 lspconfig.vuels.setup{
   on_attach=on_attach_vim,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 lspconfig.cssls.setup{
   on_attach=on_attach_vim,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 
 lspconfig.bashls.setup{
   on_attach=on_attach_vim,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 
 lspconfig.jsonls.setup{
@@ -144,7 +151,7 @@ lspconfig.sqlls.setup{
 
 lspconfig.sumneko_lua.setup{
   on_attach=on_attach_vim,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities, --lsp_status.capabilities,
    -- cmd = {
      -- global.nvim_cache_dir .. "nvim_lsp/sumneko_lua/lua-language-server/bin/" .. (global.is_linux and "Linux" or "macOS") .."/lua-language-server", "-E",
      -- global.nvim_cache_dir .. "nvim_lsp/sumneko_lua/lua-language-server/main.lua"
@@ -195,12 +202,12 @@ lspconfig.jdtls.setup{
     -- },
   -- },
   root_dir=lspconfig.util.root_pattern(".git", "pom.xml", "build.xml"),
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 
 lspconfig.jedi_language_server.setup {
   on_attach=on_attach_vim,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities, --lsp_status.capabilities,
 }
 -- lspconfig.yamlls.setup{on_attach=on_attach_vim}
 
@@ -209,7 +216,7 @@ lspconfig.jedi_language_server.setup {
 lspconfig.diagnosticls.setup{
   on_attach=on_attach_vim,
   autostart = false,
-  capabilities = lsp_status.capabilities,
+  capabilities = capabilities, --lsp_status.capabilities,
     filetypes = {"javascript", "typescript"},
     root_dir = function(fname)
       return lspconfig.util.root_pattern("tsconfig.json")(fname) or lspconfig.util.root_pattern(".eslintrc.js")(fname);
