@@ -109,10 +109,12 @@ return packer.startup(function()
       require('jw.dap_config')
     ]],
   }
-  use { 'szw/vim-maximizer',
+  use { 'szw/vim-maximizer', opt = true, cmd = { 'MaximizerToggle' },
+    setup = [[
+      vim.api.nvim_set_keymap('n', '<space>0', '<cmd>MaximizerToggle<cr>',  {  silent = true })
+    ]],
     config = [[
       vim.g.maximizer_set_default_mapping = 0
-      vim.api.nvim_set_keymap('n', '<space>0', '<cmd>MaximizerToggle<cr>',  {  silent = true })
     ]],
   }
   use {
@@ -174,9 +176,11 @@ return packer.startup(function()
     ]=],
   }
   use 'airblade/vim-gitgutter'
-  use { 'mbbill/undotree',
+  use { 'mbbill/undotree', opt = true, cmd = { 'UndotreeToggle' },
+        setup = [[
+					vim.api.nvim_set_keymap('n', '<space>5', '<cmd>UndotreeToggle<CR>', { silent=true })
+        ]],
         config = [=[
-					vim.api.nvim_set_keymap('n', '<space>5', ' :UndotreeToggle<CR>', { silent=true })
           vim.g.undotree_DiffAutoOpen = 1
           vim.g.undotree_SetFocusWhenToggle = 1
           vim.g.undotree_ShortIndicators = 1
@@ -197,29 +201,14 @@ return packer.startup(function()
 							vim.g.EditorConfig_exclude_patterns = {'fugitive://.*', 'scp://.*'}
 					]],
 			}
-  use { 'itchyny/lightline.vim',
-				config = [=[
-          vim.g.lightline = {
-            colorscheme = 'onedark',
-            active = {
-              left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'modified', 'jerry'}},
-              right = { {'lineinfo'}, {'percent'}, {'fileformat','fileencoding', 'filetype'}, {'lspstatus'} },
-            },
-            inactive = {
-              left = {{'mode', 'paste'} },
-              right = { {'lineinfo'}, {'percent'} },
-            },
-            enable = {
-              tabline = 0,
-            },
-            component = { jerry = 'Jerry Wang' },
-            component_function = {
-              gitbranch = 'FugitiveHead',
-              lspstatus = 'LspStatus',
-            },
-          }
-				]=],
-	}
+  use {
+    'glepnir/galaxyline.nvim',
+      branch = 'main',
+      -- your statusline
+      config = function() require'jw.statusline' end,
+      -- some optional icons
+      requires = {'kyazdani42/nvim-web-devicons', opt = true}
+  }
   use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons',
     config = [[
       require'bufferline'.setup{
@@ -292,10 +281,12 @@ return packer.startup(function()
           'nvim-lua/lsp-status.nvim',
         },
       }
-  use { 'kyazdani42/nvim-tree.lua',
+  use { 'kyazdani42/nvim-tree.lua', opt = true, cmd = { 'NvimTreeToggle' },
         requires = 'kyazdani42/nvim-web-devicons',
-				config = [[
+        setup = [[
 					vim.api.nvim_set_keymap('n', '<space>1', '<cmd>NvimTreeToggle<CR>',{ silent = true })
+        ]],
+				config = [[
 					vim.g.lua_tree_hide_dotfiles = 1
 					vim.g.lua_tree_indent_markers = 1
 	    	 	vim.g.lua_tree_ignore = { '.git', 'node_modules', '.cache', 'tmp', 'target', 'vendor' }
