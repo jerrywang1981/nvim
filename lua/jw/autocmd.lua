@@ -29,5 +29,16 @@ vim.api.nvim_exec([[
     return ''
   endfunction
 
+  function! Branch() abort
+    let l:b = FugitiveHead()
+    if l:b == ''
+      return ''
+    else
+      return ' ' .. l:b
+    endif
+  endfunction
+
+
+
 ]], false)
 

@@ -201,6 +201,7 @@ return packer.startup(function()
 							vim.g.EditorConfig_exclude_patterns = {'fugitive://.*', 'scp://.*'}
 					]],
 			}
+  --[[
   use {
     'glepnir/galaxyline.nvim',
       branch = 'main',
@@ -209,6 +210,30 @@ return packer.startup(function()
       -- some optional icons
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
+    --]]
+  use { 'itchyny/lightline.vim',
+				config = [=[
+          vim.g.lightline = {
+            colorscheme = 'onedark',
+            active = {
+              left = {{'mode', 'paste'}, {'gitbranch', 'readonly', 'modified', 'jerry'}},
+              right = { {'lineinfo'}, {'percent'}, {'fileformat','fileencoding', 'filetype'}, {'lspstatus'} },
+            },
+            inactive = {
+              left = {{'mode', 'paste'} },
+              right = { {'lineinfo'}, {'percent'} },
+            },
+            enable = {
+              tabline = 0,
+            },
+            component = { jerry = '🧑  Jerry Wang' },
+            component_function = {
+              gitbranch = 'Branch',
+              lspstatus = 'LspStatus',
+            },
+          }
+				]=],
+	}
   use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons',
     config = [[
       require'bufferline'.setup{
