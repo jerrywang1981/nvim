@@ -6,15 +6,19 @@ local buffer = require('galaxyline.provider_buffer')
 local fileinfo = require('galaxyline.provider_fileinfo')
 
 GitBranch = vcs.get_git_branch
-LineColumn = fileinfo.line_column
+-- LineColumn = fileinfo.line_column
+local LineColumn = function()
+  local line = vim.fn.line('.')
+  local column = vim.fn.col('.')
+  return string.format("%d:%d ", line, column)
+end
 LinePercent = fileinfo.current_line_percent
 FileFormat = fileinfo.get_file_format
 FileEncode = fileinfo.get_file_encode
 FileTypeName = buffer.get_buffer_filetype
 
-
 -- Convert UTF-8 hex code to character
-function u(code)
+local function u(code)
     if type(code) == 'string' then code = tonumber('0x' .. code) end
     local c = string.char
     if code <= 0x7f then return c(code) end
@@ -34,6 +38,15 @@ function u(code)
     end
     return table.concat(t)
 end
+
+local checkwidth = function()
+  local squeeze_width  = vim.fn.winwidth(0) / 2
+  if squeeze_width > 30 then
+    return true
+  end
+  return false
+end
+
 
 local colors = {
     bg = '#282c34',
@@ -55,6 +68,46 @@ local colors = {
     blue = '#51afef';
     red = '#ec5f67'
 }
+
+
+local icons = {
+  china_flag = u '1F1E8',
+  fish = u '1F41F',
+  b = ' ',
+  branch = ' ',
+  worker = ' ',
+  -- worker = '🧑  ',
+  running = '🏃 ',
+  -- car = '🚗 ',
+  car = '',
+}
+
+--[[
+local running_man = function()
+  local max_len = 30
+  local counter = 0
+  local i = icons.running
+  local run_icon = nil
+  local timer = vim.loop.new_timer()
+  timer:start(1000, 1000, vim.schedule_wrap(function()
+    counter = counter + 1
+    counter = counter >= max_len and counter - max_len or counter
+    if counter == 0 then
+      i = i == icons.car and icons.running or icons.car
+      run_icon = string.format("%" .. max_len .. "s", " ") .. i
+    else
+      run_icon = string.format("%" .. (max_len - counter) .. "s", " ") ..
+        i .. string.format("%" .. counter .. "s", " ")
+    end
+  end))
+
+  return function()
+    return run_icon
+  end
+end
+
+local running_func = running_man()
+--]]
 
 local lower = function(f)
   return function()
@@ -134,7 +187,7 @@ gls.left = {
     GitBranch = {
       provider = 'GitBranch',
       separator = " ",
-      icon = ' ',
+      icon = icons.branch,
       condition = require('galaxyline.provider_vcs').check_git_workspace,
       -- highlight = {'#8FBCBB',colors.line_bg,'bold'},
     }
@@ -145,12 +198,21 @@ gls.left = {
       provider = function()
         return "Jerry Wang"
       end,
-      icon = ' ',
+      icon = icons.worker,
+      -- condition = checkwidth,
+      separator = " ",
     }
   }
 }
 
 gls.mid = {
+  --[[
+  {
+    RunningMan = {
+      provider = running_func,
+    }
+  },
+    --]]
 }
 
 gls.short_line_left = {
@@ -207,12 +269,24 @@ gls.short_line_left = {
       separator = " ",
     },
   },
+  {
+    GitBranch = {
+      provider = 'GitBranch',
+      separator = " ",
+      icon = icons.branch,
+      condition = require('galaxyline.provider_vcs').check_git_workspace,
+      -- highlight = {'#8FBCBB',colors.line_bg,'bold'},
+    }
+  },
   --
   {
     Jerry = {
       provider = function()
         return "Jerry Wang"
-      end
+      end,
+      icon = icons.worker,
+      condition = checkwidth,
+      separator = " ",
     }
   }
 }
@@ -253,21 +327,18 @@ gls.right = {
   },
   {
     LinePercent = {
-      provider = 'LinePercent',
+      provider = LinePercent,
       separator = " |",
     }
   },
   {
     LineColumn  = {
-      provider = function()
-        local s = LineColumn()
-        return s:gsub("%s+", "") .. " "
-      end,
+      provider = LineColumn,
       highlight = {colors.fg_black, colors.bg_green},
       separator = " ",
       separator_highlight = {colors.fg_black, colors.bg_green},
     }
-  }
+  },
 }
 
 
@@ -279,21 +350,20 @@ gls.short_line_right = {
   },
   {
     LinePercent = {
-      provider = 'LinePercent',
+      provider = LinePercent,
       separator = " |",
     }
   },
+  ---[[
   {
     LineColumn  = {
-      provider = function()
-        local s = LineColumn()
-        return s:gsub("%s+", "") .. " "
-      end,
+      provider = LineColumn,
       highlight = {colors.fg_black, colors.bg_green},
       separator = " ",
       separator_highlight = {colors.fg_black, colors.bg_green},
     }
-  }
+  },
+    --]]
 }
 
 

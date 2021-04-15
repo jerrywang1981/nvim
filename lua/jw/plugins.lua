@@ -201,7 +201,6 @@ return packer.startup(function()
 							vim.g.EditorConfig_exclude_patterns = {'fugitive://.*', 'scp://.*'}
 					]],
 			}
-  --[[
   use {
     'glepnir/galaxyline.nvim',
       branch = 'main',
@@ -210,7 +209,7 @@ return packer.startup(function()
       -- some optional icons
       requires = {'kyazdani42/nvim-web-devicons', opt = true}
   }
-    --]]
+  --[[
   use { 'itchyny/lightline.vim',
 				config = [=[
           vim.g.lightline = {
@@ -234,6 +233,7 @@ return packer.startup(function()
           }
 				]=],
 	}
+    --]]
   use {'akinsho/nvim-bufferline.lua', requires = 'kyazdani42/nvim-web-devicons',
     config = [[
       require'bufferline'.setup{

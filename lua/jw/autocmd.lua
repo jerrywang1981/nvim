@@ -32,7 +32,7 @@ vim.api.nvim_exec([[
   function! Branch() abort
     let l:b = FugitiveHead()
     if l:b == ''
-      return ''
+      return '(no branch)'
     else
       return ' ' .. l:b
     endif
