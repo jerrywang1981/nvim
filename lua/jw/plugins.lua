@@ -306,7 +306,7 @@ return packer.startup(function()
           'nvim-lua/lsp-status.nvim',
         },
       }
-  use { 'kyazdani42/nvim-tree.lua', opt = true, cmd = { 'NvimTreeToggle' },
+  use { 'kyazdani42/nvim-tree.lua', -- opt = true, cmd = { 'NvimTreeToggle' },
         requires = 'kyazdani42/nvim-web-devicons',
         setup = [[
 					vim.api.nvim_set_keymap('n', '<space>1', '<cmd>NvimTreeToggle<CR>',{ silent = true })

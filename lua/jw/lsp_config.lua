@@ -60,7 +60,7 @@ end
 
 
 
-lsp_status.register_progress()
+-- lsp_status.register_progress()
 
 
 

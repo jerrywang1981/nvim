@@ -71,15 +71,17 @@ local colors = {
 
 
 local icons = {
+  left_filled = u '258c',
   china_flag = u '1F1E8',
   fish = u '1F41F',
   b = ' ',
   branch = ' ',
   worker = ' ',
   -- worker = '🧑  ',
-  running = '🏃 ',
+  running = 'ﰌ',
   -- car = '🚗 ',
   car = '',
+  left_arrow = ' ',
 }
 
 --[[
