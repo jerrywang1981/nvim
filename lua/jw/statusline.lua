@@ -48,6 +48,7 @@ local checkwidth = function()
 end
 
 
+---[[
 local colors = {
     bg = '#282c34',
     line_bg = '#353644',
@@ -66,9 +67,35 @@ local colors = {
     purple = '#5d4d7a',
     magenta = '#c678dd',
     blue = '#51afef';
-    red = '#ec5f67'
-}
+    red = '#ec5f67';
 
+    vivid_blue = '#4FC1FF',
+    error_red = '#F44747',
+    info_yellow = '#FFCC66'
+}
+--]]
+--[[
+local colors = {
+    -- bg = '#2E2E2E',
+    bg = '#292D38',
+    yellow = '#DCDCAA',
+    dark_yellow = '#D7BA7D',
+    cyan = '#4EC9B0',
+    green = '#608B4E',
+    light_green = '#B5CEA8',
+    string_orange = '#CE9178',
+    orange = '#FF8800',
+    purple = '#C586C0',
+    magenta = '#D16D9E',
+    grey = '#858585',
+    blue = '#569CD6',
+    vivid_blue = '#4FC1FF',
+    light_blue = '#9CDCFE',
+    red = '#D16969',
+    error_red = '#F44747',
+    info_yellow = '#FFCC66'
+}
+  --]]
 
 local icons = {
   left_filled = u '258c',
@@ -123,6 +150,7 @@ gl.short_line_list = {
     'vista',
     'dbui',
     'startify',
+    'nvimtree',
     'term',
     'nerdtree',
     'fugitive',
@@ -309,6 +337,22 @@ gls.right = {
           separator_highlight = 'GalaxyViModeInv',
       },
   },
+  --[[
+  {
+    DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}}
+  },
+  {
+    DiagnosticWarn = {provider = 'DiagnosticWarn', icon = '  ', highlight = {colors.orange, colors.bg}}
+  },
+  {
+    DiagnosticHint = {provider = 'DiagnosticHint', icon = '  ', highlight = {colors.vivid_blue, colors.bg}}
+  },
+  {
+    DiagnosticInfo = {provider = 'DiagnosticInfo', icon = '  ', highlight = {colors.info_yellow, colors.bg}}
+  },
+    --]]
+
+
   --
   {
     FileFormat  = {

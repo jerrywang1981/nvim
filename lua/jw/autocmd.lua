@@ -5,7 +5,7 @@ local autocmd_str = {
   [[ autocmd! TextYankPost * silent! lua vim.highlight.on_yank{higroup="IncSearch", timeout=500} ]],
   [[ autocmd BufReadPost quickfix nnoremap <buffer> <CR> <CR> ]],
   [[ autocmd BufWritePre * %s/\s\+$//e ]],
-  [[ autocmd BufWritePost plugins.lua PackerCompile ]],
+  -- [[ autocmd BufWritePost plugins.lua PackerCompile ]],
   [[ autocmd! VimLeave * call ClearLSPLog() ]],
 }
 

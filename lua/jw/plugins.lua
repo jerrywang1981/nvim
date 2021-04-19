@@ -9,6 +9,8 @@ if fn.empty(fn.glob(install_path)) > 0 then
   -- execute 'packadd packer.nvim'
 end
 
+vim.cmd "autocmd BufWritePost plugins.lua PackerCompile"
+
 vim.cmd [[packadd packer.nvim]]
 
 local packer = require('packer')
@@ -59,8 +61,8 @@ return packer.startup(function()
 
   use { 'easymotion/vim-easymotion',
 			config = [=[
-				vim.api.nvim_set_keymap('', '<leader>f', '<Plug>(easymotion-bd-f)',  {  silent = true })
-				vim.api.nvim_set_keymap('n', '<leader>f', '<Plug>(easymotion-overwin-f)',  {  silent = true })
+				-- vim.api.nvim_set_keymap('', '<leader>f', '<Plug>(easymotion-bd-f)',  {  silent = true })
+				-- vim.api.nvim_set_keymap('n', '<leader>f', '<Plug>(easymotion-overwin-f)',  {  silent = true })
 				vim.api.nvim_set_keymap('n', 's', '<Plug>(easymotion-overwin-f2)',  {  silent = true })
 				vim.api.nvim_set_keymap('', [[<leader>/]], '<Plug>(easymotion-bd-w)',  {  silent = true })
 				vim.api.nvim_set_keymap('n', [[<leader>/]], '<Plug>(easymotion-overwin-w)',  {  silent = true })
@@ -96,11 +98,18 @@ return packer.startup(function()
 			}
   use 'alvan/vim-closetag'
 	-- use { 'Yggdroot/indentLine' }
+  -- [==[
   use { 'jiangmiao/auto-pairs',
         config = [[
           vim.g.AutoPairsMapCh = 0
         ]]
       }
+    --]==]
+  use { 'windwp/nvim-autopairs',
+    config = [[
+      require('nvim-autopairs').setup()
+    ]],
+  }
   use { 'mfussenegger/nvim-dap',
     requires = {
       { 'theHamsta/nvim-dap-virtual-text' }
@@ -117,6 +126,12 @@ return packer.startup(function()
       vim.g.maximizer_set_default_mapping = 0
     ]],
   }
+  use {"terrortylor/nvim-comment",
+    config = [[
+      require('nvim_comment').setup()
+    ]],
+  }
+  --[===[
   use {
         'preservim/nerdcommenter',
         config = [[
@@ -127,6 +142,7 @@ return packer.startup(function()
           vim.g.NERDToggleCheckAllLines = 1
         ]],
       }
+      --]===]
   use 'kshenoy/vim-signature'
   -- use { 'lukas-reineke/indent-blankline.nvim', branch = 'lua' }
   use 'tpope/vim-surround'
@@ -176,6 +192,17 @@ return packer.startup(function()
     ]=],
   }
   use 'airblade/vim-gitgutter'
+  --[[
+  use {
+    'lewis6991/gitsigns.nvim',
+    requires = {
+      'nvim-lua/plenary.nvim'
+    },
+    config = function()
+      require('gitsigns').setup()
+    end
+  }
+    --]]
   use { 'mbbill/undotree', opt = true, cmd = { 'UndotreeToggle' },
         setup = [[
 					vim.api.nvim_set_keymap('n', '<space>5', '<cmd>UndotreeToggle<CR>', { silent=true })
@@ -247,6 +274,7 @@ return packer.startup(function()
       vim.api.nvim_set_keymap('n', '<leader>0', '<cmd>BufferLinePick<CR>',{ silent = true })
     ]],
   }
+  ---[===[
   use { 'haya14busa/incsearch.vim', requires = 'haya14busa/incsearch-fuzzy.vim',
 				config = [=[
 					vim.api.nvim_exec([[
@@ -267,37 +295,19 @@ return packer.startup(function()
 					vim.api.nvim_set_keymap('', [[g#]], [[<Plug>(incsearch-nohl-g#)]], {  silent = true })
 				]=],
 	}
+  --]===]
+  --[=[
   use {'SirVer/ultisnips', requires = { 'honza/vim-snippets' },
     config = [[
       vim.g.UltiSnipsExpandTrigger="<c-y>"
     ]],
   }
-  use {'hrsh7th/nvim-compe', requires = {  'SirVer/ultisnips', 'honza/vim-snippets' },
-    config = [=[
-      vim.o.completeopt = "menuone,noselect"
-      require'compe'.setup {
-        enabled = true;
-        autocomplete = true;
-        debug = false;
-        min_length = 1;
-        preselect = 'enable';
-        throttle_time = 80;
-        source_timeout = 200;
-        incomplete_delay = 400;
-        max_abbr_width = 100;
-        max_kind_width = 100;
-        max_menu_width = 100;
-        documentation = true;
+  --]=]
+  use { 'hrsh7th/vim-vsnip', requires = 'rafamadriz/friendly-snippets' }
 
-        source = {
-          path = true;
-          buffer = true;
-          calc = true;
-          nvim_lsp = true;
-          nvim_lua = true;
-          ultisnips = true;
-        };
-      }
+  use {'hrsh7th/nvim-compe', requires = {'hrsh7th/vim-vsnip' },
+    config = [=[
+      require('jw.nvim-compe')
     ]=],
   }
   use {
