@@ -59,8 +59,11 @@ end
 
 
 
+lsp_status.config({
+  status_symbol = 'V',
+})
 
--- lsp_status.register_progress()
+lsp_status.register_progress()
 
 
 

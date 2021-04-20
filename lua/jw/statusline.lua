@@ -323,6 +323,7 @@ gls.short_line_left = {
 
 
 gls.right = {
+  ---[[
   {
       LspStatus = {
           provider = function()
@@ -337,6 +338,7 @@ gls.right = {
           separator_highlight = 'GalaxyViModeInv',
       },
   },
+    --]]
   --[[
   {
     DiagnosticError = {provider = 'DiagnosticError', icon = '  ', highlight = {colors.error_red, colors.bg}}

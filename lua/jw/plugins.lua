@@ -29,9 +29,9 @@ return packer.startup(function()
 
   use { 'joshdick/onedark.vim',
     config = [=[
-      vim.o.background = 'dark'
-      vim.g.onedark_terminal_italics = 1
-      vim.api.nvim_command 'colorscheme onedark'
+      -- vim.o.background = 'dark'
+      -- vim.g.onedark_terminal_italics = 1
+      -- vim.api.nvim_command 'colorscheme onedark'
     ]=],
   }
 
@@ -44,8 +44,8 @@ return packer.startup(function()
 
   use { 'NLKNguyen/papercolor-theme',
     config = [=[
-      -- vim.o.background = 'dark'
-      -- vim.api.nvim_command 'colorscheme PaperColor'
+      vim.o.background = 'dark'
+      vim.api.nvim_command 'colorscheme PaperColor'
     ]=],
   }
 
@@ -126,12 +126,14 @@ return packer.startup(function()
       vim.g.maximizer_set_default_mapping = 0
     ]],
   }
+  --[==[
   use {"terrortylor/nvim-comment",
     config = [[
       require('nvim_comment').setup()
     ]],
   }
-  --[===[
+  --]==]
+  ---[===[
   use {
         'preservim/nerdcommenter',
         config = [[
@@ -219,7 +221,7 @@ return packer.startup(function()
   use { 'mattn/emmet-vim',
         config = [[
           vim.g.user_emmet_install_global = 0
-          vim.api.nvim_command ' autocmd FileType html,css EmmetInstall '
+          vim.api.nvim_command 'autocmd FileType html,css EmmetInstall'
         ]],
       }
   use 'wellle/targets.vim'
