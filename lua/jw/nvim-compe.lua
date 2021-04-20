@@ -25,6 +25,7 @@
     };
   }
 
+--[[
 local remap = vim.api.nvim_set_keymap
 local npairs = require('nvim-autopairs')
 
@@ -49,3 +50,4 @@ end
 
 
 remap('i' , '<CR>','v:lua.MUtils.completion_confirm()', {expr = true , noremap = true})
+--]]

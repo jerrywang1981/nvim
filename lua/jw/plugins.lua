@@ -98,18 +98,20 @@ return packer.startup(function()
 			}
   use 'alvan/vim-closetag'
 	-- use { 'Yggdroot/indentLine' }
-  -- [==[
+  --- [==[
   use { 'jiangmiao/auto-pairs',
         config = [[
           vim.g.AutoPairsMapCh = 0
         ]]
       }
     --]==]
+  --[=[
   use { 'windwp/nvim-autopairs',
     config = [[
       require('nvim-autopairs').setup()
     ]],
   }
+  --]=]
   use { 'mfussenegger/nvim-dap',
     requires = {
       { 'theHamsta/nvim-dap-virtual-text' }
