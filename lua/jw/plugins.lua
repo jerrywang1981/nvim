@@ -114,8 +114,10 @@ return packer.startup(function()
   --]=]
   use { 'mfussenegger/nvim-dap',
     requires = {
-      { 'theHamsta/nvim-dap-virtual-text' }
+      { 'theHamsta/nvim-dap-virtual-text' },
+      { 'nvim-telescope/telescope-dap.nvim' }
     },
+    after = { 'telescope.nvim' },
     config = [[
       require('jw.dap_config')
     ]],

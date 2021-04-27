@@ -1,5 +1,6 @@
 local vim = vim
 local dap = require('dap')
+require('telescope').load_extension('dap')
 
 vim.g.dap_virtual_text = true
 
