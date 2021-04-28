@@ -25,9 +25,13 @@
     };
   }
 
+
+-- vim.cmd [[ inoremap <silent><expr> <C-Space> compe#complete() ]]
+-- vim.cmd [[ inoremap <silent><expr> <CR>      compe#confirm('<CR>') ]]
+vim.api.nvim_set_keymap('i', '<CR>', [[compe#confirm('<CR>')]],  { noremap = true, silent = true, expr = true })
 --[[
 local remap = vim.api.nvim_set_keymap
-local npairs = require('nvim-autopairs')
+-- local npairs = require('nvim-autopairs')
 
 -- skip it, if you use another global object
 _G.MUtils= {}
@@ -36,15 +40,15 @@ vim.g.completion_confirm_key = ""
 MUtils.completion_confirm=function()
   if vim.fn.pumvisible() ~= 0  then
     if vim.fn.complete_info()["selected"] ~= -1 then
-      vim.fn["compe#confirm"]()
-      return npairs.esc("")
+      return vim.fn["compe#confirm"]()
+      -- return npairs.esc("")
     else
       vim.api.nvim_select_popupmenu_item(0, false, false, {})
-      vim.fn["compe#confirm"]()
-      return npairs.esc("<c-n>")
+      return vim.fn["compe#confirm"]()
+      -- return npairs.esc("<c-n>")
     end
   else
-    return npairs.check_break_line_char()
+    -- return npairs.check_break_line_char()
   end
 end
 
