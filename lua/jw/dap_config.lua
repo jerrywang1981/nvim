@@ -8,14 +8,15 @@ vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''
 vim.fn.sign_define('DapStopped', {text='🟢', texthl='', linehl='', numhl=''})
 
 vim.api.nvim_set_keymap('n', '<F5>', [[<cmd>lua require'dap'.continue()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<F10>', [[<cmd>lua require'dap'.step_over()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<F11>', [[<cmd>lua require'dap'.step_into()<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<F12>', [[<cmd>lua require'dap'.step_out()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dj', [[<cmd>lua require'dap'.step_over()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dl', [[<cmd>lua require'dap'.step_into()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dh', [[<cmd>lua require'dap'.step_out()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>b', [[<cmd>lua require'dap'.toggle_breakpoint()<CR>]], { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<leader>B', [[<cmd>lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>dr', [[<cmd>lua require'dap'.repl.open()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dr', [[<cmd>lua require'dap'.repl.open({}, 'vsplit')<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>da', [[<cmd>lua require'jw.dap_config'.attach()<CR>]], { noremap = true, silent = true })
 -- vim.api.nvim_set_keymap('n', '<leader>di', [[<cmd>lua require'dap.ui.variables'.hover(function () return vim.fn.expand("<cexpr>") end)<CR>]], { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>dl', [[<cmd>lua require'dap'.run_last()<CR>]], { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>de', [[<cmd>lua require'dap'.run_last()<CR>]], { noremap = true, silent = true })
 
 
 
@@ -63,6 +64,7 @@ dap.adapters.node2 = {
   command = 'node',
   args = {os.getenv('HOME') .. '/repo/vscode-node-debug2/out/src/nodeDebug.js'},
 }
+
 dap.configurations.javascript = {
   {
     type = 'node2',
@@ -73,4 +75,20 @@ dap.configurations.javascript = {
     protocol = 'inspector',
     console = 'integratedTerminal',
   },
+}
+
+local function attach()
+  print("attaching")
+  dap.run({
+      type = 'node2',
+      request = 'attach',
+      cwd = vim.fn.getcwd(),
+      sourceMaps = true,
+      protocol = 'inspector',
+      skipFiles = {'<node_internals>/**/*.js'},
+      })
+end
+
+return {
+  attach = attach,
 }
