@@ -52,7 +52,7 @@ return packer.startup(function()
   use { 'arzg/vim-colors-xcode',
     config = [=[
       vim.o.background = 'dark'
-      vim.api.nvim_command 'colorscheme xcodedarkhc'
+      vim.api.nvim_command 'colorscheme xcodewwdc'
     ]=],
   }
 
