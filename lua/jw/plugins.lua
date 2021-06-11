@@ -44,8 +44,15 @@ return packer.startup(function()
 
   use { 'NLKNguyen/papercolor-theme',
     config = [=[
+      -- vim.o.background = 'dark'
+      -- vim.api.nvim_command 'colorscheme PaperColor'
+    ]=],
+  }
+
+  use { 'arzg/vim-colors-xcode',
+    config = [=[
       vim.o.background = 'dark'
-      vim.api.nvim_command 'colorscheme PaperColor'
+      vim.api.nvim_command 'colorscheme xcodedarkhc'
     ]=],
   }
 
